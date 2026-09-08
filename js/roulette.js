@@ -86,6 +86,19 @@ class RouletteWheel {
         });
     }
 
+    updateSectors(newSectorsConfig) {
+        if (!newSectorsConfig) return;
+        this.sectors.forEach(sec => {
+            if (newSectorsConfig[sec.id]) {
+                const conf = newSectorsConfig[sec.id];
+                if (conf.name) sec.name = conf.name;
+                if (conf.line1) sec.line1 = conf.line1.toUpperCase();
+                if (conf.line2) sec.line2 = conf.line2.toUpperCase();
+            }
+        });
+        this.draw();
+    }
+
     setupCanvas() {
         const rect = this.canvas.getBoundingClientRect();
         const dpr = window.devicePixelRatio || 1;

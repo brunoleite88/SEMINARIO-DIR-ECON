@@ -451,4 +451,14 @@ const SUDDEN_DEATH_QUESTIONS = [
 // Cópias originais de backup para permitir restauração de questões legadas editadas
 const ORIGINAL_QUESTIONS_BANK = JSON.parse(JSON.stringify(QUESTIONS_BANK));
 const ORIGINAL_SUDDEN_DEATH_QUESTIONS = JSON.parse(JSON.stringify(SUDDEN_DEATH_QUESTIONS));
+const ORIGINAL_CATEGORIES = JSON.parse(JSON.stringify(CATEGORIES));
+
+function updateCategoryNames(themesConfig) {
+    if (!themesConfig) return;
+    Object.keys(themesConfig).forEach(catId => {
+        if (CATEGORIES[catId] && themesConfig[catId].name) {
+            CATEGORIES[catId].name = themesConfig[catId].name;
+        }
+    });
+}
 

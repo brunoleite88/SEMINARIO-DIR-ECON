@@ -1384,7 +1384,7 @@ body::after {
     margin-bottom: 18px;
 }
 
-.qm-tab-btn {
+.qm-tab-btn, .settings-tab-btn {
     background: #ffffff;
     border: 2px solid #000000;
     box-shadow: 2px 2px 0px #000000;
@@ -1396,15 +1396,34 @@ body::after {
     transition: all 0.1s;
 }
 
-.qm-tab-btn:hover {
+.qm-tab-btn:hover, .settings-tab-btn:hover {
     background: #fff8d8;
     transform: translate(-1px, -1px);
 }
 
-.qm-tab-btn.active {
+.qm-tab-btn.active, .settings-tab-btn.active {
     background: #f8b800;
     box-shadow: 3px 3px 0px #000000;
     transform: translate(-1px, -1px);
+}
+
+.badge-priority-prof {
+    display: inline-block;
+    background: linear-gradient(135deg, #f8b800, #ff8c00);
+    color: #000000;
+    border: 2px solid #000000;
+    box-shadow: 3px 3px 0px #000000;
+    font-family: var(--font-pixel);
+    font-size: 0.68rem;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    animation: priorityPulse 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes priorityPulse {
+    from { transform: scale(1); box-shadow: 3px 3px 0px #000000; }
+    to { transform: scale(1.03); box-shadow: 4px 4px 0px #ffffff; }
 }
 
 .qm-questions-list {

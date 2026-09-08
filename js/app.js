@@ -11,8 +11,28 @@ class DidacticGame {
         this.maxRounds = 3;
         this.currentRound = 1;
         this.currentTeamIndex = 0;
-        this.timerDuration = 20;
-        this.timerRemaining = 20;
+
+        // Configurações padrão do jogo
+        this.defaultConfig = {
+            timerDuration: 20,
+            optionsCount: 4,
+            bombsCount: 1,
+            correctsPerBadge: 1,
+            priorityQuestionId: "",
+            brandTitle: "CONCORRÊNCIA & ORDEM",
+            brandSubtitle: "SUPER DIREITO ECONÔMICO • 16-BITS SNES EDITION",
+            themes: {
+                livre_concorrencia: { name: "Livre Concorrência", line1: "LIVRE", line2: "CONCORRÊNCIA" },
+                tratamento_pme: { name: "Tratamento PMEs", line1: "TRATAMENTO", line2: "PMEs" },
+                modelo_china: { name: "Modelo China", line1: "MODELO DA", line2: "CHINA" },
+                ordem_alemanha: { name: "Ordem Alemanha", line1: "ORDEM NA", line2: "ALEMANHA" }
+            }
+        };
+        this.config = JSON.parse(JSON.stringify(this.defaultConfig));
+        this.loadSettingsFromStorage();
+
+        this.timerDuration = this.config.timerDuration;
+        this.timerRemaining = this.timerDuration;
         this.timerInterval = null;
         this.isTimerPaused = false;
 
@@ -25,8 +45,9 @@ class DidacticGame {
                 color: "#0058f8",
                 avatar: "🍄",
                 badges: new Set(),
+                categoryProgress: {},
                 score: 0,
-                lifelines: { bomba: 1, chanceDupla: 0, duelo: 0 }
+                lifelines: { bomba: this.config.bombsCount, chanceDupla: 0, duelo: 0 }
             },
             {
                 id: 1,
@@ -36,8 +57,9 @@ class DidacticGame {
                 color: "#00a800",
                 avatar: "⚡",
                 badges: new Set(),
+                categoryProgress: {},
                 score: 0,
-                lifelines: { bomba: 1, chanceDupla: 0, duelo: 0 }
+                lifelines: { bomba: this.config.bombsCount, chanceDupla: 0, duelo: 0 }
             },
             {
                 id: 2,
@@ -47,8 +69,9 @@ class DidacticGame {
                 color: "#f8b800",
                 avatar: "⭐",
                 badges: new Set(),
+                categoryProgress: {},
                 score: 0,
-                lifelines: { bomba: 1, chanceDupla: 0, duelo: 0 }
+                lifelines: { bomba: this.config.bombsCount, chanceDupla: 0, duelo: 0 }
             }
         ];
 
@@ -139,6 +162,18 @@ class DidacticGame {
             sdFields: document.getElementById("qm-sudden-death-fields"),
             lblCommentary: document.getElementById("lbl-q-commentary"),
 
+            // Modal de Configurações Avançadas do Jogo (16-Bits)
+            btnOpenSettings: document.getElementById("btn-open-settings"),
+            settingsModal: document.getElementById("settings-modal"),
+            btnCloseSettings: document.getElementById("btn-close-settings"),
+            btnCancelSettings: document.getElementById("btn-cancel-settings"),
+            btnSaveSettings: document.getElementById("btn-save-settings"),
+            btnResetSettings: document.getElementById("btn-reset-settings"),
+            settingsTabs: document.querySelectorAll(".settings-tab-btn"),
+            modalPriorityBanner: document.getElementById("modal-priority-banner"),
+            mainBrandTitle: document.getElementById("main-brand-title"),
+            mainBrandSubtitle: document.getElementById("main-brand-subtitle"),
+
             // Modal de Configuração e Registro das Equipes
             setupModal: document.getElementById("setup-modal"),
             btnStartGame: document.getElementById("btn-start-game"),
@@ -166,6 +201,7 @@ class DidacticGame {
             onSectorChange: (sector) => {},
             onSpinStateChange: (state) => this.handleSpinStateChange(state)
         });
+        this.applyConfigVisuals();
     }
 
     handleSpinStateChange(state) {
@@ -238,6 +274,35 @@ class DidacticGame {
                     tab.classList.add("active");
                     this.qmActiveFilter = tab.getAttribute("data-category");
                     this.renderQuestionsManagerList();
+                });
+            });
+        }
+
+        // Configurações Avançadas do Jogo
+        if (this.el.btnOpenSettings) {
+            this.el.btnOpenSettings.addEventListener("click", () => this.openSettingsModal());
+        }
+        if (this.el.btnCloseSettings) {
+            this.el.btnCloseSettings.addEventListener("click", () => this.closeSettingsModal());
+        }
+        if (this.el.btnCancelSettings) {
+            this.el.btnCancelSettings.addEventListener("click", () => this.closeSettingsModal());
+        }
+        if (this.el.btnSaveSettings) {
+            this.el.btnSaveSettings.addEventListener("click", () => this.handleSaveSettings());
+        }
+        if (this.el.btnResetSettings) {
+            this.el.btnResetSettings.addEventListener("click", () => this.handleResetSettings());
+        }
+        if (this.el.settingsTabs) {
+            this.el.settingsTabs.forEach(tab => {
+                tab.addEventListener("click", () => {
+                    this.el.settingsTabs.forEach(t => t.classList.remove("active"));
+                    tab.classList.add("active");
+                    const targetPane = tab.getAttribute("data-tab");
+                    document.querySelectorAll(".settings-tab-pane").forEach(pane => {
+                        pane.style.display = (pane.id === targetPane) ? "block" : "none";
+                    });
                 });
             });
         }
@@ -454,15 +519,27 @@ class DidacticGame {
         const category = CATEGORIES[categoryId];
         const activeTeam = this.teams[this.currentTeamIndex];
 
-        const availableQuestions = QUESTIONS_BANK[categoryId].filter(q => !this.usedQuestions.has(q.id));
-        let selectedQ;
+        let selectedQ = null;
+        let isPriority = false;
 
-        if (availableQuestions.length > 0) {
-            const randIdx = Math.floor(Math.random() * availableQuestions.length);
-            selectedQ = availableQuestions[randIdx];
-        } else {
-            const allCatQuestions = QUESTIONS_BANK[categoryId];
-            selectedQ = allCatQuestions[Math.floor(Math.random() * allCatQuestions.length)];
+        // 1. Verifica se existe pergunta prioritária solicitada pelo professor
+        if (this.config.priorityQuestionId && !this.usedQuestions.has(this.config.priorityQuestionId)) {
+            const prioCandidate = (QUESTIONS_BANK[categoryId] || []).find(q => q.id === this.config.priorityQuestionId);
+            if (prioCandidate) {
+                selectedQ = prioCandidate;
+                isPriority = true;
+            }
+        }
+
+        if (!selectedQ) {
+            const availableQuestions = QUESTIONS_BANK[categoryId].filter(q => !this.usedQuestions.has(q.id));
+            if (availableQuestions.length > 0) {
+                const randIdx = Math.floor(Math.random() * availableQuestions.length);
+                selectedQ = availableQuestions[randIdx];
+            } else {
+                const allCatQuestions = QUESTIONS_BANK[categoryId];
+                selectedQ = allCatQuestions[Math.floor(Math.random() * allCatQuestions.length)];
+            }
         }
 
         this.usedQuestions.add(selectedQ.id);
@@ -470,10 +547,16 @@ class DidacticGame {
         this.hasAnswered = false;
         this.chanceDuplaUsedForCurrent = false;
 
+        // Exibe ou oculta o selo da pergunta prioritária do professor
+        if (this.el.modalPriorityBanner) {
+            this.el.modalPriorityBanner.style.display = isPriority ? "inline-block" : "none";
+        }
+
         this.el.modalCategoryBadge.style.backgroundColor = category.color;
         this.el.modalCategoryBadge.innerHTML = `
             ${category.badgeIcon} ${category.name.toUpperCase()} 
             ${isCrownChoice ? '• 👑 ESCOLHA LIVRE DA COROA' : ''} 
+            ${isPriority ? '• 🎓 QUESTÃO ESSENCIAL DO PROFESSOR' : ''}
             • ${activeTeam.name} (Líder: ${activeTeam.leader})
         `;
         this.el.modalQuestionText.innerText = selectedQ.question;
@@ -481,15 +564,39 @@ class DidacticGame {
         this.el.optionsContainer.innerHTML = "";
         const letters = ["A", "B", "C", "D"];
 
-        selectedQ.options.forEach((optText, index) => {
+        // 2. Ajusta quantidade de alternativas visíveis (optionsCount: 2, 3 ou 4)
+        const optCount = parseInt(this.config.optionsCount || 4, 10);
+        let optionsToRender = [];
+        const correctIdx = selectedQ.correctIndex;
+
+        if (optCount >= 4 || selectedQ.options.length <= optCount) {
+            selectedQ.options.forEach((optText, index) => {
+                optionsToRender.push({ text: optText, originalIndex: index });
+            });
+        } else {
+            // Mantém obrigatoriamente o gabarito correto e seleciona (optCount - 1) erradas
+            const wrongIndices = [];
+            selectedQ.options.forEach((_, idx) => {
+                if (idx !== correctIdx) wrongIndices.push(idx);
+            });
+            wrongIndices.sort(() => Math.random() - 0.5);
+            const keptWrong = wrongIndices.slice(0, optCount - 1);
+            const keptIndices = [correctIdx, ...keptWrong].sort((a, b) => a - b);
+
+            keptIndices.forEach(idx => {
+                optionsToRender.push({ text: selectedQ.options[idx], originalIndex: idx });
+            });
+        }
+
+        optionsToRender.forEach((item, displayIdx) => {
             const btn = document.createElement("button");
             btn.className = "option-btn";
-            btn.setAttribute("data-index", index);
+            btn.setAttribute("data-index", item.originalIndex);
             btn.innerHTML = `
-                <span class="opt-letter">${letters[index]}</span>
-                <span class="opt-text">${optText}</span>
+                <span class="opt-letter">${letters[displayIdx]}</span>
+                <span class="opt-text">${item.text}</span>
             `;
-            btn.addEventListener("click", () => this.selectAnswer(index));
+            btn.addEventListener("click", () => this.selectAnswer(item.originalIndex, btn));
             this.el.optionsContainer.appendChild(btn);
         });
 
@@ -525,26 +632,22 @@ class DidacticGame {
         const team = this.teams[this.currentTeamIndex];
         if (team.lifelines.bomba <= 0 || this.hasAnswered) return;
 
+        // Seleciona botões de alternativas incorretas que ainda estão visíveis e não eliminadas
+        const wrongBtns = Array.from(this.el.optionsContainer.querySelectorAll(".option-btn:not(.eliminated)"))
+            .filter(btn => parseInt(btn.getAttribute("data-index"), 10) !== this.currentQuestion.correctIndex);
+
+        if (wrongBtns.length === 0) return;
+
         team.lifelines.bomba--;
         sounds.playLifeline();
 
-        const wrongIndices = [];
-        this.currentQuestion.options.forEach((_, idx) => {
-            if (idx !== this.currentQuestion.correctIndex) {
-                wrongIndices.push(idx);
-            }
-        });
+        // Embaralha e elimina até 2 alternativas erradas (ou 1 se restar apenas 1)
+        wrongBtns.sort(() => Math.random() - 0.5);
+        const toEliminate = wrongBtns.slice(0, Math.min(2, wrongBtns.length));
 
-        wrongIndices.sort(() => Math.random() - 0.5);
-        const toEliminate = wrongIndices.slice(0, 2);
-
-        const optionButtons = this.el.optionsContainer.querySelectorAll(".option-btn");
-        toEliminate.forEach(idx => {
-            const btn = optionButtons[idx];
-            if (btn) {
-                btn.classList.add("eliminated");
-                btn.disabled = true;
-            }
+        toEliminate.forEach(btn => {
+            btn.classList.add("eliminated");
+            btn.disabled = true;
         });
 
         this.updateLifelineButtons();
@@ -573,6 +676,15 @@ class DidacticGame {
 
     startTimer() {
         this.clearIntervalTimer();
+        if (this.timerDuration <= 0) {
+            this.el.timerText.innerText = "∞";
+            this.el.timerSvgCircle.style.strokeDashoffset = 0;
+            this.el.timerSvgCircle.classList.remove("danger");
+            this.el.pauseTimerBtn.style.display = "none";
+            return;
+        }
+
+        this.el.pauseTimerBtn.style.display = "inline-flex";
         this.timerRemaining = this.timerDuration;
         this.isTimerPaused = false;
         this.el.pauseTimerBtn.innerHTML = "⏸ PAUSE";
@@ -608,6 +720,13 @@ class DidacticGame {
     }
 
     updateTimerVisual() {
+        if (this.timerDuration <= 0) {
+            this.el.timerText.innerText = "∞";
+            this.el.timerSvgCircle.style.strokeDashoffset = 0;
+            this.el.timerSvgCircle.classList.remove("danger");
+            return;
+        }
+
         this.el.timerText.innerText = this.timerRemaining;
 
         const circumference = 2 * Math.PI * 40;
@@ -626,27 +745,29 @@ class DidacticGame {
         this.hasAnswered = true;
         this.disableAllOptions();
 
-        const optionButtons = this.el.optionsContainer.querySelectorAll(".option-btn");
-        if (optionButtons[this.currentQuestion.correctIndex]) {
-            optionButtons[this.currentQuestion.correctIndex].classList.add("correct");
+        const correctBtn = this.el.optionsContainer.querySelector(`.option-btn[data-index="${this.currentQuestion.correctIndex}"]`);
+        if (correctBtn) {
+            correctBtn.classList.add("correct");
         }
 
         this.showCommentary(false, "⏰ TIME UP! O tempo esgotou sem resposta da bancada.");
     }
 
-    selectAnswer(index) {
+    selectAnswer(originalIndex, clickedBtn) {
         if (this.hasAnswered) return;
 
-        const isCorrect = (index === this.currentQuestion.correctIndex);
-        const optionButtons = this.el.optionsContainer.querySelectorAll(".option-btn");
-        const selectedBtn = optionButtons[index];
+        const isCorrect = (originalIndex === this.currentQuestion.correctIndex);
+        const selectedBtn = clickedBtn || this.el.optionsContainer.querySelector(`.option-btn[data-index="${originalIndex}"]`);
+        const correctBtn = this.el.optionsContainer.querySelector(`.option-btn[data-index="${this.currentQuestion.correctIndex}"]`);
 
         if (!isCorrect && this.activeLifelineActive === "chanceDupla" && !this.chanceDuplaUsedForCurrent) {
             this.chanceDuplaUsedForCurrent = true;
             this.activeLifelineActive = null;
             sounds.playWrong();
-            selectedBtn.classList.add("wrong");
-            selectedBtn.disabled = true;
+            if (selectedBtn) {
+                selectedBtn.classList.add("wrong");
+                selectedBtn.disabled = true;
+            }
             alert(`🍄 1-UP COGUMELO ATIVADO!\nA ${this.teams[this.currentTeamIndex].name} tem direito a uma segunda tentativa imediata!`);
             return;
         }
@@ -659,16 +780,28 @@ class DidacticGame {
 
         if (isCorrect) {
             sounds.playCorrect();
-            selectedBtn.classList.add("correct");
+            if (selectedBtn) selectedBtn.classList.add("correct");
             activeTeam.score += 100;
-            activeTeam.badges.add(this.currentQuestion.category);
 
-            this.showCommentary(true, `✅ RESPOSTA CORRETA! A ${activeTeam.name} conquistou o item de ${CATEGORIES[this.currentQuestion.category].name}!`);
+            if (!activeTeam.categoryProgress) {
+                activeTeam.categoryProgress = {};
+            }
+            const cat = this.currentQuestion.category;
+            activeTeam.categoryProgress[cat] = (activeTeam.categoryProgress[cat] || 0) + 1;
+
+            const needed = parseInt(this.config.correctsPerBadge || 1, 10);
+            if (activeTeam.categoryProgress[cat] >= needed) {
+                activeTeam.badges.add(cat);
+                this.showCommentary(true, `✅ RESPOSTA CORRETA! A ${activeTeam.name} atingiu a meta (${needed}/${needed}) e conquistou o selo de ${CATEGORIES[cat].name}! 👑`);
+            } else {
+                const current = activeTeam.categoryProgress[cat];
+                this.showCommentary(true, `✅ RESPOSTA CORRETA! Progresso: ${current}/${needed} acertos para conquistar o selo de ${CATEGORIES[cat].name}! ⭐`);
+            }
         } else {
             sounds.playWrong();
-            selectedBtn.classList.add("wrong");
-            if (optionButtons[this.currentQuestion.correctIndex]) {
-                optionButtons[this.currentQuestion.correctIndex].classList.add("correct");
+            if (selectedBtn) selectedBtn.classList.add("wrong");
+            if (correctBtn) {
+                correctBtn.classList.add("correct");
             }
             this.showCommentary(false, `❌ RESPOSTA INCORRETA! Vez da próxima bancada.`);
         }
@@ -832,12 +965,15 @@ class DidacticGame {
             teamCard.style.setProperty("--team-accent", team.color);
 
             let badgesHtml = "";
+            const needed = parseInt(this.config.correctsPerBadge || 1, 10);
             Object.values(CATEGORIES).forEach(cat => {
                 const has = team.badges.has(cat.id);
+                const count = (team.categoryProgress && team.categoryProgress[cat.id]) || 0;
+                const progressText = (needed > 1 && !has) ? ` (${count}/${needed})` : '';
                 badgesHtml += `
-                    <div class="badge-item ${has ? 'earned' : 'locked'}" title="${cat.name}">
+                    <div class="badge-item ${has ? 'earned' : 'locked'}" title="${cat.name}${progressText}">
                         <span class="badge-icon">${cat.badgeIcon}</span>
-                        <span class="badge-label">${cat.name.split(' ')[0]}</span>
+                        <span class="badge-label">${cat.name.split(' ')[0]}${progressText}</span>
                     </div>
                 `;
             });
@@ -862,6 +998,235 @@ class DidacticGame {
             `;
             this.el.teamsContainer.appendChild(teamCard);
         });
+    }
+
+    // ==========================================
+    // CONFIGURAÇÕES AVANÇADAS DO JOGO (16-BITS)
+    // ==========================================
+    loadSettingsFromStorage() {
+        try {
+            const raw = localStorage.getItem("seminar_game_config");
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                this.config = Object.assign({}, this.defaultConfig, parsed);
+                if (parsed.themes) {
+                    this.config.themes = Object.assign({}, this.defaultConfig.themes, parsed.themes);
+                }
+            } else {
+                this.config = JSON.parse(JSON.stringify(this.defaultConfig));
+            }
+        } catch (e) {
+            console.warn("Erro ao carregar configurações do jogo:", e);
+            this.config = JSON.parse(JSON.stringify(this.defaultConfig));
+        }
+    }
+
+    applyConfigVisuals() {
+        // 1. Título e Subtítulo no Cabeçalho
+        if (this.el && this.el.mainBrandTitle && this.config.brandTitle) {
+            this.el.mainBrandTitle.innerText = this.config.brandTitle;
+        }
+        if (this.el && this.el.mainBrandSubtitle && this.config.brandSubtitle) {
+            this.el.mainBrandSubtitle.innerText = this.config.brandSubtitle;
+        }
+
+        // 2. Nomes das Categorias Doutrinárias
+        if (typeof updateCategoryNames === "function" && this.config.themes) {
+            updateCategoryNames(this.config.themes);
+        }
+
+        // 3. Fatias e Textos da Roleta
+        if (this.wheel && typeof this.wheel.updateSectors === "function" && this.config.themes) {
+            this.wheel.updateSectors(this.config.themes);
+        }
+    }
+
+    openSettingsModal() {
+        sounds.play1Up();
+
+        // 1. Preenche Aba 1: Regras e Tempos
+        const timerInput = document.getElementById("cfg-timer-duration");
+        const optionsInput = document.getElementById("cfg-options-count");
+        const bombsInput = document.getElementById("cfg-bombs-count");
+        const correctsInput = document.getElementById("cfg-corrects-per-badge");
+
+        if (timerInput) timerInput.value = this.config.timerDuration ?? 20;
+        if (optionsInput) optionsInput.value = this.config.optionsCount ?? 4;
+        if (bombsInput) bombsInput.value = this.config.bombsCount ?? 1;
+        if (correctsInput) correctsInput.value = this.config.correctsPerBadge ?? 1;
+
+        // 2. Preenche Aba 2: Pergunta Prioritária / do Professor
+        const prioSelect = document.getElementById("cfg-priority-question");
+        if (prioSelect) {
+            prioSelect.innerHTML = `<option value="">-- NENHUMA (Sorteio Aleatório Padrão) --</option>`;
+            
+            Object.keys(QUESTIONS_BANK).forEach(catId => {
+                const cat = CATEGORIES[catId];
+                const optGroup = document.createElement("optgroup");
+                optGroup.label = `${cat ? cat.badgeIcon : ''} ${cat ? cat.name : catId}`;
+
+                QUESTIONS_BANK[catId].forEach((q, idx) => {
+                    const opt = document.createElement("option");
+                    opt.value = q.id;
+                    const truncatedQ = q.question.length > 80 ? q.question.substring(0, 77) + "..." : q.question;
+                    opt.innerText = `[${catId.toUpperCase().substring(0, 4)}-#${idx + 1}] ${truncatedQ}`;
+                    if (q.id === this.config.priorityQuestionId) {
+                        opt.selected = true;
+                    }
+                    optGroup.appendChild(opt);
+                });
+                prioSelect.appendChild(optGroup);
+            });
+        }
+
+        // 3. Preenche Aba 3: Nomes e Textos Visíveis
+        const brandTitleInput = document.getElementById("cfg-brand-title");
+        const brandSubInput = document.getElementById("cfg-brand-subtitle");
+        if (brandTitleInput) brandTitleInput.value = this.config.brandTitle || "";
+        if (brandSubInput) brandSubInput.value = this.config.brandSubtitle || "";
+
+        const th = this.config.themes || this.defaultConfig.themes;
+        if (th.livre_concorrencia) {
+            const elN = document.getElementById("cfg-theme-lc-name");
+            const el1 = document.getElementById("cfg-theme-lc-l1");
+            const el2 = document.getElementById("cfg-theme-lc-l2");
+            if (elN) elN.value = th.livre_concorrencia.name || "";
+            if (el1) el1.value = th.livre_concorrencia.line1 || "";
+            if (el2) el2.value = th.livre_concorrencia.line2 || "";
+        }
+        if (th.tratamento_pme) {
+            const elN = document.getElementById("cfg-theme-pme-name");
+            const el1 = document.getElementById("cfg-theme-pme-l1");
+            const el2 = document.getElementById("cfg-theme-pme-l2");
+            if (elN) elN.value = th.tratamento_pme.name || "";
+            if (el1) el1.value = th.tratamento_pme.line1 || "";
+            if (el2) el2.value = th.tratamento_pme.line2 || "";
+        }
+        if (th.modelo_china) {
+            const elN = document.getElementById("cfg-theme-ch-name");
+            const el1 = document.getElementById("cfg-theme-ch-l1");
+            const el2 = document.getElementById("cfg-theme-ch-l2");
+            if (elN) elN.value = th.modelo_china.name || "";
+            if (el1) el1.value = th.modelo_china.line1 || "";
+            if (el2) el2.value = th.modelo_china.line2 || "";
+        }
+        if (th.ordem_alemanha) {
+            const elN = document.getElementById("cfg-theme-de-name");
+            const el1 = document.getElementById("cfg-theme-de-l1");
+            const el2 = document.getElementById("cfg-theme-de-l2");
+            if (elN) elN.value = th.ordem_alemanha.name || "";
+            if (el1) el1.value = th.ordem_alemanha.line1 || "";
+            if (el2) el2.value = th.ordem_alemanha.line2 || "";
+        }
+
+        // Ativa primeira aba por padrão
+        if (this.el.settingsTabs) {
+            this.el.settingsTabs.forEach((tab, i) => {
+                tab.classList.toggle("active", i === 0);
+            });
+        }
+        document.querySelectorAll(".settings-tab-pane").forEach((pane, i) => {
+            pane.style.display = (i === 0) ? "block" : "none";
+        });
+
+        if (this.el.settingsModal) {
+            this.el.settingsModal.classList.add("active");
+        }
+    }
+
+    closeSettingsModal() {
+        if (this.el.settingsModal) {
+            this.el.settingsModal.classList.remove("active");
+        }
+    }
+
+    handleSaveSettings() {
+        const timerDuration = parseInt(document.getElementById("cfg-timer-duration").value, 10);
+        const optionsCount = parseInt(document.getElementById("cfg-options-count").value, 10);
+        const bombsCount = parseInt(document.getElementById("cfg-bombs-count").value, 10);
+        const correctsPerBadge = parseInt(document.getElementById("cfg-corrects-per-badge").value, 10);
+        const priorityQuestionId = document.getElementById("cfg-priority-question").value;
+
+        const brandTitle = document.getElementById("cfg-brand-title").value.trim() || this.defaultConfig.brandTitle;
+        const brandSubtitle = document.getElementById("cfg-brand-subtitle").value.trim() || this.defaultConfig.brandSubtitle;
+
+        const themes = {
+            livre_concorrencia: {
+                name: document.getElementById("cfg-theme-lc-name").value.trim() || "Livre Concorrência",
+                line1: (document.getElementById("cfg-theme-lc-l1").value.trim() || "LIVRE").toUpperCase(),
+                line2: (document.getElementById("cfg-theme-lc-l2").value.trim() || "CONCORRÊNCIA").toUpperCase()
+            },
+            tratamento_pme: {
+                name: document.getElementById("cfg-theme-pme-name").value.trim() || "Tratamento PMEs",
+                line1: (document.getElementById("cfg-theme-pme-l1").value.trim() || "TRATAMENTO").toUpperCase(),
+                line2: (document.getElementById("cfg-theme-pme-l2").value.trim() || "PMEs").toUpperCase()
+            },
+            modelo_china: {
+                name: document.getElementById("cfg-theme-ch-name").value.trim() || "Modelo China",
+                line1: (document.getElementById("cfg-theme-ch-l1").value.trim() || "MODELO DA").toUpperCase(),
+                line2: (document.getElementById("cfg-theme-ch-l2").value.trim() || "CHINA").toUpperCase()
+            },
+            ordem_alemanha: {
+                name: document.getElementById("cfg-theme-de-name").value.trim() || "Ordem Alemanha",
+                line1: (document.getElementById("cfg-theme-de-l1").value.trim() || "ORDEM NA").toUpperCase(),
+                line2: (document.getElementById("cfg-theme-de-l2").value.trim() || "ALEMANHA").toUpperCase()
+            },
+            coroa: {
+                name: "CASA COROA",
+                line1: "CASA",
+                line2: "COROA"
+            }
+        };
+
+        this.config = {
+            timerDuration: isNaN(timerDuration) ? 20 : Math.max(0, timerDuration),
+            optionsCount: optionsCount || 4,
+            bombsCount: isNaN(bombsCount) ? 1 : Math.max(0, bombsCount),
+            correctsPerBadge: correctsPerBadge || 1,
+            priorityQuestionId: priorityQuestionId,
+            brandTitle: brandTitle,
+            brandSubtitle: brandSubtitle,
+            themes: themes
+        };
+
+        localStorage.setItem("seminar_game_config", JSON.stringify(this.config));
+
+        this.timerDuration = this.config.timerDuration;
+        this.timerRemaining = this.timerDuration;
+
+        // Atualiza bombas das equipes
+        this.teams.forEach(t => {
+            t.lifelines.bomba = this.config.bombsCount;
+        });
+
+        this.applyConfigVisuals();
+        this.updateUI();
+
+        sounds.playCoin();
+        this.closeSettingsModal();
+        alert("✅ Configurações salvas e aplicadas com sucesso!");
+    }
+
+    handleResetSettings() {
+        if (!confirm("Deseja restaurar todas as configurações do jogo para os padrões oficiais originais?")) {
+            return;
+        }
+
+        localStorage.removeItem("seminar_game_config");
+        this.config = JSON.parse(JSON.stringify(this.defaultConfig));
+        this.timerDuration = this.config.timerDuration;
+        this.timerRemaining = this.timerDuration;
+
+        this.teams.forEach(t => {
+            t.lifelines.bomba = this.config.bombsCount;
+        });
+
+        this.applyConfigVisuals();
+        this.updateUI();
+        this.openSettingsModal(); // recarrega os campos no modal
+
+        sounds.playWrong();
+        alert("🔄 Configurações restauradas com sucesso para os padrões originais!");
     }
 
     // ==========================================
