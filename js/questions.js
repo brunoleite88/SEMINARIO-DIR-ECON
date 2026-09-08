@@ -15,7 +15,7 @@ const CATEGORIES = {
         name: "Livre Concorrência",
         subtitle: "Brasil: Antitruste, CADE e Jurisprudência do STF",
         color: "#2563eb",
-        badgeIcon: "⚖️",
+        badgeIcon: typeof getMarioIcon === "function" ? getMarioIcon("law", 18) : "⚖️",
         accentColor: "#3b82f6"
     },
     tratamento_pme: {
@@ -23,7 +23,7 @@ const CATEGORIES = {
         name: "Tratamento a PMEs",
         subtitle: "Brasil: Isonomia Material, CF/88 e LC 123/06",
         color: "#059669",
-        badgeIcon: "🏢",
+        badgeIcon: typeof getMarioIcon === "function" ? getMarioIcon("pme", 18) : "🏢",
         accentColor: "#10b981"
     },
     modelo_china: {
@@ -31,7 +31,7 @@ const CATEGORIES = {
         name: "Modelo da China",
         subtitle: "Economia Socialista de Mercado e Pequenos Gigantes",
         color: "#dc2626",
-        badgeIcon: "🇨🇳",
+        badgeIcon: typeof getMarioIcon === "function" ? getMarioIcon("china", 18) : "🇨🇳",
         accentColor: "#ef4444"
     },
     ordem_alemanha: {
@@ -39,7 +39,7 @@ const CATEGORIES = {
         name: "Ordem na Alemanha",
         subtitle: "Ordoliberalismo, GWB e Tutela das Mittelstand",
         color: "#d97706",
-        badgeIcon: "🇩🇪",
+        badgeIcon: typeof getMarioIcon === "function" ? getMarioIcon("germany", 18) : "🇩🇪",
         accentColor: "#f59e0b"
     }
 };

@@ -43,7 +43,7 @@ class DidacticGame {
                 leader: "Anna Clara",
                 subtitle: "PLAYER 1",
                 color: "#0058f8",
-                avatar: "🍄",
+                avatar: "mario",
                 badges: new Set(),
                 categoryProgress: {},
                 score: 0,
@@ -55,7 +55,7 @@ class DidacticGame {
                 leader: "Bruno",
                 subtitle: "PLAYER 2",
                 color: "#00a800",
-                avatar: "⚡",
+                avatar: "luigi",
                 badges: new Set(),
                 categoryProgress: {},
                 score: 0,
@@ -67,7 +67,7 @@ class DidacticGame {
                 leader: "Natália & Arralys",
                 subtitle: "PLAYER 3",
                 color: "#f8b800",
-                avatar: "⭐",
+                avatar: "yoshi",
                 badges: new Set(),
                 categoryProgress: {},
                 score: 0,
@@ -193,6 +193,9 @@ class DidacticGame {
 
         this.qmActiveFilter = "all";
         this.loadCustomQuestionsFromStorage();
+        if (typeof initMarioAvatarPickers === "function") {
+            initMarioAvatarPickers();
+        }
     }
 
     initRoulette() {
@@ -209,19 +212,19 @@ class DidacticGame {
             // Roleta parada
             this.el.spinBtn.disabled = false;
             this.el.spinBtn.className = "btn-spin-master";
-            this.el.spinBtn.innerHTML = `<span class="spin-icon">🎲</span><span>GIRAR ROLETA</span>`;
+            this.el.spinBtn.innerHTML = `<span class="spin-icon">${getMarioIcon('block', 20)}</span><span>GIRAR ROLETA</span>`;
             this.el.spinHint.innerHTML = `Arraste com o mouse para girar/apresentar, ou pressione <span class="spin-shortcut-kbd">ESPAÇO</span>!`;
         } else if (state.isSpinning && !state.isDecelerating) {
             // Girando em velocidade constante - botão vira PARADA IMPARCIAL
             this.el.spinBtn.disabled = false;
             this.el.spinBtn.className = "btn-spin-master btn-stop-active";
-            this.el.spinBtn.innerHTML = `<span class="spin-icon">🛑</span><span>PARAR ROLETA</span>`;
+            this.el.spinBtn.innerHTML = `<span class="spin-icon">${getMarioIcon('bobomb', 20)}</span><span>PARAR ROLETA</span>`;
             this.el.spinHint.innerHTML = `Girando! Clique em <strong>PARAR</strong> (ou aperte <span class="spin-shortcut-kbd">ESPAÇO</span>) para a escolha imparcial!`;
         } else if (state.isDecelerating) {
             // Desacelerando
             this.el.spinBtn.disabled = true;
             this.el.spinBtn.className = "btn-spin-master btn-stopping";
-            this.el.spinBtn.innerHTML = `<span class="spin-icon">⌛</span><span>PARANDO...</span>`;
+            this.el.spinBtn.innerHTML = `<span class="spin-icon">${getMarioIcon('block', 20)}</span><span>PARANDO...</span>`;
             this.el.spinHint.innerHTML = `Desacelerando... Veja onde vai parar!`;
         }
     }
@@ -423,6 +426,10 @@ class DidacticGame {
             this.el.inputs.avatar3.value = this.teams[2].avatar;
         }
 
+        if (typeof syncMarioAvatarPickers === "function") {
+            syncMarioAvatarPickers();
+        }
+
         this.el.setupModal.classList.add("active");
     }
 
@@ -550,7 +557,7 @@ class DidacticGame {
         this.el.modalCategoryBadge.style.backgroundColor = category.color;
         this.el.modalCategoryBadge.innerHTML = `
             ${category.badgeIcon} ${category.name.toUpperCase()} 
-            ${isCrownChoice ? '• 👑 ESCOLHA LIVRE DA COROA' : ''} 
+            ${isCrownChoice ? `• ${getMarioIcon('crown', 14)} ESCOLHA LIVRE DA COROA` : ''} 
             • ${activeTeam.name} (Líder: ${activeTeam.leader})
         `;
         this.el.modalQuestionText.innerText = selectedQ.question;
@@ -605,16 +612,16 @@ class DidacticGame {
     updateLifelineButtons() {
         const team = this.teams[this.currentTeamIndex];
 
-        this.el.btnBomba.innerHTML = `💣 BOB-OMB (50:50) [${team.lifelines.bomba}]`;
+        this.el.btnBomba.innerHTML = `${getMarioIcon('bobomb', 18)} BOB-OMB (50:50) [${team.lifelines.bomba}]`;
         this.el.btnBomba.disabled = team.lifelines.bomba <= 0 || this.hasAnswered;
 
         if (this.mode === "CLASSIC") {
             this.el.btnChanceDupla.style.display = "inline-flex";
-            this.el.btnChanceDupla.innerHTML = `🍄 1-UP (CHANCE) [${team.lifelines.chanceDupla}]`;
+            this.el.btnChanceDupla.innerHTML = `${getMarioIcon('oneup', 18)} 1-UP (CHANCE) [${team.lifelines.chanceDupla}]`;
             this.el.btnChanceDupla.disabled = team.lifelines.chanceDupla <= 0 || this.hasAnswered;
 
             this.el.btnDuelo.style.display = "inline-flex";
-            this.el.btnDuelo.innerHTML = `⭐ DUELO [${team.lifelines.duelo}]`;
+            this.el.btnDuelo.innerHTML = `${getMarioIcon('star', 18)} DUELO [${team.lifelines.duelo}]`;
             this.el.btnDuelo.disabled = team.lifelines.duelo <= 0 || this.hasAnswered;
         } else {
             this.el.btnChanceDupla.style.display = "none";
@@ -744,7 +751,7 @@ class DidacticGame {
             correctBtn.classList.add("correct");
         }
 
-        this.showCommentary(false, "⏰ TIME UP! O tempo esgotou sem resposta da bancada.");
+        this.showCommentary(false, `${getMarioIcon('cross', 16)} TEMPO ESGOTADO! O tempo esgotou sem resposta da bancada.`);
     }
 
     selectAnswer(originalIndex, clickedBtn) {
@@ -762,7 +769,7 @@ class DidacticGame {
                 selectedBtn.classList.add("wrong");
                 selectedBtn.disabled = true;
             }
-            alert(`🍄 1-UP COGUMELO ATIVADO!\nA ${this.teams[this.currentTeamIndex].name} tem direito a uma segunda tentativa imediata!`);
+            alert(`1-UP COGUMELO ATIVADO!\nA ${this.teams[this.currentTeamIndex].name} tem direito a uma segunda tentativa imediata!`);
             return;
         }
 
@@ -786,10 +793,10 @@ class DidacticGame {
             const needed = parseInt(this.config.correctsPerBadge || 1, 10);
             if (activeTeam.categoryProgress[cat] >= needed) {
                 activeTeam.badges.add(cat);
-                this.showCommentary(true, `✅ RESPOSTA CORRETA! A ${activeTeam.name} atingiu a meta (${needed}/${needed}) e conquistou o selo de ${CATEGORIES[cat].name}! 👑`);
+                this.showCommentary(true, `${getMarioIcon('check', 16)} RESPOSTA CORRETA! A ${activeTeam.name} atingiu a meta (${needed}/${needed}) e conquistou o selo de ${CATEGORIES[cat].name}! ${getMarioIcon('crown', 16)}`);
             } else {
                 const current = activeTeam.categoryProgress[cat];
-                this.showCommentary(true, `✅ RESPOSTA CORRETA! Progresso: ${current}/${needed} acertos para conquistar o selo de ${CATEGORIES[cat].name}! ⭐`);
+                this.showCommentary(true, `${getMarioIcon('check', 16)} RESPOSTA CORRETA! Progresso: ${current}/${needed} acertos para conquistar o selo de ${CATEGORIES[cat].name}! ${getMarioIcon('star', 16)}`);
             }
         } else {
             sounds.playWrong();
@@ -797,7 +804,7 @@ class DidacticGame {
             if (correctBtn) {
                 correctBtn.classList.add("correct");
             }
-            this.showCommentary(false, `❌ RESPOSTA INCORRETA! Vez da próxima bancada.`);
+            this.showCommentary(false, `${getMarioIcon('cross', 16)} RESPOSTA INCORRETA! Vez da próxima bancada.`);
         }
 
         this.updateUI();
@@ -812,7 +819,7 @@ class DidacticGame {
     }
 
     showCommentary(isCorrect, statusTitle) {
-        this.el.commentaryStatus.innerText = statusTitle;
+        this.el.commentaryStatus.innerHTML = statusTitle;
         this.el.commentaryText.innerText = this.currentQuestion.commentary;
         this.el.commentaryCard.classList.add("active");
         this.el.commentaryCard.classList.add(isCorrect ? "card-correct" : "card-wrong");
@@ -864,7 +871,7 @@ class DidacticGame {
 
     triggerVictory(winningTeam, victoryReason) {
         sounds.playVictory();
-        this.el.victoryTeamName.innerText = `🏆 ${winningTeam.name}`;
+        this.el.victoryTeamName.innerHTML = `${getMarioIcon('trophy', 32)} ${winningTeam.name}`;
         this.el.victoryTeamBadges.innerHTML = `Líder / Porta-Voz: <strong>${winningTeam.leader}</strong><br>Motivo: <strong>${victoryReason}</strong><br>Itens Conquistados: ${winningTeam.badges.size}/4 | Moedas: ${winningTeam.score} pts`;
 
         const sortedTeams = [...this.teams].sort((a, b) => {
@@ -873,19 +880,19 @@ class DidacticGame {
         });
 
         this.el.victoryPodiumContainer.innerHTML = "";
-        const medals = ["🥇 1ST PLACE", "🥈 2ND PLACE", "🥉 3RD PLACE"];
+        const medals = ["1ST PLACE", "2ND PLACE", "3RD PLACE"];
 
         sortedTeams.forEach((team, idx) => {
             const card = document.createElement("div");
             card.className = `podium-card rank-${idx + 1}`;
             card.innerHTML = `
                 <div class="podium-rank">${medals[idx]}</div>
-                <div class="podium-avatar">${team.avatar}</div>
+                <div class="podium-avatar">${getMarioIcon(team.avatar, 36)}</div>
                 <div class="podium-name">${team.name}</div>
-                <div class="podium-leader">👑 Líder: ${team.leader}</div>
+                <div class="podium-leader">${getMarioIcon('crown', 14)} Líder: ${team.leader}</div>
                 <div class="podium-stats">
-                    <span>🎖️ ${team.badges.size} ITENS</span>
-                    <span>🟡 ${team.score} PTS</span>
+                    <span>${getMarioIcon('trophy', 16)} ${team.badges.size} ITENS</span>
+                    <span>${getMarioIcon('coin', 16)} ${team.score} PTS</span>
                 </div>
             `;
             this.el.victoryPodiumContainer.appendChild(card);
@@ -918,7 +925,7 @@ class DidacticGame {
             const btn = document.createElement("button");
             btn.className = "btn-sd-award";
             btn.style.borderColor = t.color;
-            btn.innerHTML = `${t.avatar} ${t.name} (Líder: ${t.leader})`;
+            btn.innerHTML = `${getMarioIcon(t.avatar, 18)} ${t.name} (Líder: ${t.leader})`;
             btn.addEventListener("click", () => {
                 this.closeSuddenDeath();
                 this.triggerVictory(t, "CAMPEÃO NA MORTE SÚBITA!");
@@ -948,7 +955,7 @@ class DidacticGame {
         const activeTeam = this.teams[this.currentTeamIndex];
         this.el.activeTeamBanner.innerHTML = `
             <span class="team-dot" style="background-color: ${activeTeam.color}"></span>
-            ${activeTeam.subtitle}: <strong>${activeTeam.name}</strong> • 👑 Líder: <strong>${activeTeam.leader}</strong>
+            ${activeTeam.subtitle}: <strong>${activeTeam.name}</strong> • ${getMarioIcon('crown', 14)} Líder: <strong>${activeTeam.leader}</strong>
         `;
 
         this.el.teamsContainer.innerHTML = "";
@@ -974,20 +981,20 @@ class DidacticGame {
 
             teamCard.innerHTML = `
                 <div class="team-header">
-                    <span class="team-avatar">${team.avatar}</span>
+                    <span class="team-avatar">${getMarioIcon(team.avatar, 32)}</span>
                     <div class="team-info">
                         <div class="team-name">${team.name}</div>
-                        <div class="team-leader-label">👑 Líder: <strong>${team.leader}</strong></div>
+                        <div class="team-leader-label">${getMarioIcon('crown', 14)} Líder: <strong>${team.leader}</strong></div>
                     </div>
-                    <div class="team-score">🟡 ${team.score}</div>
+                    <div class="team-score">${getMarioIcon('coin', 18)} ${team.score}</div>
                 </div>
                 <div class="team-badges-rack">
                     ${badgesHtml}
                 </div>
                 <div class="team-lifelines-rack">
-                    <span class="lifeline-badge" title="Bob-omb (50:50)">💣 ${team.lifelines.bomba}</span>
-                    ${this.mode === "CLASSIC" ? `<span class="lifeline-badge" title="1-UP Mushroom">🍄 ${team.lifelines.chanceDupla}</span>` : ''}
-                    ${this.mode === "CLASSIC" ? `<span class="lifeline-badge" title="Super Star Duelo">⭐ ${team.lifelines.duelo}</span>` : ''}
+                    <span class="lifeline-badge" title="Bob-omb (50:50)">${getMarioIcon('bobomb', 14)} ${team.lifelines.bomba}</span>
+                    ${this.mode === "CLASSIC" ? `<span class="lifeline-badge" title="1-UP Mushroom">${getMarioIcon('oneup', 14)} ${team.lifelines.chanceDupla}</span>` : ''}
+                    ${this.mode === "CLASSIC" ? `<span class="lifeline-badge" title="Super Star Duelo">${getMarioIcon('star', 14)} ${team.lifelines.duelo}</span>` : ''}
                 </div>
             `;
             this.el.teamsContainer.appendChild(teamCard);
@@ -1724,18 +1731,18 @@ class DidacticGame {
                 const isEdited = q.isEdited;
                 const isCustom = q.isCustom;
 
-                const editBtn = `<button class="btn-ctrl btn-ctrl-gold" style="font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.startEditQuestion('morte_subita', '${q.id}')">✏️ Editar</button>`;
+                const editBtn = `<button class="btn-ctrl btn-ctrl-gold" style="font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.startEditQuestion('morte_subita', '${q.id}')">Editar</button>`;
                 const restoreBtn = (isEdited && !isCustom) 
-                    ? `<button class="btn-ctrl" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.restoreSingleQuestion('morte_subita', '${q.id}')" title="Reverter para o texto original">↩️ Restaurar</button>` 
+                    ? `<button class="btn-ctrl" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.restoreSingleQuestion('morte_subita', '${q.id}')" title="Reverter para o texto original">Restaurar</button>` 
                     : '';
                 const deleteBtn = isCustom
-                    ? `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.deleteCustomQuestion('morte_subita', '${q.id}')">🗑️ Excluir</button>`
+                    ? `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.deleteCustomQuestion('morte_subita', '${q.id}')">Excluir</button>`
                     : '';
 
                 card.innerHTML = `
                     <div class="qm-card-header">
                         <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-                            <span class="qm-cat-tag" style="background: #ef4444;">⚡ MORTE SÚBITA #${idx + 1}</span>
+                            <span class="qm-cat-tag" style="background: #ef4444;">${getMarioIcon('bobomb', 14)} MORTE SÚBITA #${idx + 1}</span>
                             ${isEdited ? '<span style="background:#2563eb; color:#fff; font-family:var(--font-pixel); font-size:0.5rem; padding:2px 6px; border-radius:3px;">EDITADA</span>' : ''}
                             ${isCustom ? '<span style="background:#10b981; color:#fff; font-family:var(--font-pixel); font-size:0.5rem; padding:2px 6px; border-radius:3px;">EQUIPE</span>' : ''}
                         </div>
@@ -1747,7 +1754,7 @@ class DidacticGame {
                     </div>
                     <div class="qm-card-q">${q.question}</div>
                     <div class="qm-card-options">
-                        <div class="qm-card-opt is-correct">✅ RESPOSTA ESPERADA: ${q.answer}</div>
+                        <div class="qm-card-opt is-correct">${getMarioIcon('check', 14)} RESPOSTA ESPERADA: ${q.answer}</div>
                     </div>
                     <div class="qm-card-comm"><strong>Gabarito e Justificativa:</strong> ${q.rationale}</div>
                 `;
@@ -1780,7 +1787,7 @@ class DidacticGame {
                 const isCorrect = (oIdx === q.correctIndex);
                 optionsHtml += `
                     <div class="qm-card-opt ${isCorrect ? 'is-correct' : ''}">
-                        <strong>${letters[oIdx]})</strong> ${opt} ${isCorrect ? '⭐ (GABARITO CORRETO)' : ''}
+                        <strong>${letters[oIdx]})</strong> ${opt} ${isCorrect ? `<span style="color:#059669; font-weight:bold;">${getMarioIcon('check', 14)} (GABARITO CORRETO)</span>` : ''}
                     </div>
                 `;
             });
@@ -1788,12 +1795,12 @@ class DidacticGame {
             const isEdited = q.isEdited;
             const isCustom = q.isCustom;
 
-            const editBtn = `<button class="btn-ctrl btn-ctrl-gold" style="font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.startEditQuestion('${catId}', '${q.id}')">✏️ Editar</button>`;
+            const editBtn = `<button class="btn-ctrl btn-ctrl-gold" style="font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.startEditQuestion('${catId}', '${q.id}')">Editar</button>`;
             const restoreBtn = (isEdited && !isCustom)
-                ? `<button class="btn-ctrl" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.restoreSingleQuestion('${catId}', '${q.id}')" title="Reverter para o texto original">↩️ Restaurar</button>`
+                ? `<button class="btn-ctrl" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.restoreSingleQuestion('${catId}', '${q.id}')" title="Reverter para o texto original">Restaurar</button>`
                 : '';
             const deleteBtn = isCustom
-                ? `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.deleteCustomQuestion('${catId}', '${q.id}')">🗑️ Excluir</button>`
+                ? `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.deleteCustomQuestion('${catId}', '${q.id}')">Excluir</button>`
                 : '';
 
             card.innerHTML = `
@@ -1815,7 +1822,7 @@ class DidacticGame {
                     ${optionsHtml}
                 </div>
                 <div class="qm-card-comm">
-                    <strong>🎙️ Comentário Relâmpago do Mediador:</strong> ${q.commentary}
+                    <strong>Explicação do Mediador:</strong> ${q.commentary}
                 </div>
             `;
             container.appendChild(card);
