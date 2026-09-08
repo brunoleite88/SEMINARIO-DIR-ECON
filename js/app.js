@@ -547,16 +547,10 @@ class DidacticGame {
         this.hasAnswered = false;
         this.chanceDuplaUsedForCurrent = false;
 
-        // Exibe ou oculta o selo da pergunta prioritária do professor
-        if (this.el.modalPriorityBanner) {
-            this.el.modalPriorityBanner.style.display = isPriority ? "inline-block" : "none";
-        }
-
         this.el.modalCategoryBadge.style.backgroundColor = category.color;
         this.el.modalCategoryBadge.innerHTML = `
             ${category.badgeIcon} ${category.name.toUpperCase()} 
             ${isCrownChoice ? '• 👑 ESCOLHA LIVRE DA COROA' : ''} 
-            ${isPriority ? '• 🎓 QUESTÃO ESSENCIAL DO PROFESSOR' : ''}
             • ${activeTeam.name} (Líder: ${activeTeam.leader})
         `;
         this.el.modalQuestionText.innerText = selectedQ.question;

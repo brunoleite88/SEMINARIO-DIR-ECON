@@ -131,11 +131,6 @@
                 </div>
             </div>
 
-            <!-- Selo Especial de Pergunta Prioritária do Professor -->
-            <div id="modal-priority-banner" class="badge-priority-prof" style="display: none;">
-                🎓 QUESTÃO ESSENCIAL SOLICITADA PELO PROFESSOR
-            </div>
-
             <!-- Enunciado -->
             <div class="question-statement-box">
                 <p id="modal-question-text" class="question-text">Carregando pergunta...</p>
@@ -149,7 +144,7 @@
             <!-- Comentário Relâmpago do Mediador -->
             <div id="commentary-card" class="commentary-card">
                 <div class="commentary-header">
-                    <span class="commentary-tag">🎙️ NOTA DO MEDIADOR (GABARITO FUNDAMENTADO)</span>
+                    <span class="commentary-tag">Explicação</span>
                     <span id="commentary-status" class="commentary-status">✅ RESPOSTA CORRETA</span>
                 </div>
                 <div id="commentary-text" class="commentary-body">
@@ -471,7 +466,7 @@
             <!-- Abas das Configurações -->
             <div class="qm-tabs-bar" style="margin-top: 15px;">
                 <button class="settings-tab-btn active" data-tab="tab-rules">⏱️ REGRAS & TEMPO</button>
-                <button class="settings-tab-btn" data-tab="tab-priority">🎓 PERGUNTA DO PROFESSOR</button>
+                <button class="settings-tab-btn" data-tab="tab-priority">🎓 PERGUNTA DO PROFESSOR (OCULTA)</button>
                 <button class="settings-tab-btn" data-tab="tab-labels">🏷️ NOMES & TEMAS</button>
             </div>
 
@@ -512,10 +507,10 @@
                 </div>
             </div>
 
-            <!-- Conteúdo Aba 2: Pergunta Prioritária / Solicitada pelo Professor -->
+            <!-- Conteúdo Aba 2: Pergunta Prioritária / Solicitada pelo Professor (Modo Oculto) -->
             <div id="tab-priority" class="settings-tab-pane" style="display: none; margin-top: 15px;">
                 <div class="input-field-box">
-                    <label for="cfg-priority-question">🎓 Selecione a Pergunta Prioritária / Essencial:</label>
+                    <label for="cfg-priority-question">🎓 Selecione a Pergunta Essencial / Prioritária (Oculta dos Alunos):</label>
                     <select id="cfg-priority-question" class="team-input-field" style="width: 100%;">
                         <option value="">-- NENHUMA (Sorteio Aleatório Padrão) --</option>
                         <!-- Inserido dinamicamente com todas as questões do banco -->
@@ -523,7 +518,7 @@
                 </div>
                 <div style="margin-top: 14px; background: rgba(248, 184, 0, 0.1); border: 2px dashed #f8b800; padding: 14px; border-radius: 6px;">
                     <p style="font-family: var(--font-reading); font-size: 0.88rem; color: #fce0a8; margin: 0; line-height: 1.5;">
-                        ⭐ <strong>Como funciona a Pergunta do Professor:</strong> Ao selecionar uma pergunta prioritária (solicitada pelo docente para a turma responder), ela será sorteada com <strong>prioridade máxima</strong> assim que o tema correspondente for sorteado na roleta, e receberá um selo dourado especial piscante no modal!
+                        ⭐ <strong>Modo Oculto (Sigiloso):</strong> Ao selecionar a pergunta solicitada pelo docente, ela será sorteada com <strong>prioridade máxima</strong> assim que o tema correspondente for sorteado na roleta, mas <strong>ficará 100% oculta dos alunos</strong> (sem nenhum aviso ou selo na tela), mantendo a dinâmica neutra, natural e imparcial perante a turma.
                     </p>
                 </div>
             </div>
