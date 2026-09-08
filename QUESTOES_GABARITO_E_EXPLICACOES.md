@@ -3,14 +3,14 @@
 *Tema: A Constituição Econômica e o Poder Judiciário — Livre Concorrência e Tratamento Favorecido a PMEs (Brasil, China e Alemanha)*
 
 > **Acervo Total**: 41 Questões Oficiais (36 de Múltipla Escolha + 5 de Morte Súbita)  
-> **Fontes**: Doutrina (Paula Forgioni, Vicente Bagnoli, Tércio Sampaio Ferraz Jr., José Afonso da Silva, André Ramos Tavares), Legislação (CF/88, Lei 12.529/11, LC 123/06), Jurisprudência do STF (SV 49, SV 38, ARE 1378976/SP, ADI 4033) e Direito Comparado (China e Alemanha - GWB/Ordoliberalismo).
+> **Fontes**: Doutrina (Paula Forgioni, Vicente Bagnoli, Tércio Sampaio Ferraz Jr., José Afonso da Silva, André Ramos Tavares), Legislação (CF/88, Lei 12.529/11, LC 123/06), Jurisprudência do STF (SV 49, SV 38, ARE 1378976/SP, ADI 4033 / RE 627.543) e Direito Comparado (China e Alemanha - GWB/Ordoliberalismo).
 
 ---
 
 ## 📑 Sumário das Questões
 
-1. [Livre Concorrência (Brasil) - Questões 1 a 9](#-categoria-1-livre-concorrência-brasil)
-2. [Tratamento Favorecido a PMEs (Brasil) - Questões 10 a 17](#-categoria-2-tratamento-favorecido-a-pmes-brasil)
+1. [Livre Concorrência (Brasil) - Questões 1 a 8](#-categoria-1-livre-concorrência-brasil)
+2. [Tratamento Favorecido a PMEs (Brasil) - Questões 9 a 17](#-categoria-2-tratamento-favorecido-a-pmes-brasil)
 3. [Modelo Concorrencial da China - Questões 18 a 26](#-categoria-3-modelo-concorrencial-da-china)
 4. [Ordem Econômica na Alemanha - Questões 27 a 36](#-categoria-4-ordem-econômica-na-alemanha)
 5. [Morte Súbita (Desempate do Mediador) - Questões 37 a 41](#-categoria-especial-morte-súbita-desempate)
@@ -113,24 +113,6 @@ Na clássica formulação doutrinária acolhida pelo direito concorrencial brasi
 ### Questão 6 [ID: LC_6]
 
 **Enunciado**:
-No julgamento da ADI 4.033 e do RE 627.543, o Supremo Tribunal Federal consolidou a diretriz de que restrições regulatórias estatais à atividade econômica:
-
-**Alternativas**:
-- **A)** Gozam de presunção absoluta de constitucionalidade, sendo vedado ao Judiciário analisar a motivação econômica do ato normativo.
-- **B)** Podem ser editadas livremente por governos locais sempre que houver reivindicação de sindicatos ou associações patronais locais.
-- **C)** São sempre nulas de pleno direito, pois o Estado é terminantemente proibido de fiscalizar estabelecimentos comerciais privados.
-- **D)** **Devem se submeter ao teste da proporcionalidade material, não podendo atuar como mera asfixia ou barreira protecionista local de mercado.** ✅ *(RESPOSTA CORRETA)*
-
-👉 **Gabarito Oficial**: **Alternativa D**
-
-💡 **Explicação e Justificativa Doutrinária**:
-> O STF consagrou que qualquer restrição estatal ao comércio deve demonstrar fundamentação idônea, necessidade e proporcionalidade estrita, sendo nulas as exigências burocráticas artificiais voltadas a blindar agentes locais contra novos entrantes.
-
----
-
-### Questão 7 [ID: LC_7]
-
-**Enunciado**:
 De acordo com Vicente Bagnoli, a atuação do direito concorrencial visa proteger a integridade do processo de mercado como um todo (eficiência alocativa e produtiva), o que significa que:
 
 **Alternativas**:
@@ -146,7 +128,7 @@ De acordo com Vicente Bagnoli, a atuação do direito concorrencial visa protege
 
 ---
 
-### Questão 8 [ID: LC_8]
+### Questão 7 [ID: LC_7]
 
 **Enunciado**:
 Uma lei municipal determina que duas farmácias concorrentes devem estar separadas por, no mínimo, 1 km. Segundo o entendimento apresentado no roteiro, essa norma:
@@ -154,17 +136,17 @@ Uma lei municipal determina que duas farmácias concorrentes devem estar separad
 **Alternativas**:
 - **A)** É automaticamente válida porque municípios podem organizar seu território.
 - **B)** É válida sempre que tiver como justificativa o planejamento urbano.
-- **C)** **Pode criar uma reserva artificial de mercado e violar a livre concorrência.** ✅ *(RESPOSTA CORRETA)*
-- **D)** É obrigatória para evitar excesso de concorrência.
+- **C)** É obrigatória para evitar excesso de concorrência.
+- **D)** **Pode criar uma reserva artificial de mercado e violar a livre concorrência.** ✅ *(RESPOSTA CORRETA)*
 
-👉 **Gabarito Oficial**: **Alternativa C**
+👉 **Gabarito Oficial**: **Alternativa D**
 
 💡 **Explicação e Justificativa Doutrinária**:
 > É justamente o problema enfrentado pela Súmula Vinculante 49. O STF considerou inconstitucionais restrições locais de distância mínima entre estabelecimentos do mesmo ramo porque elas podem criar reservas artificiais de mercado.
 
 ---
 
-### Questão 9 [ID: LC_9]
+### Questão 8 [ID: LC_8]
 
 **Enunciado**:
 Qual das situações abaixo melhor representa a finalidade econômica da livre concorrência?
@@ -183,9 +165,9 @@ Qual das situações abaixo melhor representa a finalidade econômica da livre c
 ---
 
 ## 🏢 Categoria 2: Tratamento Favorecido a PMEs (Brasil)
-*Isonomia material (Arts. 170, IX e 179 da CF/88), Lei Complementar nº 123/2006, Simples Nacional, compras públicas e dispersão de poder econômico.*
+*Isonomia material (Arts. 170, IX e 179 da CF/88), Lei Complementar nº 123/2006, Simples Nacional, jurisprudência do STF (ADI 4.033 e RE 627.543), compras públicas e dispersão de poder econômico.*
 
-### Questão 10 [ID: PME_1]
+### Questão 9 [ID: PME_1]
 
 **Enunciado**:
 Sob a perspectiva da teoria constitucional e das lições de José Afonso da Silva e André Ramos Tavares, qual é o fundamento material do tratamento favorecido às PMEs (Art. 170, IX da CF/88)?
@@ -203,7 +185,7 @@ Sob a perspectiva da teoria constitucional e das lições de José Afonso da Sil
 
 ---
 
-### Questão 11 [ID: PME_2]
+### Questão 10 [ID: PME_2]
 
 **Enunciado**:
 A Emenda Constitucional nº 42/2003 introduziu uma especificação relevante no inciso IX do Art. 170 da CF/88. Essa alteração condicionou o tratamento favorecido às empresas de pequeno porte:
@@ -221,7 +203,7 @@ A Emenda Constitucional nº 42/2003 introduziu uma especificação relevante no 
 
 ---
 
-### Questão 12 [ID: PME_3]
+### Questão 11 [ID: PME_3]
 
 **Enunciado**:
 O principal instrumento legal de densificação dos Arts. 170, IX e 179 da CF/88 é a Lei Complementar nº 123/2006 (Estatuto da ME e EPP). Dentre seus benefícios diretos, destaca-se:
@@ -239,7 +221,7 @@ O principal instrumento legal de densificação dos Arts. 170, IX e 179 da CF/88
 
 ---
 
-### Questão 13 [ID: PME_4]
+### Questão 12 [ID: PME_4]
 
 **Enunciado**:
 Por que a doutrina de Direito Econômico sustenta que o tratamento favorecido às PMEs NÃO contradiz o princípio da Livre Concorrência, mas sim o complementa?
@@ -257,7 +239,7 @@ Por que a doutrina de Direito Econômico sustenta que o tratamento favorecido à
 
 ---
 
-### Questão 14 [ID: PME_5]
+### Questão 13 [ID: PME_5]
 
 **Enunciado**:
 O Artigo 179 da Constituição Federal de 1988 estabelece uma obrigação para a União, os Estados, o Distrito Federal e os Municípios consistente em:
@@ -275,7 +257,7 @@ O Artigo 179 da Constituição Federal de 1988 estabelece uma obrigação para a
 
 ---
 
-### Questão 15 [ID: PME_6]
+### Questão 14 [ID: PME_6]
 
 **Enunciado**:
 No contexto da sustentabilidade socioeconômica brasileira, qual é o peso das micro e pequenas empresas (MPEs) na economia real e na geração de empregos?
@@ -293,7 +275,7 @@ No contexto da sustentabilidade socioeconômica brasileira, qual é o peso das m
 
 ---
 
-### Questão 16 [ID: PME_7]
+### Questão 15 [ID: PME_7]
 
 **Enunciado**:
 Nas compras públicas e licitações (Lei 14.133/21 e LC 123/06), qual mecanismo assegura o tratamento favorecido às micro e pequenas empresas?
@@ -311,7 +293,7 @@ Nas compras públicas e licitações (Lei 14.133/21 e LC 123/06), qual mecanismo
 
 ---
 
-### Questão 17 [ID: PME_8]
+### Questão 16 [ID: PME_8]
 
 **Enunciado**:
 Qual alternativa apresenta corretamente uma das razões pelas quais o tratamento favorecido pode funcionar como instrumento de promoção da própria concorrência?
@@ -326,6 +308,24 @@ Qual alternativa apresenta corretamente uma das razões pelas quais o tratamento
 
 💡 **Explicação e Justificativa Doutrinária**:
 > O raciocínio é que, sem mecanismos de correção das desigualdades, empresas pequenas poderiam desaparecer diante de grandes oligopólios. O favorecimento busca preservar a pluralidade de agentes, oxigenando a competição.
+
+---
+
+### Questão 17 [ID: PME_9]
+
+**Enunciado**:
+No julgamento conjunto da ADI 4.033 e do RE 627.543 (Tema 464 da Repercussão Geral), o Supremo Tribunal Federal analisou a constitucionalidade da exigência de regularidade fiscal para adesão ao Simples Nacional (LC 123/2006), decidindo que essa restrição:
+
+**Alternativas**:
+- **A)** É inconstitucional, pois o tratamento favorecido às PMEs constitui uma imunidade absoluta contra cobranças e exigências fiscais do Estado.
+- **B)** Só é válida para empresas de médio e grande porte, sendo nula de pleno direito para microempresas e pequenos comércios.
+- **C)** Viola a livre concorrência ao impedir compulsoriamente a sobrevivência no mercado de pequenos negócios inadimplentes.
+- **D)** **É plenamente constitucional, pois o tratamento diferenciado (Arts. 170, IX e 179 da CF) não autoriza privilégios fiscais ilimitados nem dispensa o dever de regularidade fiscal.** ✅ *(RESPOSTA CORRETA)*
+
+👉 **Gabarito Oficial**: **Alternativa D**
+
+💡 **Explicação e Justificativa Doutrinária**:
+> O STF fixou tese reafirmando que o tratamento favorecido às micro e pequenas empresas (Arts. 170, IX e 179) não constitui salvo-conduto ou imunidade fiscal irrestrita. A exigência legal de regularidade tributária para adesão ao regime benéfico do Simples Nacional (art. 17, V da LC 123/06) atende aos postulados da isonomia material, da razoabilidade e da moralidade concorrencial.
 
 ---
 

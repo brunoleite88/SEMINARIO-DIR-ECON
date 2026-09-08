@@ -7,7 +7,7 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ---
 
 ## ⚖️ Categoria 1: Livre Concorrência (Brasil)
-*Doutrina: Paula Forgioni, Vicente Bagnoli, Tércio Sampaio Ferraz Jr., Lei 12.529/2011, STF (SV 49, ARE 1378976/SP, ADI 4033)*
+*Doutrina: Paula Forgioni, Vicente Bagnoli, Tércio Sampaio Ferraz Jr., Lei 12.529/2011, STF (SV 49, ARE 1378976/SP)*
 
 ### Questão LC-01 (Paula Forgioni: Entrada vs. Conduta)
 - **Enunciado**: De acordo com a clássica distinção doutrinária formulada por Paula Forgioni em 'Os Fundamentos do Antitruste', como se diferenciam a Livre Iniciativa e a Livre Concorrência?
@@ -59,17 +59,7 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 - **Gabarito**: **B**
 - **Comentário do Mediador**: A doutrina adverte que a CF/88 não tutela a 'concorrência perfeita' dos livros didáticos neoclássicos (que inexiste na realidade), mas sim a concorrência 'trabalhável' ou 'efetiva', que exige um marco regulatório que coíba condutas predatórias.
 
-### Questão LC-06 (STF: ADI 4.033 e RE 627.543 - Proporcionalidade Material)
-- **Enunciado**: No julgamento da ADI 4.033 e do RE 627.543, o Supremo Tribunal Federal consolidou a diretriz de que restrições regulatórias estatais à atividade econômica:
-- **Alternativas**:
-  - **A)** Gozam de presunção absoluta de constitucionalidade, sendo vedado ao Judiciário analisar a motivação econômica do ato normativo.
-  - **B)** Podem ser editadas livremente por governos locais sempre que houver reivindicação de sindicatos ou associações patronais locais.
-  - **C)** São sempre nulas de pleno direito, pois o Estado é terminantemente proibido de fiscalizar estabelecimentos comerciais privados.
-  - **D)** Devem se submeter ao teste da proporcionalidade material, não podendo atuar como mera asfixia ou barreira protecionista local de mercado. *(CORRETA)*
-- **Gabarito**: **D**
-- **Comentário do Mediador**: O STF consagrou que qualquer restrição estatal ao comércio deve demonstrar fundamentação idônea, necessidade e proporcionalidade estrita, sendo nulas as exigências burocráticas artificiais voltadas a blindar agentes locais contra novos entrantes.
-
-### Questão LC-07 (Vicente Bagnoli: Objeto da Tutela Antitruste)
+### Questão LC-06 (Vicente Bagnoli: Objeto da Tutela Antitruste)
 - **Enunciado**: De acordo com Vicente Bagnoli, a atuação do direito concorrencial visa proteger a integridade do processo de mercado como um todo (eficiência alocativa e produtiva), o que significa que:
 - **Alternativas**:
   - **A)** O antitruste protege a própria concorrência e o bem-estar social, e não o interesse financeiro individual de um concorrente em particular. *(CORRETA)*
@@ -79,17 +69,17 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 - **Gabarito**: **A**
 - **Comentário do Mediador**: Um dos axiomas do Direito Antitruste é: 'a lei protege a concorrência, não os concorrentes ineficientes'. A intervenção só se legitima quando a conduta de um agente ameaça as próprias condições de rivalidade no mercado e o consumidor.
 
-### Questão LC-08 (Roteiro: Distância Mínima de 1 km entre Farmácias)
+### Questão LC-07 (Roteiro: Distância Mínima de 1 km entre Farmácias)
 - **Enunciado**: Uma lei municipal determina que duas farmácias concorrentes devem estar separadas por, no mínimo, 1 km. Segundo o entendimento apresentado no roteiro, essa norma:
 - **Alternativas**:
   - **A)** É automaticamente válida porque municípios podem organizar seu território.
   - **B)** É válida sempre que tiver como justificativa o planejamento urbano.
-  - **C)** Pode criar uma reserva artificial de mercado e violar a livre concorrência. *(CORRETA)*
-  - **D)** É obrigatória para evitar excesso de concorrência.
-- **Gabarito**: **C**
+  - **C)** É obrigatória para evitar excesso de concorrência.
+  - **D)** Pode criar uma reserva artificial de mercado e violar a livre concorrência. *(CORRETA)*
+- **Gabarito**: **D**
 - **Comentário do Mediador**: É justamente o problema enfrentado pela Súmula Vinculante 49. O STF considerou inconstitucionais restrições locais de distância mínima entre estabelecimentos do mesmo ramo porque elas podem criar reservas artificiais de mercado.
 
-### Questão LC-09 (Roteiro: Finalidade Econômica da Livre Concorrência)
+### Questão LC-08 (Roteiro: Finalidade Econômica da Livre Concorrência)
 - **Enunciado**: Qual das situações abaixo melhor representa a finalidade econômica da livre concorrência?
 - **Alternativas**:
   - **A)** Garantir que todas as empresas tenham exatamente o mesmo faturamento.
@@ -102,7 +92,7 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ---
 
 ## 🏢 Categoria 2: Tratamento Favorecido a PMEs (Brasil)
-*Doutrina: José Afonso da Silva, André Ramos Tavares, Art. 170, IX e 179 da CF/88, Lei Complementar nº 123/2006*
+*Doutrina: José Afonso da Silva, André Ramos Tavares, Art. 170, IX e 179 da CF/88, Lei Complementar nº 123/2006, STF (ADI 4.033 e RE 627.543)*
 
 ### Questão PME-01 (Isonomia Material e André Ramos Tavares)
 - **Enunciado**: Sob a perspectiva da teoria constitucional e das lições de José Afonso da Silva e André Ramos Tavares, qual é o fundamento material do tratamento favorecido às PMEs (Art. 170, IX da CF/88)?
@@ -183,6 +173,16 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
   - **D)** Porque transforma todas as empresas em empresas de pequeno porte.
 - **Gabarito**: **C**
 - **Comentário do Mediador**: O raciocínio é que, sem mecanismos de correção das desigualdades, empresas pequenas poderiam desaparecer diante de grandes oligopólios. O favorecimento busca preservar a pluralidade de agentes, oxigenando a competição.
+
+### Questão PME-09 (STF (ADI 4.033 e RE 627.543): Regularidade Fiscal no Simples Nacional)
+- **Enunciado**: No julgamento conjunto da ADI 4.033 e do RE 627.543 (Tema 464 da Repercussão Geral), o Supremo Tribunal Federal analisou a constitucionalidade da exigência de regularidade fiscal para adesão ao Simples Nacional (LC 123/2006), decidindo que essa restrição:
+- **Alternativas**:
+  - **A)** É inconstitucional, pois o tratamento favorecido às PMEs constitui uma imunidade absoluta contra cobranças e exigências fiscais do Estado.
+  - **B)** Só é válida para empresas de médio e grande porte, sendo nula de pleno direito para microempresas e pequenos comércios.
+  - **C)** Viola a livre concorrência ao impedir compulsoriamente a sobrevivência no mercado de pequenos negócios inadimplentes.
+  - **D)** É plenamente constitucional, pois o tratamento diferenciado (Arts. 170, IX e 179 da CF) não autoriza privilégios fiscais ilimitados nem dispensa o dever de regularidade fiscal. *(CORRETA)*
+- **Gabarito**: **D**
+- **Comentário do Mediador**: O STF fixou tese reafirmando que o tratamento favorecido às micro e pequenas empresas (Arts. 170, IX e 179) não constitui salvo-conduto ou imunidade fiscal irrestrita. A exigência legal de regularidade tributária para adesão ao regime benéfico do Simples Nacional (art. 17, V da LC 123/06) atende aos postulados da isonomia material, da razoabilidade e da moralidade concorrencial.
 
 ---
 
@@ -436,7 +436,7 @@ A equipe pode adicionar quantas questões desejar através de **duas formas**:
 Você pode abrir o arquivo `js/questions.js` e adicionar um novo objeto dentro de `QUESTIONS_BANK[categoria]`:
 ```javascript
 {
-    id: "lc_10",
+    id: "lc_9",
     category: "livre_concorrencia",
     question: "Digite a sua pergunta aqui...",
     options: [

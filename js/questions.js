@@ -6,7 +6,7 @@
  * Baseado estritamente nas lições doutrinárias e no roteiro oficial do seminário:
  * Eros Roberto Grau, Paula Forgioni, Vicente Bagnoli, André Ramos Tavares,
  * José Afonso da Silva, Fábio Nusdeo, José Vicente Santos de Mendonça,
- * STF (ARE 1378976/SP, SV 49, SV 38, ADI 4033), Direito Chinês e Alemão (GWB/Ordoliberalismo).
+ * STF (ARE 1378976/SP, SV 49, SV 38, ADI 4033 / RE 627.543), Direito Chinês e Alemão (GWB/Ordoliberalismo).
  */
 
 const CATEGORIES = {
@@ -114,19 +114,6 @@ const QUESTIONS_BANK = {
         {
             "id": "lc_6",
             "category": "livre_concorrencia",
-            "question": "No julgamento da ADI 4.033 e do RE 627.543, o Supremo Tribunal Federal consolidou a diretriz de que restrições regulatórias estatais à atividade econômica:",
-            "options": [
-                "Gozam de presunção absoluta de constitucionalidade, sendo vedado ao Judiciário analisar a motivação econômica do ato normativo.",
-                "Podem ser editadas livremente por governos locais sempre que houver reivindicação de sindicatos ou associações patronais locais.",
-                "São sempre nulas de pleno direito, pois o Estado é terminantemente proibido de fiscalizar estabelecimentos comerciais privados.",
-                "Devem se submeter ao teste da proporcionalidade material, não podendo atuar como mera asfixia ou barreira protecionista local de mercado."
-            ],
-            "correctIndex": 3,
-            "commentary": "O STF consagrou que qualquer restrição estatal ao comércio deve demonstrar fundamentação idônea, necessidade e proporcionalidade estrita, sendo nulas as exigências burocráticas artificiais voltadas a blindar agentes locais contra novos entrantes."
-        },
-        {
-            "id": "lc_7",
-            "category": "livre_concorrencia",
             "question": "De acordo com Vicente Bagnoli, a atuação do direito concorrencial visa proteger a integridade do processo de mercado como um todo (eficiência alocativa e produtiva), o que significa que:",
             "options": [
                 "O antitruste protege a própria concorrência e o bem-estar social, e não o interesse financeiro individual de um concorrente em particular.",
@@ -138,20 +125,20 @@ const QUESTIONS_BANK = {
             "commentary": "Um dos axiomas do Direito Antitruste é: 'a lei protege a concorrência, não os concorrentes ineficientes'. A intervenção só se legitima quando a conduta de um agente ameaça as próprias condições de rivalidade no mercado e o consumidor."
         },
         {
-            "id": "lc_8",
+            "id": "lc_7",
             "category": "livre_concorrencia",
             "question": "Uma lei municipal determina que duas farmácias concorrentes devem estar separadas por, no mínimo, 1 km. Segundo o entendimento apresentado no roteiro, essa norma:",
             "options": [
                 "É automaticamente válida porque municípios podem organizar seu território.",
                 "É válida sempre que tiver como justificativa o planejamento urbano.",
-                "Pode criar uma reserva artificial de mercado e violar a livre concorrência.",
-                "É obrigatória para evitar excesso de concorrência."
+                "É obrigatória para evitar excesso de concorrência.",
+                "Pode criar uma reserva artificial de mercado e violar a livre concorrência."
             ],
-            "correctIndex": 2,
+            "correctIndex": 3,
             "commentary": "É justamente o problema enfrentado pela Súmula Vinculante 49. O STF considerou inconstitucionais restrições locais de distância mínima entre estabelecimentos do mesmo ramo porque elas podem criar reservas artificiais de mercado."
         },
         {
-            "id": "lc_9",
+            "id": "lc_8",
             "category": "livre_concorrencia",
             "question": "Qual das situações abaixo melhor representa a finalidade econômica da livre concorrência?",
             "options": [
@@ -268,6 +255,19 @@ const QUESTIONS_BANK = {
             ],
             "correctIndex": 2,
             "commentary": "O raciocínio é que, sem mecanismos de correção das desigualdades, empresas pequenas poderiam desaparecer diante de grandes oligopólios. O favorecimento busca preservar a pluralidade de agentes, oxigenando a competição."
+        },
+        {
+            "id": "pme_9",
+            "category": "tratamento_pme",
+            "question": "No julgamento conjunto da ADI 4.033 e do RE 627.543 (Tema 464 da Repercussão Geral), o Supremo Tribunal Federal analisou a constitucionalidade da exigência de regularidade fiscal para adesão ao Simples Nacional (LC 123/2006), decidindo que essa restrição:",
+            "options": [
+                "É inconstitucional, pois o tratamento favorecido às PMEs constitui uma imunidade absoluta contra cobranças e exigências fiscais do Estado.",
+                "Só é válida para empresas de médio e grande porte, sendo nula de pleno direito para microempresas e pequenos comércios.",
+                "Viola a livre concorrência ao impedir compulsoriamente a sobrevivência no mercado de pequenos negócios inadimplentes.",
+                "É plenamente constitucional, pois o tratamento diferenciado (Arts. 170, IX e 179 da CF) não autoriza privilégios fiscais ilimitados nem dispensa o dever de regularidade fiscal."
+            ],
+            "correctIndex": 3,
+            "commentary": "O STF fixou tese reafirmando que o tratamento favorecido às micro e pequenas empresas (Arts. 170, IX e 179) não constitui salvo-conduto ou imunidade fiscal irrestrita. A exigência legal de regularidade tributária para adesão ao regime benéfico do Simples Nacional (art. 17, V da LC 123/06) atende aos postulados da isonomia material, da razoabilidade e da moralidade concorrencial."
         }
     ],
     "modelo_china": [
