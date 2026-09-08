@@ -1080,8 +1080,14 @@ class DidacticGame {
 
         const activeTeam = this.teams[this.currentTeamIndex];
         this.el.activeTeamBanner.innerHTML = `
-            <span class="team-dot" style="background-color: ${activeTeam.color}"></span>
-            ${activeTeam.subtitle}: <strong>${activeTeam.name}</strong> • 👑 Líder: <strong>${activeTeam.leader}</strong>
+            <span class="turn-marquee-tag">▶ TURNO ATUAL</span>
+            <span class="turn-player-tag" style="background-color: ${activeTeam.color}">${activeTeam.subtitle}</span>
+            <span class="turn-avatar-badge">${this.getAvatarHtml(activeTeam.avatar, 20)}</span>
+            <span class="turn-team-name">${activeTeam.name}</span>
+            <span class="turn-leader-pill">
+                ${getLeaderCrownSvg(12)}
+                <span>LÍDER: <strong>${activeTeam.leader}</strong></span>
+            </span>
         `;
 
         this.el.teamsContainer.innerHTML = "";
@@ -1109,7 +1115,10 @@ class DidacticGame {
                 <div class="team-header">
                     <span class="team-avatar">${this.getAvatarHtml(team.avatar, 24)}</span>
                     <div class="team-info">
-                        <div class="team-name">${team.name}</div>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span class="team-name">${team.name}</span>
+                            ${isCurrent ? '<span class="active-card-tag">▶ EM JOGO</span>' : ''}
+                        </div>
                         <div class="team-leader-label">${getLeaderCrownSvg(12)} <span>LÍDER: <strong>${team.leader}</strong></span></div>
                     </div>
                     <div class="team-score">🟡 ${team.score}</div>

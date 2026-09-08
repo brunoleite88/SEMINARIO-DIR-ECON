@@ -228,9 +228,11 @@ body::after {
    FAIXA DO TURNO / PLAYER ATIVO (HUD MARIO WORLD)
    ========================================================================== */
 .active-team-strip {
-    background: #f8b800;
+    background: #fff8d0;
+    background: linear-gradient(180deg, #fffceb 0%, #fff0b3 100%);
     border-bottom: 4px solid #000000;
-    padding: 10px 24px;
+    box-shadow: inset 0px -2px 0px #e6c86e, 0px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 8px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -238,11 +240,70 @@ body::after {
 }
 
 .active-team-text {
-    font-size: 0.85rem;
-    color: #000000;
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.turn-marquee-tag {
+    background: #000000;
+    color: #f8b800;
+    font-family: var(--font-pixel);
+    font-size: 0.58rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.turn-player-tag {
+    color: #ffffff;
+    font-family: var(--font-pixel);
+    font-size: 0.58rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
+}
+
+.turn-avatar-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
+    border-radius: 4px;
+    width: 26px;
+    height: 26px;
+}
+
+.turn-team-name {
+    font-family: var(--font-pixel);
+    font-size: 0.74rem;
+    color: #000000;
+}
+
+.turn-leader-pill {
+    font-family: var(--font-pixel);
+    font-size: 0.52rem;
+    color: #1e3a8a;
+    background: #e8f2ff;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
+    padding: 3px 6px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-transform: uppercase;
+}
+
+.turn-leader-pill strong {
+    color: #000000;
+    font-weight: normal;
 }
 
 .team-dot {
@@ -415,11 +476,12 @@ body::after {
 .team-card {
     background: var(--dialog-bg);
     border: 4px solid #000000;
-    box-shadow: 5px 5px 0px #000000, inset 2px 2px 0px #ffffff;
+    box-shadow: 4px 4px 0px #000000, inset 2px 2px 0px #ffffff;
     border-radius: 8px;
     padding: 14px 16px;
     transition: all 0.2s ease;
     position: relative;
+    opacity: 0.85;
 }
 
 .team-card::before {
@@ -431,13 +493,57 @@ body::after {
     height: 100%;
     background-color: var(--team-accent, #0058f8);
     border-right: 2px solid #000000;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
 }
 
 .team-card.active-turn {
-    background: #fff8d8;
+    opacity: 1;
+    background: #fff9d6;
+    background: linear-gradient(180deg, #fffceb 0%, #fff4c2 100%);
     border-color: #000000;
-    box-shadow: 6px 6px 0px #f82800, 6px 6px 0px 4px #000000;
-    transform: scale(1.02);
+    box-shadow: inset 2px 2px 0px #ffffff, inset -2px -2px 0px #e6c86e, 6px 6px 0px var(--team-accent, #f8b800), 6px 6px 0px 3px #000000;
+    transform: scale(1.025);
+    z-index: 2;
+}
+
+.team-card.active-turn::before {
+    width: 12px;
+}
+
+.team-card.active-turn .team-avatar {
+    border: 3px solid #000000;
+    box-shadow: 3px 3px 0px #000000;
+    transform: scale(1.08);
+}
+
+.team-card.active-turn .team-name {
+    font-size: 0.84rem;
+    color: #000000;
+}
+
+.team-card.active-turn .team-score {
+    box-shadow: 3px 3px 0px #000000;
+    transform: scale(1.05);
+}
+
+.active-card-tag {
+    background: #000000;
+    color: #f8b800;
+    font-family: var(--font-pixel);
+    font-size: 0.48rem;
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    letter-spacing: 0.5px;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4);
+    animation: tagPulse 1.5s infinite alternate;
+}
+
+@keyframes tagPulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.06); }
 }
 
 .team-header {
