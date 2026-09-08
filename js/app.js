@@ -364,7 +364,7 @@ class DidacticGame {
         // Mute / Som Chiptune
         this.el.muteBtn.addEventListener("click", () => {
             const isMuted = sounds.toggleMute();
-            this.el.muteBtn.innerHTML = isMuted ? "🔇 MUTE" : "🔊 SOM ON";
+            this.el.muteBtn.innerHTML = isMuted ? "SOM OFF" : "SOM ON";
             this.el.muteBtn.classList.toggle("muted", isMuted);
         });
 
@@ -441,7 +441,8 @@ class DidacticGame {
             this.toggleFullscreen();
         } else if (key === "M") {
             const isMuted = sounds.toggleMute();
-            this.el.muteBtn.innerHTML = isMuted ? "🔇 MUTE" : "🔊 SOM ON";
+            this.el.muteBtn.innerHTML = isMuted ? "SOM OFF" : "SOM ON";
+            this.el.muteBtn.classList.toggle("muted", isMuted);
         }
     }
 
@@ -450,12 +451,12 @@ class DidacticGame {
             document.documentElement.requestFullscreen().catch(err => {
                 console.warn("Fullscreen falhou:", err);
             });
-            this.el.fullscreenBtn.innerHTML = "🗗 EXIT FULL";
+            this.el.fullscreenBtn.innerHTML = "TELA NORMAL";
         } else {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             }
-            this.el.fullscreenBtn.innerHTML = "🗖 FULLSCREEN";
+            this.el.fullscreenBtn.innerHTML = "FULLSCREEN";
         }
     }
 
@@ -586,12 +587,12 @@ class DidacticGame {
         if (this.mode === "EXPRESS") {
             this.maxRounds = 3;
             this.timerDuration = 20;
-            this.el.gameModeBadge.innerHTML = "⚡ TIME ATTACK (15 MIN)";
+            this.el.gameModeBadge.innerHTML = "TIME ATTACK (15 MIN)";
             this.el.gameModeBadge.className = "badge-mode mode-express";
         } else {
             this.maxRounds = 6;
             this.timerDuration = 30;
-            this.el.gameModeBadge.innerHTML = "🏆 WORLD TOUR (30 MIN)";
+            this.el.gameModeBadge.innerHTML = "WORLD TOUR (30 MIN)";
             this.el.gameModeBadge.className = "badge-mode mode-classic";
         }
 
@@ -1876,7 +1877,7 @@ class DidacticGame {
                 card.innerHTML = `
                     <div class="qm-card-header">
                         <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-                            <span class="qm-cat-tag" style="background: #ef4444;">⚡ MORTE SÚBITA #${idx + 1}</span>
+                            <span class="qm-cat-tag" style="background: #ef4444;">MORTE SÚBITA #${idx + 1}</span>
                             ${isEdited ? '<span style="background:#2563eb; color:#fff; font-family:var(--font-pixel); font-size:0.5rem; padding:2px 6px; border-radius:3px;">EDITADA</span>' : ''}
                             ${isCustom ? '<span style="background:#10b981; color:#fff; font-family:var(--font-pixel); font-size:0.5rem; padding:2px 6px; border-radius:3px;">EQUIPE</span>' : ''}
                         </div>

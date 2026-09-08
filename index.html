@@ -12,7 +12,22 @@
     <!-- SUPER MARIO HUD (CABEÇALHO SUPERIOR RETRÔ) -->
     <header class="main-header">
         <div class="brand-area">
-            <div class="brand-icon">⚖️</div>
+            <div class="brand-icon" title="Super Direito Econômico 16-Bits">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" shape-rendering="crispEdges">
+                    <rect x="7" y="1" width="2" height="13" fill="#000000"/>
+                    <rect x="7" y="2" width="1" height="11" fill="#ffffff"/>
+                    <rect x="2" y="3" width="12" height="2" fill="#000000"/>
+                    <rect x="3" y="3" width="10" height="1" fill="#ffffff"/>
+                    <rect x="4" y="13" width="8" height="2" fill="#000000"/>
+                    <rect x="5" y="13" width="6" height="1" fill="#ffffff"/>
+                    <rect x="3" y="5" width="1" height="4" fill="#000000"/>
+                    <rect x="1" y="9" width="5" height="2" fill="#000000"/>
+                    <rect x="2" y="9" width="3" height="1" fill="#ffffff"/>
+                    <rect x="12" y="5" width="1" height="4" fill="#000000"/>
+                    <rect x="10" y="9" width="5" height="2" fill="#000000"/>
+                    <rect x="11" y="9" width="3" height="1" fill="#ffffff"/>
+                </svg>
+            </div>
             <div>
                 <h1 id="main-brand-title" class="brand-title">CONCORRÊNCIA & ORDEM</h1>
                 <div id="main-brand-subtitle" class="brand-subtitle">SUPER DIREITO ECONÔMICO • 16-BITS SNES EDITION</div>
@@ -21,30 +36,30 @@
 
         <div class="game-status-bar">
             <div id="current-round-display" class="round-pill">WORLD 1-3</div>
-            <div id="game-mode-badge" class="badge-mode mode-express">⚡ TIME ATTACK (15 MIN)</div>
+            <div id="game-mode-badge" class="badge-mode mode-express">TIME ATTACK (15 MIN)</div>
         </div>
 
         <div class="header-actions">
             <button id="btn-quick-teams" class="btn-ctrl btn-ctrl-gold" title="Registrar Nomes das Equipes e Líderes">
-                👥 EQUIPES & LÍDERES
+                EQUIPES & LÍDERES
             </button>
             <button id="btn-open-questions-mgr" class="btn-ctrl" title="Ver e Adicionar Perguntas ao Banco">
-                📝 BANCO DE QUESTÕES
+                BANCO DE QUESTÕES
             </button>
-            <button id="btn-open-settings" class="btn-ctrl" style="background: #334155; color: #f8b800; border-color: #f8b800;" title="Configurações do Jogo (Tempo, Bombas, Nomes, Pergunta do Professor)">
-                ⚙️ CONFIGURAÇÕES
+            <button id="btn-open-settings" class="btn-ctrl btn-ctrl-settings" title="Configurações do Jogo (Tempo, Bombas, Nomes, Pergunta do Professor)">
+                CONFIGURAÇÕES
             </button>
             <button id="btn-sudden-death" class="btn-ctrl" title="Morte Súbita / Boss Battle">
-                ⚡ MORTE SÚBITA
+                MORTE SÚBITA
             </button>
             <button id="btn-mute" class="btn-ctrl" title="Ativar/Silenciar Chiptune (Atalho M)">
-                🔊 SOM ON
+                SOM ON
             </button>
             <button id="btn-fullscreen" class="btn-ctrl" title="Alternar Tela Cheia (Atalho F)">
-                🗖 FULLSCREEN
+                FULLSCREEN
             </button>
             <button id="btn-new-game" class="btn-ctrl" title="Reiniciar Partida ou Trocar de Modo">
-                🎮 NOVO JOGO
+                NOVO JOGO
             </button>
         </div>
     </header>
@@ -180,7 +195,7 @@
     <!-- MODAL MORTE SÚBITA (BOSS BATTLE / DESEMPATE) -->
     <div id="sudden-death-modal" class="modal-overlay">
         <div class="modal-card-master sd-modal-inner">
-            <div class="sd-badge-header">⚡ MORTE SÚBITA • DESEMPATE FINAL</div>
+            <div class="sd-badge-header">MORTE SÚBITA • DESEMPATE FINAL</div>
             <h3 style="margin-bottom: 10px; font-family: var(--font-pixel); font-size: 0.85rem;">REGRAS DA MORTE SÚBITA:</h3>
             <p style="color: #4b5563; margin-bottom: 16px; font-family: var(--font-reading); font-size: 1rem; font-weight: 600;">
                 O mediador lê a pergunta sem alternativas. A primeira bancada empatada a levantar a mão responde. Se acertar, conquista a vitória imediata!
@@ -235,7 +250,7 @@
     <!-- MODAL DE REGISTRO DAS EQUIPES E LÍDERES -->
     <div id="setup-modal" class="modal-overlay">
         <div class="modal-card-master setup-modal-inner">
-            <h2 class="setup-title">👥 REGISTRO DAS BANCADAS E LÍDERES</h2>
+            <h2 class="setup-title">REGISTRO DAS BANCADAS E LÍDERES</h2>
             <p class="setup-desc">Insira o nome de cada equipe e identifique seus respectivos líderes / porta-vozes para a dinâmica.</p>
 
             <!-- Seção de Equipes e Líderes -->
@@ -390,13 +405,13 @@
             <div class="mode-selection-cards">
                 <label class="mode-radio-label">
                     <input type="radio" name="game-mode-select" value="EXPRESS" checked>
-                    <span class="mode-card-title">⚡ TIME ATTACK (15 MIN)</span>
+                    <span class="mode-card-title">TIME ATTACK (15 MIN)</span>
                     <span class="mode-card-desc">3 rodadas (9 perguntas total), 20s de cronômetro, 1 Bob-omb (50:50) e desempate por Morte Súbita.</span>
                 </label>
 
                 <label class="mode-radio-label">
                     <input type="radio" name="game-mode-select" value="CLASSIC">
-                    <span class="mode-card-title">🏆 WORLD TOUR (25-30 MIN)</span>
+                    <span class="mode-card-title">WORLD TOUR (25-30 MIN)</span>
                     <span class="mode-card-desc">Disputa até fechar as 4 insígnias, 30s de cronômetro, 3 power-ups (Bob-omb, 1-UP e Duelo).</span>
                 </label>
             </div>
@@ -516,7 +531,7 @@
                 <button class="qm-tab-btn" data-category="tratamento_pme">🏢 PMEs (<span id="count-pme">7</span>)</button>
                 <button class="qm-tab-btn" data-category="modelo_china">🇨🇳 CHINA (<span id="count-ch">6</span>)</button>
                 <button class="qm-tab-btn" data-category="ordem_alemanha">🇩🇪 ALEMANHA (<span id="count-de">7</span>)</button>
-                <button class="qm-tab-btn" data-category="morte_subita">⚡ MORTE SÚBITA (<span id="count-sd">5</span>)</button>
+                <button class="qm-tab-btn" data-category="morte_subita">MORTE SÚBITA (<span id="count-sd">5</span>)</button>
             </div>
 
             <!-- Lista de Perguntas Renderizadas -->
@@ -531,7 +546,7 @@
         <div class="modal-card-master settings-modal-inner" style="max-width: 820px; max-height: 90vh; overflow-y: auto;">
             <div class="qm-header-bar">
                 <div>
-                    <h2 class="setup-title">⚙️ CONFIGURAÇÕES DO JOGO (16-BITS)</h2>
+                    <h2 class="setup-title">CONFIGURAÇÕES DO JOGO (16-BITS)</h2>
                     <p class="setup-desc">Calibre regras, tempos, poder das equipes, pergunta do professor e personalize todos os nomes visíveis.</p>
                 </div>
                 <button id="btn-close-settings" class="btn-ctrl" style="padding: 8px 14px; font-size: 0.8rem;">✕ FECHAR</button>

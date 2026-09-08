@@ -96,117 +96,148 @@ body::after {
 .main-header {
     background: #000000;
     border-bottom: 4px solid #f8b800;
-    padding: 12px 24px;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
     position: sticky;
     top: 0;
     z-index: 50;
     box-shadow: 0 4px 0px rgba(0, 0, 0, 0.5);
+    flex-wrap: wrap;
 }
 
 .brand-area {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
+    flex-shrink: 0;
 }
 
 .brand-icon {
-    font-size: 1.8rem;
     background: #f8b800;
-    border: 3px solid #000;
-    box-shadow: inset 2px 2px 0px #fce0a8, inset -2px -2px 0px #b86800, 3px 3px 0px #ffffff;
-    width: 44px;
-    height: 44px;
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0px #fce0a8, inset -2px -2px 0px #b86800, 2px 2px 0px #000000;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 4px;
     animation: coinSpin 2s infinite alternate ease-in-out;
+    box-sizing: border-box;
 }
 
 @keyframes coinSpin {
     from { transform: scale(1); }
-    to { transform: scale(1.08) rotate(5deg); }
+    to { transform: scale(1.06) rotate(3deg); }
 }
 
 .brand-title {
     font-family: var(--font-pixel);
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     color: #f8b800;
-    text-shadow: 3px 3px 0px #000000, -1px -1px 0px #000000, 1px -1px 0px #000000, -1px 1px 0px #000000;
+    text-shadow: 2px 2px 0px #000000, -1px -1px 0px #000000, 1px -1px 0px #000000, -1px 1px 0px #000000;
     letter-spacing: 1px;
 }
 
 .brand-subtitle {
-    font-size: 0.55rem;
+    font-size: 0.52rem;
     color: #ffffff;
     letter-spacing: 0.5px;
-    margin-top: 4px;
+    margin-top: 3px;
 }
 
 .game-status-bar {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
+    flex-shrink: 0;
 }
 
 .round-pill {
     background: #0058f8;
     color: #ffffff;
-    border: 3px solid #ffffff;
-    box-shadow: 3px 3px 0px #000000;
-    padding: 6px 12px;
-    font-size: 0.72rem;
+    border: 2px solid #000000;
+    box-shadow: inset 1px 1px 0px #5898ff, inset -1px -1px 0px #0038a8, 2px 2px 0px #000000;
+    height: 36px;
+    padding: 0 12px;
+    font-family: var(--font-pixel);
+    font-size: 0.58rem;
     border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+    letter-spacing: 0.5px;
+    line-height: 1;
 }
 
 .badge-mode {
-    font-size: 0.65rem;
-    padding: 6px 12px;
-    border: 3px solid #ffffff;
-    box-shadow: 3px 3px 0px #000000;
+    font-family: var(--font-pixel);
+    font-size: 0.58rem;
+    height: 36px;
+    padding: 0 12px;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
     border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+    letter-spacing: 0.5px;
+    line-height: 1;
 }
 
 .mode-express {
     background: #f82800;
     color: #ffffff;
+    box-shadow: inset 1px 1px 0px #ff7050, inset -1px -1px 0px #a81000, 2px 2px 0px #000000;
 }
 
 .mode-classic {
     background: #00a800;
     color: #ffffff;
+    box-shadow: inset 1px 1px 0px #50e850, inset -1px -1px 0px #006000, 2px 2px 0px #000000;
 }
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
+    flex-wrap: wrap;
 }
 
-/* Botões Estilo Controle SNES / Arcade */
+/* Botões Estilo Controle SNES / Arcade - Dimensões e Proporções Rigorosamente Padronizadas */
 .btn-ctrl {
     background: #484848;
     color: #ffffff;
-    border: 3px solid #000000;
-    box-shadow: inset 2px 2px 0px #888888, inset -2px -2px 0px #202020, 3px 3px 0px #000000;
-    padding: 8px 12px;
+    border: 2px solid #000000;
+    box-shadow: inset 2px 2px 0px #888888, inset -2px -2px 0px #202020, 2px 2px 0px #000000;
+    height: 36px;
+    padding: 0 10px;
     font-family: var(--font-pixel);
-    font-size: 0.62rem;
+    font-size: 0.58rem;
     cursor: pointer;
     border-radius: 4px;
-    transition: transform 0.1s, box-shadow 0.1s;
+    transition: transform 0.08s, box-shadow 0.08s;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    user-select: none;
 }
 
 .btn-ctrl:hover {
-    background: #585858;
+    background: #5a5a5a;
     transform: translate(-1px, -1px);
-    box-shadow: inset 2px 2px 0px #aaaaaa, inset -2px -2px 0px #181818, 4px 4px 0px #000000;
+    box-shadow: inset 2px 2px 0px #aaaaaa, inset -2px -2px 0px #181818, 3px 3px 0px #000000;
 }
 
 .btn-ctrl:active {
@@ -217,11 +248,27 @@ body::after {
 .btn-ctrl-gold {
     background: #f8b800;
     color: #000000;
-    box-shadow: inset 2px 2px 0px #fce0a8, inset -2px -2px 0px #b86800, 3px 3px 0px #000000;
+    box-shadow: inset 2px 2px 0px #fce0a8, inset -2px -2px 0px #b86800, 2px 2px 0px #000000;
 }
 
 .btn-ctrl-gold:hover {
     background: #fce0a8;
+}
+
+.btn-ctrl-settings {
+    background: #2b3543;
+    color: #f8b800;
+    box-shadow: inset 2px 2px 0px #45556c, inset -2px -2px 0px #161c24, 2px 2px 0px #000000;
+}
+
+.btn-ctrl-settings:hover {
+    background: #394658;
+}
+
+.btn-ctrl.muted {
+    background: #6b2121;
+    color: #fca5a5;
+    box-shadow: inset 2px 2px 0px #8b2b2b, inset -2px -2px 0px #3b1010, 2px 2px 0px #000000;
 }
 
 /* ==========================================================================
