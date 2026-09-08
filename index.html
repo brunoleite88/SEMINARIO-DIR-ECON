@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jogo Didático Interativo 16-Bits Super Mario Style para o Seminário Acadêmico de Direito Econômico: Livre Concorrência, Tratamento Favorecido a PMEs, Modelos da China e da Alemanha.">
+    <title>Super Concorrência & Ordem 16-Bits | Seminário Direito Econômico</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- SUPER MARIO HUD (CABEÇALHO SUPERIOR RETRÔ) -->
+    <header class="main-header">
+        <div class="brand-area">
+            <div class="brand-icon">⚖️</div>
+            <div>
+                <h1 class="brand-title">CONCORRÊNCIA & ORDEM</h1>
+                <div class="brand-subtitle">SUPER DIREITO ECONÔMICO • 16-BITS SNES EDITION</div>
+            </div>
+        </div>
+
+        <div class="game-status-bar">
+            <div id="current-round-display" class="round-pill">WORLD 1-3</div>
+            <div id="game-mode-badge" class="badge-mode mode-express">⚡ TIME ATTACK (15 MIN)</div>
+        </div>
+
+        <div class="header-actions">
+            <button id="btn-quick-teams" class="btn-ctrl btn-ctrl-gold" title="Registrar Nomes das Equipes e Líderes">
+                👥 EQUIPES & LÍDERES
+            </button>
+            <button id="btn-open-questions-mgr" class="btn-ctrl" title="Ver e Adicionar Perguntas ao Banco">
+                📝 BANCO DE QUESTÕES
+            </button>
+            <button id="btn-sudden-death" class="btn-ctrl" title="Morte Súbita / Boss Battle">
+                ⚡ MORTE SÚBITA
+            </button>
+            <button id="btn-mute" class="btn-ctrl" title="Ativar/Silenciar Chiptune (Atalho M)">
+                🔊 SOM ON
+            </button>
+            <button id="btn-fullscreen" class="btn-ctrl" title="Alternar Tela Cheia (Atalho F)">
+                🗖 FULLSCREEN
+            </button>
+            <button id="btn-new-game" class="btn-ctrl" title="Configurar Partida ou Trocar de Modo">
+                ⚙️ NOVO JOGO
+            </button>
+        </div>
+    </header>
+
+    <!-- FAIXA DO PLAYER DA VEZ (HUD MARIO WORLD) -->
+    <div class="active-team-strip">
+        <div id="active-team-banner" class="active-team-text">
+            <span class="team-dot" style="background-color: #0058f8"></span>
+            PLAYER 1: <strong>Equipe Adam Smith</strong> • Líder: <strong>Anna Clara</strong>
+        </div>
+    </div>
+
+    <!-- PALCO PRINCIPAL DO JOGO -->
+    <main class="main-stage">
+        
+        <!-- ARENA DA ROLETA RETRÔ -->
+        <section class="roulette-arena">
+            <div class="canvas-wrapper">
+                <canvas id="roulette-canvas" width="460" height="460"></canvas>
+            </div>
+
+            <div class="roulette-controls">
+                <button id="btn-spin-wheel" class="btn-spin-master">
+                    <span class="spin-icon">🎲</span>
+                    <span>GIRAR ROLETA</span>
+                </button>
+                <div id="spin-hint" class="spin-hint-text">
+                    PRESSIONE <span class="spin-shortcut-kbd">ESPAÇO</span> PARA SORTEAR!
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD DOS PLAYERS / BANCADAS -->
+        <section class="dashboard-arena">
+            <div class="arena-title-bar">
+                <h2 class="arena-title">BANCADAS & LÍDERES</h2>
+                <button id="btn-open-teams-setup" class="btn-ctrl btn-ctrl-gold" style="padding: 4px 10px; font-size: 0.6rem;">
+                    ✏️ EDITAR EQUIPES
+                </button>
+            </div>
+
+            <div id="teams-grid" class="teams-grid">
+                <!-- Renderizado via JS com nome e líder -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL DE PERGUNTA (MESSAGE BLOCK SNES) -->
+    <div id="question-modal" class="modal-overlay">
+        <div class="modal-card-master">
+            
+            <div class="question-top-bar">
+                <span id="modal-category-badge" class="category-tag-pill">
+                    ⚖️ LIVRE CONCORRÊNCIA
+                </span>
+
+                <!-- Temporizador 16-Bits -->
+                <div class="timer-radial-box">
+                    <svg class="timer-svg" viewBox="0 0 100 100">
+                        <circle class="timer-bg-circle" cx="50" cy="50" r="40"></circle>
+                        <circle id="timer-svg-circle" class="timer-progress-circle" cx="50" cy="50" r="40"></circle>
+                    </svg>
+                    <div id="timer-text" class="timer-number-overlay">20</div>
+                </div>
+            </div>
+
+            <!-- Barra de Power-ups / Curingas -->
+            <div class="lifelines-bar">
+                <span class="lifelines-label">POWER-UPS:</span>
+                <div class="lifelines-buttons">
+                    <button id="btn-lifeline-bomba" class="btn-lifeline" title="Elimina 2 alternativas com Bob-omb (Atalho B)">
+                        💣 BOB-OMB (50:50) [1]
+                    </button>
+                    <button id="btn-lifeline-chance" class="btn-lifeline" style="display:none;" title="Segunda tentativa com 1-UP Mushroom">
+                        🍄 1-UP (CHANCE) [0]
+                    </button>
+                    <button id="btn-lifeline-duelo" class="btn-lifeline" style="display:none;" title="Desafio Super Star contra rival">
+                        ⭐ DUELO [0]
+                    </button>
+                    <button id="btn-pause-timer" class="btn-lifeline" title="Pausar contagem (Atalho P)">
+                        ⏸ PAUSE
+                    </button>
+                </div>
+            </div>
+
+            <!-- Enunciado -->
+            <div class="question-statement-box">
+                <p id="modal-question-text" class="question-text">Carregando pergunta...</p>
+            </div>
+
+            <!-- Alternativas (A, B, C, D) -->
+            <div id="modal-options-grid" class="options-grid">
+                <!-- Opções via JS -->
+            </div>
+
+            <!-- Comentário Relâmpago do Mediador -->
+            <div id="commentary-card" class="commentary-card">
+                <div class="commentary-header">
+                    <span class="commentary-tag">🎙️ NOTA DO MEDIADOR (GABARITO FUNDAMENTADO)</span>
+                    <span id="commentary-status" class="commentary-status">✅ RESPOSTA CORRETA</span>
+                </div>
+                <div id="commentary-text" class="commentary-body">
+                    Fundamentação doutrinária e jurisprudencial...
+                </div>
+                <button id="btn-next-turn" class="btn-next-action">
+                    <span>PRÓXIMO TURNO</span>
+                    <span>➔</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL CASA COROA (SUPER ITEM SELECT) -->
+    <div id="crown-modal" class="modal-overlay">
+        <div class="modal-card-master crown-modal-inner">
+            <div class="crown-hero-icon">👑</div>
+            <h2 class="crown-title">CASA COROA: ITEM LIVRE!</h2>
+            <p class="crown-desc">A bancada tirou a Coroa e tem o privilégio de escolher qualquer categoria para tentar conquistar o item que ainda lhe falta:</p>
+
+            <div id="crown-choices-grid" class="crown-choices-grid">
+                <!-- Fatias via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL MORTE SÚBITA (BOSS BATTLE / DESEMPATE) -->
+    <div id="sudden-death-modal" class="modal-overlay">
+        <div class="modal-card-master sd-modal-inner">
+            <div class="sd-badge-header">⚡ MORTE SÚBITA • DESEMPATE FINAL</div>
+            <h3 style="margin-bottom: 10px; font-family: var(--font-pixel); font-size: 0.85rem;">REGRAS DA MORTE SÚBITA:</h3>
+            <p style="color: #4b5563; margin-bottom: 16px; font-family: var(--font-reading); font-size: 1rem; font-weight: 600;">
+                O mediador lê a pergunta sem alternativas. A primeira bancada empatada a levantar a mão responde. Se acertar, conquista a vitória imediata!
+            </p>
+
+            <div id="sd-question-text" class="sd-q-box">
+                Carregando pergunta de desempate...
+            </div>
+
+            <div id="sd-answer-panel" class="sd-answer-panel">
+                <div class="sd-answer-title">Gabarito e Justificativa Oficial:</div>
+                <div id="sd-answer-text" class="sd-answer-content"></div>
+                <div id="sd-rationale-text" class="sd-rationale-content"></div>
+            </div>
+
+            <div class="sd-actions-bar">
+                <button id="btn-reveal-sd" class="btn-ctrl btn-ctrl-gold" style="padding: 10px 18px; font-size: 0.75rem;">
+                    🔍 REVELAR RESPOSTA
+                </button>
+                <button id="btn-next-sd" class="btn-ctrl">
+                    🔄 OUTRA PERGUNTA
+                </button>
+                <button id="btn-close-sd" class="btn-ctrl">
+                    ✕ FECHAR
+                </button>
+            </div>
+
+            <div id="sd-teams-award" class="sd-teams-award">
+                <!-- Botões para conceder vitória via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE VITÓRIA / COURSE CLEAR -->
+    <div id="victory-modal" class="modal-overlay">
+        <div class="modal-card-master victory-modal-inner">
+            <div class="victory-trophy-large">🏆</div>
+            <h2 id="victory-team-name" class="victory-title-main">COURSE CLEAR!</h2>
+            <p id="victory-team-badges" class="victory-stats-text">Conquistou as insígnias temáticas!</p>
+
+            <h3 style="margin-bottom: 14px; font-family: var(--font-pixel); font-size: 0.85rem;">CLASSIFICAÇÃO FINAL</h3>
+            <div id="victory-podium" class="podium-grid">
+                <!-- Pódio via JS -->
+            </div>
+
+            <button id="btn-play-again" class="btn-spin-master" style="margin: 0 auto;">
+                <span>🔄 RESTART GAME</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL DE REGISTRO DAS EQUIPES E LÍDERES -->
+    <div id="setup-modal" class="modal-overlay">
+        <div class="modal-card-master setup-modal-inner">
+            <h2 class="setup-title">👥 REGISTRO DAS BANCADAS E LÍDERES</h2>
+            <p class="setup-desc">Insira o nome de cada equipe e identifique seus respectivos líderes / porta-vozes para a dinâmica.</p>
+
+            <!-- Seção de Equipes e Líderes -->
+            <div class="teams-setup-inputs">
+                <!-- Bancada 1 -->
+                <div class="team-setup-card">
+                    <div class="team-setup-badge player-1-tag">PLAYER 1</div>
+                    <div class="team-input-grid">
+                        <div class="input-field-box">
+                            <label for="input-team-1">Nome da Equipe:</label>
+                            <input type="text" id="input-team-1" class="team-input-field" value="Equipe Adam Smith" placeholder="Ex: Equipe Adam Smith">
+                        </div>
+                        <div class="input-field-box">
+                            <label for="input-leader-1">Líder / Porta-Voz:</label>
+                            <input type="text" id="input-leader-1" class="team-input-field leader-input" value="Anna Clara" placeholder="Nome do(a) orador(a)">
+                        </div>
+                        <div class="input-field-box avatar-box">
+                            <label for="input-avatar-1">Avatar:</label>
+                            <select id="input-avatar-1" class="team-input-field select-avatar">
+                                <option value="🍄" selected>🍄 Mario</option>
+                                <option value="⚡">⚡ Luigi</option>
+                                <option value="⭐">⭐ Yoshi</option>
+                                <option value="👑">👑 Peach</option>
+                                <option value="🦖">🦖 Bowser</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bancada 2 -->
+                <div class="team-setup-card">
+                    <div class="team-setup-badge player-2-tag">PLAYER 2</div>
+                    <div class="team-input-grid">
+                        <div class="input-field-box">
+                            <label for="input-team-2">Nome da Equipe:</label>
+                            <input type="text" id="input-team-2" class="team-input-field" value="Equipe Joseph Schumpeter" placeholder="Ex: Equipe Schumpeter">
+                        </div>
+                        <div class="input-field-box">
+                            <label for="input-leader-2">Líder / Porta-Voz:</label>
+                            <input type="text" id="input-leader-2" class="team-input-field leader-input" value="Bruno" placeholder="Nome do(a) orador(a)">
+                        </div>
+                        <div class="input-field-box avatar-box">
+                            <label for="input-avatar-2">Avatar:</label>
+                            <select id="input-avatar-2" class="team-input-field select-avatar">
+                                <option value="🍄">🍄 Mario</option>
+                                <option value="⚡" selected>⚡ Luigi</option>
+                                <option value="⭐">⭐ Yoshi</option>
+                                <option value="👑">👑 Peach</option>
+                                <option value="🦖">🦖 Bowser</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bancada 3 -->
+                <div class="team-setup-card">
+                    <div class="team-setup-badge player-3-tag">PLAYER 3</div>
+                    <div class="team-input-grid">
+                        <div class="input-field-box">
+                            <label for="input-team-3">Nome da Equipe:</label>
+                            <input type="text" id="input-team-3" class="team-input-field" value="Equipe Celso Furtado" placeholder="Ex: Equipe Celso Furtado">
+                        </div>
+                        <div class="input-field-box">
+                            <label for="input-leader-3">Líder / Porta-Voz:</label>
+                            <input type="text" id="input-leader-3" class="team-input-field leader-input" value="Natália & Arralys" placeholder="Nome do(a) orador(a)">
+                        </div>
+                        <div class="input-field-box avatar-box">
+                            <label for="input-avatar-3">Avatar:</label>
+                            <select id="input-avatar-3" class="team-input-field select-avatar">
+                                <option value="🍄">🍄 Mario</option>
+                                <option value="⚡">⚡ Luigi</option>
+                                <option value="⭐" selected>⭐ Yoshi</option>
+                                <option value="👑">👑 Peach</option>
+                                <option value="🦖">🦖 Bowser</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formato de Tempo -->
+            <div class="setup-section-title">FORMATO DE DURAÇÃO</div>
+            <div class="mode-selection-cards">
+                <label class="mode-radio-label">
+                    <input type="radio" name="game-mode-select" value="EXPRESS" checked>
+                    <span class="mode-card-title">⚡ TIME ATTACK (15 MIN)</span>
+                    <span class="mode-card-desc">3 rodadas (9 perguntas total), 20s de cronômetro, 1 Bob-omb (50:50) e desempate por Morte Súbita.</span>
+                </label>
+
+                <label class="mode-radio-label">
+                    <input type="radio" name="game-mode-select" value="CLASSIC">
+                    <span class="mode-card-title">🏆 WORLD TOUR (25-30 MIN)</span>
+                    <span class="mode-card-desc">Disputa até fechar as 4 insígnias, 30s de cronômetro, 3 power-ups (Bob-omb, 1-UP e Duelo).</span>
+                </label>
+            </div>
+
+            <button id="btn-start-game" class="btn-spin-master" style="width: 100%; justify-content: center;">
+                <span>💾 SALVAR & INICIAR JOGO</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL DE BANCO DE QUESTÕES & CADASTRO DE NOVAS PERGUNTAS -->
+    <div id="questions-manager-modal" class="modal-overlay">
+        <div class="modal-card-master qm-modal-inner">
+            <div class="qm-header-bar">
+                <div>
+                    <h2 class="setup-title">📚 BANCO DE QUESTÕES & EDITOR</h2>
+                    <p class="setup-desc">Visualize as questões oficiais do seminário e adicione novas perguntas personalizadas da sua equipe.</p>
+                </div>
+                <button id="btn-close-qm" class="btn-ctrl" style="padding: 8px 14px; font-size: 0.8rem;">✕ FECHAR</button>
+            </div>
+
+            <!-- Botão para Expandir Formulário de Nova Questão e Ações de Exportação/Importação -->
+            <div class="qm-actions-top">
+                <button id="btn-toggle-add-form" class="btn-ctrl btn-ctrl-gold" style="padding: 10px 18px; font-size: 0.72rem;">
+                    ➕ CADASTRAR NOVA QUESTÃO
+                </button>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button id="btn-export-questions" class="btn-ctrl" style="font-size: 0.65rem; background: #2b7a3d;" title="Baixar todas as perguntas em formato JSON">
+                        📥 Exportar JSON
+                    </button>
+                    <label class="btn-ctrl" style="font-size: 0.65rem; background: #1c5285; cursor: pointer; display: inline-flex; align-items: center;" title="Carregar arquivo JSON de perguntas">
+                        📤 Importar JSON
+                        <input type="file" id="input-import-questions" accept=".json" style="display: none;">
+                    </label>
+                    <button id="btn-reset-questions" class="btn-ctrl" style="font-size: 0.65rem;" title="Restaura o banco padrão original">
+                        🔄 Restaurar Padrão
+                    </button>
+                </div>
+            </div>
+
+            <!-- Formulário de Cadastro de Nova Questão (oculto inicialmente) -->
+            <form id="form-new-question" class="new-question-form" style="display: none;">
+                <h3 class="setup-section-title">➕ CADASTRAR NOVA PERGUNTA</h3>
+                
+                <div class="input-field-box">
+                    <label for="new-q-category">Selecione o Tema / Categoria:</label>
+                    <select id="new-q-category" class="team-input-field" required>
+                        <option value="livre_concorrencia">⚖️ Livre Concorrência (Brasil)</option>
+                        <option value="tratamento_pme">🏢 Tratamento Favorecido a PMEs (Brasil)</option>
+                        <option value="modelo_china">🇨🇳 Modelo Concorrencial da China</option>
+                        <option value="ordem_alemanha">🇩🇪 Ordem Econômica na Alemanha</option>
+                    </select>
+                </div>
+
+                <div class="input-field-box" style="margin-top: 10px;">
+                    <label for="new-q-statement">Enunciado da Questão:</label>
+                    <textarea id="new-q-statement" class="team-input-field qm-textarea" rows="3" placeholder="Digite o enunciado completo da pergunta..." required></textarea>
+                </div>
+
+                <div class="qm-options-inputs-grid" style="margin-top: 10px;">
+                    <div class="input-field-box">
+                        <label for="new-q-opt-0">Alternativa A:</label>
+                        <input type="text" id="new-q-opt-0" class="team-input-field" placeholder="Texto da Alternativa A" required>
+                    </div>
+                    <div class="input-field-box">
+                        <label for="new-q-opt-1">Alternativa B:</label>
+                        <input type="text" id="new-q-opt-1" class="team-input-field" placeholder="Texto da Alternativa B" required>
+                    </div>
+                    <div class="input-field-box">
+                        <label for="new-q-opt-2">Alternativa C:</label>
+                        <input type="text" id="new-q-opt-2" class="team-input-field" placeholder="Texto da Alternativa C" required>
+                    </div>
+                    <div class="input-field-box">
+                        <label for="new-q-opt-3">Alternativa D:</label>
+                        <input type="text" id="new-q-opt-3" class="team-input-field" placeholder="Texto da Alternativa D" required>
+                    </div>
+                </div>
+
+                <div class="input-field-box" style="margin-top: 10px;">
+                    <label for="new-q-correct">Alternativa Correta (Gabarito Oficial):</label>
+                    <select id="new-q-correct" class="team-input-field" required>
+                        <option value="0">Alternativa A (Opção 1)</option>
+                        <option value="1">Alternativa B (Opção 2)</option>
+                        <option value="2">Alternativa C (Opção 3)</option>
+                        <option value="3">Alternativa D (Opção 4)</option>
+                    </select>
+                </div>
+
+                <div class="input-field-box" style="margin-top: 10px;">
+                    <label for="new-q-commentary">Comentário Relâmpago do Mediador (Justificativa doutrinária/jurisprudencial):</label>
+                    <textarea id="new-q-commentary" class="team-input-field qm-textarea" rows="2" placeholder="Fundamente a resposta citando autores, leis ou acórdãos (ex: Forgioni, CADE, STF ARE 1378976, GWB)..." required></textarea>
+                </div>
+
+                <div style="margin-top: 14px; display: flex; gap: 10px;">
+                    <button type="submit" class="btn-ctrl btn-ctrl-gold" style="padding: 10px 20px;">💾 SALVAR NO JOGO</button>
+                    <button type="button" id="btn-cancel-add-form" class="btn-ctrl">CANCELAR</button>
+                </div>
+            </form>
+
+            <!-- Abas de Filtro por Categoria -->
+            <div class="qm-tabs-bar">
+                <button class="qm-tab-btn active" data-category="all">TODAS (<span id="count-all">32</span>)</button>
+                <button class="qm-tab-btn" data-category="livre_concorrencia">⚖️ CONCORRÊNCIA (<span id="count-lc">7</span>)</button>
+                <button class="qm-tab-btn" data-category="tratamento_pme">🏢 PMEs (<span id="count-pme">7</span>)</button>
+                <button class="qm-tab-btn" data-category="modelo_china">🇨🇳 CHINA (<span id="count-ch">6</span>)</button>
+                <button class="qm-tab-btn" data-category="ordem_alemanha">🇩🇪 ALEMANHA (<span id="count-de">7</span>)</button>
+                <button class="qm-tab-btn" data-category="morte_subita">⚡ MORTE SÚBITA (<span id="count-sd">5</span>)</button>
+            </div>
+
+            <!-- Lista de Perguntas Renderizadas -->
+            <div id="qm-questions-list" class="qm-questions-list">
+                <!-- Inserido dinamicamente via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS DO JOGO -->
+    <script src="js/questions.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/roulette.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Livros e materiais de leitura pesados (evita exceder limite do GitHub)
+Livros/
+*.pdf
+
+# Arquivos de sistema e editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
