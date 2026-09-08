@@ -49,6 +49,10 @@ function getAvatarSprite(key, size = 20) {
     return item.svg.replace('width="20" height="20"', `width="${size}" height="${size}"`);
 }
 
+function getLeaderCrownSvg(size = 12) {
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="${size}" height="${size}" shape-rendering="crispEdges" style="vertical-align: middle; flex-shrink: 0;"><rect x="2" y="4" width="2" height="2" fill="#000"/><rect x="7" y="2" width="2" height="2" fill="#000"/><rect x="12" y="4" width="2" height="2" fill="#000"/><rect x="2" y="6" width="12" height="1" fill="#000"/><rect x="2" y="7" width="1" height="5" fill="#000"/><rect x="13" y="7" width="1" height="5" fill="#000"/><rect x="3" y="7" width="10" height="5" fill="#f8b800"/><rect x="6" y="5" width="4" height="4" fill="#e52521"/><rect x="7" y="8" width="2" height="2" fill="#ffffff"/><rect x="7" y="9" width="2" height="1" fill="#e52521"/><rect x="4" y="9" width="1" height="2" fill="#0058f8"/><rect x="11" y="9" width="1" height="2" fill="#0058f8"/><rect x="2" y="12" width="12" height="1" fill="#ffffff"/><rect x="2" y="13" width="12" height="1" fill="#000000"/></svg>`;
+}
+
 class DidacticGame {
     constructor() {
         this.mode = "EXPRESS"; // "EXPRESS" (15 min) ou "CLASSIC" (25-30 min)
@@ -1011,7 +1015,7 @@ class DidacticGame {
                 <div class="podium-rank">${medals[idx]}</div>
                 <div class="podium-avatar">${this.getAvatarHtml(team.avatar, 36)}</div>
                 <div class="podium-name">${team.name}</div>
-                <div class="podium-leader">👑 Líder: ${team.leader}</div>
+                <div class="podium-leader">${getLeaderCrownSvg(12)} <span>LÍDER: <strong>${team.leader}</strong></span></div>
                 <div class="podium-stats">
                     <span>🎖️ ${team.badges.size} ITENS</span>
                     <span>🟡 ${team.score} PTS</span>
@@ -1047,7 +1051,7 @@ class DidacticGame {
             const btn = document.createElement("button");
             btn.className = "btn-sd-award";
             btn.style.borderColor = t.color;
-            btn.innerHTML = `${this.getAvatarHtml(t.avatar, 18)} ${t.name} (Líder: ${t.leader})`;
+            btn.innerHTML = `${this.getAvatarHtml(t.avatar, 18)} ${t.name} (${getLeaderCrownSvg(11)} LÍDER: ${t.leader})`;
             btn.addEventListener("click", () => {
                 this.closeSuddenDeath();
                 this.triggerVictory(t, "CAMPEÃO NA MORTE SÚBITA!");
@@ -1106,7 +1110,7 @@ class DidacticGame {
                     <span class="team-avatar">${this.getAvatarHtml(team.avatar, 24)}</span>
                     <div class="team-info">
                         <div class="team-name">${team.name}</div>
-                        <div class="team-leader-label">👑 Líder: <strong>${team.leader}</strong></div>
+                        <div class="team-leader-label">${getLeaderCrownSvg(12)} <span>LÍDER: <strong>${team.leader}</strong></span></div>
                     </div>
                     <div class="team-score">🟡 ${team.score}</div>
                 </div>

@@ -473,16 +473,26 @@ body::after {
 }
 
 .team-leader-label {
-    font-family: var(--font-reading);
-    font-size: 0.85rem;
-    font-weight: 700;
+    font-family: var(--font-pixel);
+    font-size: 0.52rem;
+    line-height: 1.3;
     color: #1e3a8a;
-    background: rgba(0, 88, 248, 0.1);
-    border: 1px solid rgba(0, 88, 248, 0.3);
-    padding: 2px 6px;
+    background: #e8f2ff;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
+    padding: 3px 6px;
     border-radius: 4px;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.team-leader-label strong {
+    color: #000000;
+    font-weight: normal;
 }
 
 .team-score {
@@ -1263,13 +1273,24 @@ select.team-input-field {
 }
 
 .podium-leader {
-    font-family: var(--font-reading);
-    font-size: 0.8rem;
-    font-weight: 700;
+    font-family: var(--font-pixel);
+    font-size: 0.52rem;
+    line-height: 1.3;
     color: #1e3a8a;
-    background: rgba(0, 88, 248, 0.1);
-    padding: 2px 6px;
+    background: #e8f2ff;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
+    padding: 3px 6px;
     border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: uppercase;
+}
+
+.podium-leader strong {
+    color: #000000;
+    font-weight: normal;
 }
 
 .podium-stats {
