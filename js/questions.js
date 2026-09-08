@@ -136,6 +136,32 @@ const QUESTIONS_BANK = {
             ],
             correctIndex: 0,
             commentary: "Um dos axiomas do Direito Antitruste é: 'a lei protege a concorrência, não os concorrentes ineficientes'. A intervenção só se legitima quando a conduta de um agente ameaça as próprias condições de rivalidade no mercado e o consumidor."
+        },
+        {
+            id: "lc_8",
+            category: "livre_concorrencia",
+            question: "Uma lei municipal determina que duas farmácias concorrentes devem estar separadas por, no mínimo, 1 km. Segundo o entendimento apresentado no roteiro, essa norma:",
+            options: [
+                "É automaticamente válida porque municípios podem organizar seu território.",
+                "É válida sempre que tiver como justificativa o planejamento urbano.",
+                "Pode criar uma reserva artificial de mercado e violar a livre concorrência.",
+                "É obrigatória para evitar excesso de concorrência."
+            ],
+            correctIndex: 2,
+            commentary: "É justamente o problema enfrentado pela Súmula Vinculante 49. O STF considerou inconstitucionais restrições locais de distância mínima entre estabelecimentos do mesmo ramo porque elas podem criar reservas artificiais de mercado."
+        },
+        {
+            id: "lc_9",
+            category: "livre_concorrencia",
+            question: "Qual das situações abaixo melhor representa a finalidade econômica da livre concorrência?",
+            options: [
+                "Garantir que todas as empresas tenham exatamente o mesmo faturamento.",
+                "Impedir que qualquer empresa obtenha lucro elevado.",
+                "Estimular empresas a melhorar produtos, inovar e reduzir preços para conquistar consumidores.",
+                "Garantir preferência permanente às empresas nacionais."
+            ],
+            correctIndex: 2,
+            commentary: "A concorrência funciona como mecanismo de eficiência alocativa e produtiva: a disputa leva os agentes a buscar melhor qualidade, inovação e preços mais competitivos, beneficiando o consumidor."
         }
     ],
 
@@ -230,6 +256,19 @@ const QUESTIONS_BANK = {
             ],
             correctIndex: 0,
             commentary: "A legislação estabelece itens exclusivos para MPEs em compras públicas de até R$ 80 mil, além de margem de preferência e direito de desempate ficto, utilizando o poder de compra do Estado para descentralizar o mercado."
+        },
+        {
+            id: "pme_8",
+            category: "tratamento_pme",
+            question: "Qual alternativa apresenta corretamente uma das razões pelas quais o tratamento favorecido pode funcionar como instrumento de promoção da própria concorrência?",
+            options: [
+                "Porque elimina a necessidade de competição.",
+                "Porque impede que empresas grandes obtenham qualquer vantagem econômica.",
+                "Porque ajuda a manter maior pluralidade de agentes no mercado.",
+                "Porque transforma todas as empresas em empresas de pequeno porte."
+            ],
+            correctIndex: 2,
+            commentary: "O raciocínio é que, sem mecanismos de correção das desigualdades, empresas pequenas poderiam desaparecer diante de grandes oligopólios. O favorecimento busca preservar a pluralidade de agentes, oxigenando a competição."
         }
     ],
 
@@ -311,6 +350,45 @@ const QUESTIONS_BANK = {
             ],
             correctIndex: 0,
             commentary: "Enquanto o modelo da CF/88 erige o mercado sobre a Livre Iniciativa privada cabendo ao Estado papel regulador supletivo, a China integra mercado e planejamento estatal sob o controle estratégico do Partido e das estatais."
+        },
+        {
+            id: "ch_7",
+            category: "modelo_china",
+            question: "Imagine que o Estado chinês identifique uma pequena empresa de tecnologia especializada em chips como estratégica para o desenvolvimento nacional. Com base no que foi apresentado, é mais coerente afirmar que o Estado:",
+            options: [
+                "Deve obrigatoriamente deixar a empresa completamente independente de políticas estatais.",
+                "Pode utilizar políticas de fomento para estimular sua inovação e inserção estratégica.",
+                "Deve transformar imediatamente a empresa em estatal.",
+                "Deve impedir que a empresa exporte."
+            ],
+            correctIndex: 1,
+            commentary: "O caráter pragmático e estratégico do modelo chinês: PMEs privadas podem ser fomentadas pelo Estado por seu potencial de inovação, geração de patentes, flexibilidade e exportação."
+        },
+        {
+            id: "ch_8",
+            category: "modelo_china",
+            question: "Quem são os chamados 'Pequenos Gigantes' no contexto apresentado sobre a China?",
+            options: [
+                "Grandes empresas estatais chinesas.",
+                "Pequenas e microindústrias especializadas em setores estratégicos e tecnológicos.",
+                "Empresas estrangeiras instaladas na China.",
+                "Órgãos governamentais responsáveis pelo planejamento econômico."
+            ],
+            correctIndex: 1,
+            commentary: "Os 'Little Giants' são apresentados como micro e pequenas indústrias especializadas, especialmente em nichos como chips, robótica e biotecnologia, dentro da estratégia chinesa de fortalecimento tecnológico."
+        },
+        {
+            id: "ch_9",
+            category: "modelo_china",
+            question: "Qual é uma das principais diferenças entre Brasil e China destacadas?",
+            options: [
+                "O Brasil possui planejamento estatal central agressivo, enquanto a China é essencialmente reguladora.",
+                "Brasil e China possuem exatamente o mesmo modelo econômico.",
+                "O Brasil é apresentado como essencialmente regulador e com intervenção excepcional, enquanto a China utiliza planejamento estatal intenso.",
+                "A China não admite empresas privadas."
+            ],
+            correctIndex: 2,
+            commentary: "Essa é uma das comparações centrais do trabalho: o Brasil constitucionaliza a economia de mercado e prevê intervenção estatal em determinadas situações, enquanto a China combina mercado com planejamento estatal intenso e propriedade pública estratégica."
         }
     ],
 
@@ -405,6 +483,45 @@ const QUESTIONS_BANK = {
             ],
             correctIndex: 0,
             commentary: "O clássico dispositivo alemão 'Eigentum verpflichtet. Sein Gebrauch soll zugleich dem Wohle der Allgemeinheit dienen' (Art. 14.2) é o marco mundial da função social da propriedade, legitimando a regulação social do mercado."
+        },
+        {
+            id: "de_8",
+            category: "ordem_alemanha",
+            question: "O princípio da neutralidade econômica alemã significa que:",
+            options: [
+                "O Estado não pode intervir de nenhuma maneira na economia.",
+                "A Constituição não determina que toda atividade econômica seja estatal, mas impõe seu modelo obrigatório.",
+                "A Constituição não impõe um modelo econômico específico, mas estabelece balizas jurídicas e sociais.",
+                "Empresas podem atuar sem qualquer limite jurídico."
+            ],
+            correctIndex: 2,
+            commentary: "Neutralidade econômica não significa ausência de regras. São balizas o Estado Social, a função social da propriedade e a liberdade profissional, entre outros direitos fundamentais."
+        },
+        {
+            id: "de_9",
+            category: "ordem_alemanha",
+            question: "O ordoliberalismo da Escola de Freiburg parte da ideia de que:",
+            options: [
+                "O mercado deve ser completamente abandonado em favor do planejamento estatal.",
+                "O Estado deve criar e preservar uma ordem jurídica capaz de impedir a cartelização e proteger a concorrência.",
+                "O mercado se autorregula perfeitamente e dispensa intervenção jurídica, apesar da concorrência.",
+                "A propriedade privada deve ser mitigada."
+            ],
+            correctIndex: 1,
+            commentary: "Para o ordoliberalismo, o mercado não necessariamente se autorregula de maneira espontânea. Por isso, o Estado deve estabelecer uma estrutura jurídica, a Ordnungspolitik, capaz de preservar a ordem concorrencial."
+        },
+        {
+            id: "de_10",
+            category: "ordem_alemanha",
+            question: "Na Alemanha, a Seção 19a do GWB foi apresentada como mecanismo especialmente relevante para:",
+            options: [
+                "Impedir qualquer atuação de empresas estrangeiras.",
+                "Permitir atuação preventiva contra condutas abusivas de grandes plataformas digitais.",
+                "Criar reservas de mercado para grandes empresas.",
+                "Eliminar o Mittelstand."
+            ],
+            correctIndex: 1,
+            commentary: "A Seção 19a do GWB, segundo o roteiro, conferiu ao Bundeskartellamt poderes preventivos contra condutas unilaterais abusivas de grandes plataformas digitais com relevância primordial para a concorrência."
         }
     ]
 };

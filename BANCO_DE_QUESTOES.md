@@ -2,7 +2,7 @@
 **Seminário Acadêmico de Direito Econômico**  
 *Tema Central: A Constituição Econômica e o Poder Judiciário — Livre Concorrência e Tratamento Favorecido a PMEs (Brasil, China e Alemanha)*
 
-Total de Questões Cadastradas no Jogo: **32 Questões** (27 de Múltipla Escolha + 5 de Morte Súbita)
+Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolha + 5 de Morte Súbita)
 
 ---
 
@@ -79,6 +79,26 @@ Total de Questões Cadastradas no Jogo: **32 Questões** (27 de Múltipla Escolh
 - **Gabarito**: **A**
 - **Comentário do Mediador**: Um dos axiomas do Direito Antitruste é: 'a lei protege a concorrência, não os concorrentes ineficientes'. A intervenção só se legitima quando a conduta de um agente ameaça as próprias condições de rivalidade no mercado e o consumidor.
 
+### Questão LC-08 (Roteiro: Distância Mínima de 1 km entre Farmácias)
+- **Enunciado**: Uma lei municipal determina que duas farmácias concorrentes devem estar separadas por, no mínimo, 1 km. Segundo o entendimento apresentado no roteiro, essa norma:
+- **Alternativas**:
+  - **A)** É automaticamente válida porque municípios podem organizar seu território.
+  - **B)** É válida sempre que tiver como justificativa o planejamento urbano.
+  - **C)** Pode criar uma reserva artificial de mercado e violar a livre concorrência. *(CORRETA)*
+  - **D)** É obrigatória para evitar excesso de concorrência.
+- **Gabarito**: **C**
+- **Comentário do Mediador**: É justamente o problema enfrentado pela Súmula Vinculante 49. O STF considerou inconstitucionais restrições locais de distância mínima entre estabelecimentos do mesmo ramo porque elas podem criar reservas artificiais de mercado.
+
+### Questão LC-09 (Roteiro: Finalidade Econômica da Livre Concorrência)
+- **Enunciado**: Qual das situações abaixo melhor representa a finalidade econômica da livre concorrência?
+- **Alternativas**:
+  - **A)** Garantir que todas as empresas tenham exatamente o mesmo faturamento.
+  - **B)** Impedir que qualquer empresa obtenha lucro elevado.
+  - **C)** Estimular empresas a melhorar produtos, inovar e reduzir preços para conquistar consumidores. *(CORRETA)*
+  - **D)** Garantir preferência permanente às empresas nacionais.
+- **Gabarito**: **C**
+- **Comentário do Mediador**: A concorrência funciona como mecanismo de eficiência alocativa e produtiva: a disputa leva os agentes a buscar melhor qualidade, inovação e preços mais competitivos, beneficiando o consumidor.
+
 ---
 
 ## 🏢 Categoria 2: Tratamento Favorecido a PMEs (Brasil)
@@ -154,6 +174,16 @@ Total de Questões Cadastradas no Jogo: **32 Questões** (27 de Múltipla Escolh
 - **Gabarito**: **A**
 - **Comentário do Mediador**: A legislação estabelece itens exclusivos para MPEs em compras públicas de até R$ 80 mil, além de margem de preferência e direito de desempate ficto, utilizando o poder de compra do Estado para descentralizar o mercado.
 
+### Questão PME-08 (Roteiro: Tratamento Favorecido e Pluralidade Concorrencial)
+- **Enunciado**: Qual alternativa apresenta corretamente uma das razões pelas quais o tratamento favorecido pode funcionar como instrumento de promoção da própria concorrência?
+- **Alternativas**:
+  - **A)** Porque elimina a necessidade de competição.
+  - **B)** Porque impede que empresas grandes obtenham qualquer vantagem econômica.
+  - **C)** Porque ajuda a manter maior pluralidade de agentes no mercado. *(CORRETA)*
+  - **D)** Porque transforma todas as empresas em empresas de pequeno porte.
+- **Gabarito**: **C**
+- **Comentário do Mediador**: O raciocínio é que, sem mecanismos de correção das desigualdades, empresas pequenas poderiam desaparecer diante de grandes oligopólios. O favorecimento busca preservar a pluralidade de agentes, oxigenando a competição.
+
 ---
 
 ## 🇨🇳 Categoria 3: Modelo Concorrencial da China
@@ -218,6 +248,36 @@ Total de Questões Cadastradas no Jogo: **32 Questões** (27 de Múltipla Escolh
   - **D)** Ambos os países possuem modelos idênticos de controle antitruste sem nenhuma distinção ideológica ou institucional.
 - **Gabarito**: **A**
 - **Comentário do Mediador**: Enquanto o modelo da CF/88 erige o mercado sobre a Livre Iniciativa privada cabendo ao Estado papel regulador supletivo, a China integra mercado e planejamento estatal sob o controle estratégico do Partido e das estatais.
+
+### Questão CH-07 (Roteiro: PME Tecnológica de Chips e Fomento Estatal)
+- **Enunciado**: Imagine que o Estado chinês identifique uma pequena empresa de tecnologia especializada em chips como estratégica para o desenvolvimento nacional. Com base no que foi apresentado, é mais coerente afirmar que o Estado:
+- **Alternativas**:
+  - **A)** Deve obrigatoriamente deixar a empresa completamente independente de políticas estatais.
+  - **B)** Pode utilizar políticas de fomento para estimular sua inovação e inserção estratégica. *(CORRETA)*
+  - **C)** Deve transformar imediatamente a empresa em estatal.
+  - **D)** Deve impedir que a empresa exporte.
+- **Gabarito**: **B**
+- **Comentário do Mediador**: O caráter pragmático e estratégico do modelo chinês: PMEs privadas podem ser fomentadas pelo Estado por seu potencial de inovação, geração de patentes, flexibilidade e exportação.
+
+### Questão CH-08 (Roteiro: Definição dos 'Pequenos Gigantes')
+- **Enunciado**: Quem são os chamados “Pequenos Gigantes” no contexto apresentado sobre a China?
+- **Alternativas**:
+  - **A)** Grandes empresas estatais chinesas.
+  - **B)** Pequenas e microindústrias especializadas em setores estratégicos e tecnológicos. *(CORRETA)*
+  - **C)** Empresas estrangeiras instaladas na China.
+  - **D)** Órgãos governamentais responsáveis pelo planejamento econômico.
+- **Gabarito**: **B**
+- **Comentário do Mediador**: Os “Little Giants” são apresentados como micro e pequenas indústrias especializadas, especialmente em nichos como chips, robótica e biotecnologia, dentro da estratégia chinesa de fortalecimento tecnológico.
+
+### Questão CH-09 (Roteiro: Diferença Central Brasil vs. China)
+- **Enunciado**: Qual é uma das principais diferenças entre Brasil e China destacadas?
+- **Alternativas**:
+  - **A)** O Brasil possui planejamento estatal central agressivo, enquanto a China é essencialmente reguladora.
+  - **B)** Brasil e China possuem exatamente o mesmo modelo econômico.
+  - **C)** O Brasil é apresentado como essencialmente regulador e com intervenção excepcional, enquanto a China utiliza planejamento estatal intenso. *(CORRETA)*
+  - **D)** A China não admite empresas privadas.
+- **Gabarito**: **C**
+- **Comentário do Mediador**: Essa é uma das comparações centrais do trabalho: o Brasil constitucionaliza a economia de mercado e prevê intervenção estatal em determinadas situações, enquanto a China combina mercado com planejamento estatal intenso e propriedade pública estratégica.
 
 ---
 
@@ -293,6 +353,36 @@ Total de Questões Cadastradas no Jogo: **32 Questões** (27 de Múltipla Escolh
   - **D)** 'A propriedade só é reconhecida para cidadãos maiores de 50 anos de idade residentes na Baviera.'
 - **Gabarito**: **A**
 - **Comentário do Mediador**: O clássico dispositivo alemão 'Eigentum verpflichtet. Sein Gebrauch soll zugleich dem Wohle der Allgemeinheit dienen' (Art. 14.2) é o marco mundial da função social da propriedade, legitimando a regulação social do mercado.
+
+### Questão DE-08 (Roteiro: Significado da Neutralidade Econômica Alemã)
+- **Enunciado**: O princípio da neutralidade econômica alemã significa que:
+- **Alternativas**:
+  - **A)** O Estado não pode intervir de nenhuma maneira na economia.
+  - **B)** A Constituição não determina que toda atividade econômica seja estatal, mas impõe seu modelo obrigatório.
+  - **C)** A Constituição não impõe um modelo econômico específico, mas estabelece balizas jurídicas e sociais. *(CORRETA)*
+  - **D)** Empresas podem atuar sem qualquer limite jurídico.
+- **Gabarito**: **C**
+- **Comentário do Mediador**: Neutralidade econômica não significa ausência de regras. São balizas o Estado Social, a função social da propriedade e a liberdade profissional, entre outros direitos fundamentais.
+
+### Questão DE-09 (Roteiro: Ordoliberalismo de Freiburg e a Ordem Jurídica)
+- **Enunciado**: O ordoliberalismo da Escola de Freiburg parte da ideia de que:
+- **Alternativas**:
+  - **A)** O mercado deve ser completamente abandonado em favor do planejamento estatal.
+  - **B)** O Estado deve criar e preservar uma ordem jurídica capaz de impedir a cartelização e proteger a concorrência. *(CORRETA)*
+  - **C)** O mercado se autorregula perfeitamente e dispensa intervenção jurídica, apesar da concorrência.
+  - **D)** A propriedade privada deve ser mitigada.
+- **Gabarito**: **B**
+- **Comentário do Mediador**: Para o ordoliberalismo, o mercado não necessariamente se autorregula de maneira espontânea. Por isso, o Estado deve estabelecer uma estrutura jurídica, a Ordnungspolitik, capaz de preservar a ordem concorrencial.
+
+### Questão DE-10 (Roteiro: Seção 19a do GWB e Grandes Plataformas Digitais)
+- **Enunciado**: Na Alemanha, a Seção 19a do GWB foi apresentada como mecanismo especialmente relevante para:
+- **Alternativas**:
+  - **A)** Impedir qualquer atuação de empresas estrangeiras.
+  - **B)** Permitir atuação preventiva contra condutas abusivas de grandes plataformas digitais. *(CORRETA)*
+  - **C)** Criar reservas de mercado para grandes empresas.
+  - **D)** Eliminar o Mittelstand.
+- **Gabarito**: **B**
+- **Comentário do Mediador**: A Seção 19a do GWB, segundo o roteiro, conferiu ao Bundeskartellamt poderes preventivos contra condutas unilaterais abusivas de grandes plataformas digitais com relevância primordial para a concorrência.
 
 ---
 

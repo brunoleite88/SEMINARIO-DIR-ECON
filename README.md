@@ -36,7 +36,7 @@ O jogo pode ser executado diretamente pelo navegador através do link oficial:
 
 ## 📚 Banco de Questões
 
-O dossiê completo contendo todas as 32 questões detalhadas (enunciados, alternativas, gabaritos oficiais e justificativas doutrinárias) está documentado no arquivo:
+O dossiê completo contendo todas as 41 questões detalhadas (36 de múltipla escolha + 5 de morte súbita, com enunciados, alternativas, gabaritos oficiais e justificativas doutrinárias) está documentado no arquivo:
 👉 [BANCO_DE_QUESTOES.md](./BANCO_DE_QUESTOES.md)
 
 ---
