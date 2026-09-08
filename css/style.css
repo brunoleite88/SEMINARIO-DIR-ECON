@@ -749,21 +749,39 @@ body::after {
 
 /* Enunciado da Pergunta */
 .question-statement-box {
-    background: #ffffff;
+    background: #fff9d6;
+    background: linear-gradient(180deg, #fffceb 0%, #fff4c2 100%);
     border: 3px solid #000000;
-    border-left: 8px solid #f8b800;
-    box-shadow: 4px 4px 0px #000000;
+    border-left: 10px solid #f89800;
+    box-shadow: inset 2px 2px 0px #ffffff, inset -2px -2px 0px #e6c86e, 4px 4px 0px #000000;
     padding: 18px 22px;
-    border-radius: 6px;
+    border-radius: 8px;
     margin-bottom: 22px;
+    position: relative;
+}
+
+.question-header-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #000000;
+    color: #f8b800;
+    font-family: var(--font-pixel);
+    font-size: 0.58rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
 }
 
 .question-text {
     font-family: var(--font-reading);
-    font-size: 1.28rem;
-    font-weight: 700;
-    color: #000000;
-    line-height: 1.55;
+    font-size: 1.40rem;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.5;
 }
 
 /* Alternativas */
