@@ -360,9 +360,12 @@
                 </div>
             </div>
 
-            <!-- Formulário de Cadastro de Nova Questão (oculto inicialmente) -->
+            <!-- Formulário de Cadastro / Edição de Questões (oculto inicialmente) -->
             <form id="form-new-question" class="new-question-form" style="display: none;">
-                <h3 class="setup-section-title">➕ CADASTRAR NOVA PERGUNTA</h3>
+                <input type="hidden" id="edit-q-id" value="">
+                <input type="hidden" id="edit-q-cat" value="">
+                
+                <h3 id="form-question-title" class="setup-section-title">➕ CADASTRAR NOVA PERGUNTA</h3>
                 
                 <div class="input-field-box">
                     <label for="new-q-category">Selecione o Tema / Categoria:</label>
@@ -371,6 +374,7 @@
                         <option value="tratamento_pme">🏢 Tratamento Favorecido a PMEs (Brasil)</option>
                         <option value="modelo_china">🇨🇳 Modelo Concorrencial da China</option>
                         <option value="ordem_alemanha">🇩🇪 Ordem Econômica na Alemanha</option>
+                        <option value="morte_subita">⚡ Morte Súbita (Pergunta Discursiva)</option>
                     </select>
                 </div>
 
@@ -379,42 +383,51 @@
                     <textarea id="new-q-statement" class="team-input-field qm-textarea" rows="3" placeholder="Digite o enunciado completo da pergunta..." required></textarea>
                 </div>
 
-                <div class="qm-options-inputs-grid" style="margin-top: 10px;">
-                    <div class="input-field-box">
-                        <label for="new-q-opt-0">Alternativa A:</label>
-                        <input type="text" id="new-q-opt-0" class="team-input-field" placeholder="Texto da Alternativa A" required>
+                <!-- Campos de Múltipla Escolha (para as 4 categorias) -->
+                <div id="qm-multiple-choice-fields">
+                    <div class="qm-options-inputs-grid" style="margin-top: 10px;">
+                        <div class="input-field-box">
+                            <label for="new-q-opt-0">Alternativa A:</label>
+                            <input type="text" id="new-q-opt-0" class="team-input-field" placeholder="Texto da Alternativa A">
+                        </div>
+                        <div class="input-field-box">
+                            <label for="new-q-opt-1">Alternativa B:</label>
+                            <input type="text" id="new-q-opt-1" class="team-input-field" placeholder="Texto da Alternativa B">
+                        </div>
+                        <div class="input-field-box">
+                            <label for="new-q-opt-2">Alternativa C:</label>
+                            <input type="text" id="new-q-opt-2" class="team-input-field" placeholder="Texto da Alternativa C">
+                        </div>
+                        <div class="input-field-box">
+                            <label for="new-q-opt-3">Alternativa D:</label>
+                            <input type="text" id="new-q-opt-3" class="team-input-field" placeholder="Texto da Alternativa D">
+                        </div>
                     </div>
-                    <div class="input-field-box">
-                        <label for="new-q-opt-1">Alternativa B:</label>
-                        <input type="text" id="new-q-opt-1" class="team-input-field" placeholder="Texto da Alternativa B" required>
-                    </div>
-                    <div class="input-field-box">
-                        <label for="new-q-opt-2">Alternativa C:</label>
-                        <input type="text" id="new-q-opt-2" class="team-input-field" placeholder="Texto da Alternativa C" required>
-                    </div>
-                    <div class="input-field-box">
-                        <label for="new-q-opt-3">Alternativa D:</label>
-                        <input type="text" id="new-q-opt-3" class="team-input-field" placeholder="Texto da Alternativa D" required>
+
+                    <div id="qm-correct-box" class="input-field-box" style="margin-top: 10px;">
+                        <label for="new-q-correct">Alternativa Correta (Gabarito Oficial):</label>
+                        <select id="new-q-correct" class="team-input-field">
+                            <option value="0">Alternativa A (Opção 1)</option>
+                            <option value="1">Alternativa B (Opção 2)</option>
+                            <option value="2">Alternativa C (Opção 3)</option>
+                            <option value="3">Alternativa D (Opção 4)</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="input-field-box" style="margin-top: 10px;">
-                    <label for="new-q-correct">Alternativa Correta (Gabarito Oficial):</label>
-                    <select id="new-q-correct" class="team-input-field" required>
-                        <option value="0">Alternativa A (Opção 1)</option>
-                        <option value="1">Alternativa B (Opção 2)</option>
-                        <option value="2">Alternativa C (Opção 3)</option>
-                        <option value="3">Alternativa D (Opção 4)</option>
-                    </select>
+                <!-- Campo de Resposta Esperada (apenas para Morte Súbita) -->
+                <div id="qm-sudden-death-fields" class="input-field-box" style="margin-top: 10px; display: none;">
+                    <label for="new-q-sd-answer">Resposta Esperada / Palavras-chave:</label>
+                    <input type="text" id="new-q-sd-answer" class="team-input-field" placeholder="Ex: Artigo 170, IX da CF/88, CADE, etc.">
                 </div>
 
                 <div class="input-field-box" style="margin-top: 10px;">
-                    <label for="new-q-commentary">Comentário Relâmpago do Mediador (Justificativa doutrinária/jurisprudencial):</label>
+                    <label id="lbl-q-commentary" for="new-q-commentary">Comentário Relâmpago do Mediador (Justificativa doutrinária/jurisprudencial):</label>
                     <textarea id="new-q-commentary" class="team-input-field qm-textarea" rows="2" placeholder="Fundamente a resposta citando autores, leis ou acórdãos (ex: Forgioni, CADE, STF ARE 1378976, GWB)..." required></textarea>
                 </div>
 
-                <div style="margin-top: 14px; display: flex; gap: 10px;">
-                    <button type="submit" class="btn-ctrl btn-ctrl-gold" style="padding: 10px 20px;">💾 SALVAR NO JOGO</button>
+                <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button type="submit" id="btn-submit-question-form" class="btn-ctrl btn-ctrl-gold" style="padding: 10px 20px;">💾 SALVAR NO JOGO</button>
                     <button type="button" id="btn-cancel-add-form" class="btn-ctrl">CANCELAR</button>
                 </div>
             </form>

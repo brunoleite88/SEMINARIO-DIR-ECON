@@ -134,6 +134,10 @@ class DidacticGame {
             importQuestionsInput: document.getElementById("input-import-questions"),
             qmTabs: document.querySelectorAll(".qm-tab-btn"),
             qmQuestionsList: document.getElementById("qm-questions-list"),
+            newQCategory: document.getElementById("new-q-category"),
+            mcFields: document.getElementById("qm-multiple-choice-fields"),
+            sdFields: document.getElementById("qm-sudden-death-fields"),
+            lblCommentary: document.getElementById("lbl-q-commentary"),
 
             // Modal de Configuração e Registro das Equipes
             setupModal: document.getElementById("setup-modal"),
@@ -223,6 +227,9 @@ class DidacticGame {
         }
         if (this.el.importQuestionsInput) {
             this.el.importQuestionsInput.addEventListener("change", (e) => this.handleImportQuestions(e));
+        }
+        if (this.el.newQCategory) {
+            this.el.newQCategory.addEventListener("change", (e) => this.handleCategoryChange(e.target.value));
         }
         if (this.el.qmTabs) {
             this.el.qmTabs.forEach(tab => {
@@ -862,13 +869,46 @@ class DidacticGame {
     // ==========================================
     loadCustomQuestionsFromStorage() {
         try {
+            // 1. Carrega edições / alterações feitas em questões legadas oficiais
+            const overridesRaw = localStorage.getItem("seminar_questions_overrides");
+            if (overridesRaw) {
+                const overrides = JSON.parse(overridesRaw);
+                Object.keys(QUESTIONS_BANK).forEach(cat => {
+                    QUESTIONS_BANK[cat].forEach(q => {
+                        if (overrides[q.id]) {
+                            Object.assign(q, overrides[q.id]);
+                            q.isEdited = true;
+                        }
+                    });
+                });
+                if (overrides.morte_subita && Array.isArray(SUDDEN_DEATH_QUESTIONS)) {
+                    SUDDEN_DEATH_QUESTIONS.forEach(q => {
+                        if (overrides.morte_subita[q.id]) {
+                            Object.assign(q, overrides.morte_subita[q.id]);
+                            q.isEdited = true;
+                        }
+                    });
+                }
+            }
+
+            // 2. Carrega novas questões personalizadas criadas pela equipe
             const raw = localStorage.getItem("custom_seminar_questions");
             if (raw) {
                 const parsed = JSON.parse(raw);
                 Object.keys(parsed).forEach(cat => {
-                    if (QUESTIONS_BANK[cat]) {
+                    if (cat === "morte_subita") {
+                        if (Array.isArray(parsed.morte_subita)) {
+                            parsed.morte_subita.forEach(q => {
+                                if (!SUDDEN_DEATH_QUESTIONS.some(existing => existing.id === q.id)) {
+                                    q.isCustom = true;
+                                    SUDDEN_DEATH_QUESTIONS.push(q);
+                                }
+                            });
+                        }
+                    } else if (QUESTIONS_BANK[cat]) {
                         parsed[cat].forEach(q => {
                             if (!QUESTIONS_BANK[cat].some(existing => existing.id === q.id)) {
+                                q.isCustom = true;
                                 QUESTIONS_BANK[cat].push(q);
                             }
                         });
@@ -876,7 +916,38 @@ class DidacticGame {
                 });
             }
         } catch (e) {
-            console.warn("Erro ao carregar questões personalizadas:", e);
+            console.warn("Erro ao carregar questões personalizadas ou edições:", e);
+        }
+    }
+
+    saveOverridesToStorage() {
+        try {
+            const overrides = {};
+            Object.keys(QUESTIONS_BANK).forEach(cat => {
+                QUESTIONS_BANK[cat].forEach(q => {
+                    if (q.isEdited && !q.isCustom) {
+                        overrides[q.id] = {
+                            question: q.question,
+                            options: q.options,
+                            correctIndex: q.correctIndex,
+                            commentary: q.commentary
+                        };
+                    }
+                });
+            });
+            overrides.morte_subita = {};
+            SUDDEN_DEATH_QUESTIONS.forEach(q => {
+                if (q.isEdited && !q.isCustom) {
+                    overrides.morte_subita[q.id] = {
+                        question: q.question,
+                        answer: q.answer,
+                        rationale: q.rationale
+                    };
+                }
+            });
+            localStorage.setItem("seminar_questions_overrides", JSON.stringify(overrides));
+        } catch (e) {
+            console.warn("Erro ao salvar edições de questões:", e);
         }
     }
 
@@ -886,9 +957,23 @@ class DidacticGame {
             Object.keys(QUESTIONS_BANK).forEach(cat => {
                 customOnly[cat] = QUESTIONS_BANK[cat].filter(q => q.isCustom);
             });
+            customOnly.morte_subita = SUDDEN_DEATH_QUESTIONS.filter(q => q.isCustom);
             localStorage.setItem("custom_seminar_questions", JSON.stringify(customOnly));
         } catch (e) {
             console.warn("Erro ao salvar questões personalizadas:", e);
+        }
+    }
+
+    handleCategoryChange(catId) {
+        if (!this.el.mcFields || !this.el.sdFields) return;
+        const isSd = (catId === "morte_subita");
+        this.el.mcFields.style.display = isSd ? "none" : "block";
+        this.el.sdFields.style.display = isSd ? "block" : "none";
+
+        if (this.el.lblCommentary) {
+            this.el.lblCommentary.innerText = isSd 
+                ? "Critério de Avaliação / Justificativa Doutrinária:" 
+                : "Comentário Relâmpago do Mediador (Justificativa doutrinária/jurisprudencial):";
         }
     }
 
@@ -906,53 +991,217 @@ class DidacticGame {
 
     toggleAddQuestionForm() {
         const isHidden = this.el.formNewQ.style.display === "none";
-        this.el.formNewQ.style.display = isHidden ? "block" : "none";
-        this.el.toggleAddFormBtn.innerHTML = isHidden ? "✕ FECHAR FORMULÁRIO" : "➕ CADASTRAR NOVA QUESTÃO";
         if (isHidden) {
+            this.resetFormToNew();
+            this.el.formNewQ.style.display = "block";
+            this.el.toggleAddFormBtn.innerHTML = "✕ FECHAR FORMULÁRIO";
             document.getElementById("new-q-statement").focus();
+        } else {
+            this.hideAddQuestionForm();
         }
     }
 
-    hideAddQuestionForm() {
+    resetFormToNew() {
         this.el.formNewQ.reset();
+        const idInput = document.getElementById("edit-q-id");
+        const catInput = document.getElementById("edit-q-cat");
+        if (idInput) idInput.value = "";
+        if (catInput) catInput.value = "";
+
+        const catSelect = document.getElementById("new-q-category");
+        if (catSelect) {
+            catSelect.disabled = false;
+            catSelect.value = "livre_concorrencia";
+        }
+        this.handleCategoryChange("livre_concorrencia");
+
+        const titleEl = document.getElementById("form-question-title");
+        const submitBtn = document.getElementById("btn-submit-question-form");
+        if (titleEl) titleEl.innerText = "➕ CADASTRAR NOVA PERGUNTA";
+        if (submitBtn) submitBtn.innerText = "💾 SALVAR NO JOGO";
+    }
+
+    hideAddQuestionForm() {
+        this.resetFormToNew();
         this.el.formNewQ.style.display = "none";
         this.el.toggleAddFormBtn.innerHTML = "➕ CADASTRAR NOVA QUESTÃO";
     }
 
-    handleSaveNewQuestion(e) {
-        e.preventDefault();
-        const cat = document.getElementById("new-q-category").value;
-        const statement = document.getElementById("new-q-statement").value.trim();
-        const opt0 = document.getElementById("new-q-opt-0").value.trim();
-        const opt1 = document.getElementById("new-q-opt-1").value.trim();
-        const opt2 = document.getElementById("new-q-opt-2").value.trim();
-        const opt3 = document.getElementById("new-q-opt-3").value.trim();
-        const correctIdx = parseInt(document.getElementById("new-q-correct").value, 10);
-        const commentary = document.getElementById("new-q-commentary").value.trim();
+    startEditQuestion(catId, qId) {
+        let q = null;
+        if (catId === "morte_subita") {
+            q = SUDDEN_DEATH_QUESTIONS.find(item => item.id === qId);
+        } else if (QUESTIONS_BANK[catId]) {
+            q = QUESTIONS_BANK[catId].find(item => item.id === qId);
+        }
 
-        if (!statement || !opt0 || !opt1 || !opt2 || !opt3 || !commentary) {
-            alert("Por favor, preencha todos os campos da questão!");
+        if (!q) return;
+
+        this.el.formNewQ.style.display = "block";
+        this.el.toggleAddFormBtn.innerHTML = "✕ FECHAR FORMULÁRIO";
+
+        const idInput = document.getElementById("edit-q-id");
+        const catInput = document.getElementById("edit-q-cat");
+        if (idInput) idInput.value = q.id;
+        if (catInput) catInput.value = catId;
+
+        const catSelect = document.getElementById("new-q-category");
+        if (catSelect) {
+            catSelect.value = catId;
+            catSelect.disabled = true; // Fixa categoria durante a edição
+        }
+
+        this.handleCategoryChange(catId);
+
+        document.getElementById("new-q-statement").value = q.question || "";
+
+        if (catId === "morte_subita") {
+            const sdAns = document.getElementById("new-q-sd-answer");
+            const comm = document.getElementById("new-q-commentary");
+            if (sdAns) sdAns.value = q.answer || "";
+            if (comm) comm.value = q.rationale || "";
+        } else {
+            if (q.options) {
+                document.getElementById("new-q-opt-0").value = q.options[0] || "";
+                document.getElementById("new-q-opt-1").value = q.options[1] || "";
+                document.getElementById("new-q-opt-2").value = q.options[2] || "";
+                document.getElementById("new-q-opt-3").value = q.options[3] || "";
+            }
+            document.getElementById("new-q-correct").value = q.correctIndex ?? 0;
+            document.getElementById("new-q-commentary").value = q.commentary || "";
+        }
+
+        const titleEl = document.getElementById("form-question-title");
+        const submitBtn = document.getElementById("btn-submit-question-form");
+        if (titleEl) titleEl.innerText = `✏️ EDITANDO QUESTÃO (${q.id.toUpperCase()})`;
+        if (submitBtn) submitBtn.innerText = "💾 SALVAR ALTERAÇÕES";
+
+        sounds.playCoin();
+        this.el.formNewQ.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    restoreSingleQuestion(catId, qId) {
+        if (!confirm("Deseja restaurar esta questão ao seu texto original oficial do seminário?")) {
             return;
         }
 
-        const newQ = {
-            id: `custom_${cat}_${Date.now()}`,
-            category: cat,
-            question: statement,
-            options: [opt0, opt1, opt2, opt3],
-            correctIndex: correctIdx,
-            commentary: commentary,
-            isCustom: true
-        };
-
-        if (!QUESTIONS_BANK[cat]) {
-            QUESTIONS_BANK[cat] = [];
+        if (catId === "morte_subita") {
+            const orig = ORIGINAL_SUDDEN_DEATH_QUESTIONS.find(q => q.id === qId);
+            const target = SUDDEN_DEATH_QUESTIONS.find(q => q.id === qId);
+            if (orig && target) {
+                target.question = orig.question;
+                target.answer = orig.answer;
+                target.rationale = orig.rationale;
+                delete target.isEdited;
+            }
+        } else if (QUESTIONS_BANK[catId]) {
+            const orig = ORIGINAL_QUESTIONS_BANK[catId].find(q => q.id === qId);
+            const target = QUESTIONS_BANK[catId].find(q => q.id === qId);
+            if (orig && target) {
+                target.question = orig.question;
+                target.options = [...orig.options];
+                target.correctIndex = orig.correctIndex;
+                target.commentary = orig.commentary;
+                delete target.isEdited;
+            }
         }
-        QUESTIONS_BANK[cat].push(newQ);
-        this.saveCustomQuestionsToStorage();
 
-        sounds.playCorrect();
-        alert(`✅ Questão cadastrada com sucesso no tema ${CATEGORIES[cat].name}!\nEla já está ativa e poderá ser sorteada na roleta!`);
+        this.saveOverridesToStorage();
+        sounds.playCoin();
+        this.updateQuestionCounts();
+        this.renderQuestionsManagerList();
+        alert("✅ Questão restaurada para a versão oficial com sucesso!");
+    }
+
+    handleSaveNewQuestion(e) {
+        e.preventDefault();
+        const editId = document.getElementById("edit-q-id").value;
+        const editCat = document.getElementById("edit-q-cat").value;
+        const cat = editId ? editCat : document.getElementById("new-q-category").value;
+        const statement = document.getElementById("new-q-statement").value.trim();
+        const commentary = document.getElementById("new-q-commentary").value.trim();
+
+        if (cat === "morte_subita") {
+            const answer = document.getElementById("new-q-sd-answer").value.trim();
+            if (!statement || !answer || !commentary) {
+                alert("Por favor, preencha todos os campos da questão discursiva!");
+                return;
+            }
+
+            if (editId) {
+                const target = SUDDEN_DEATH_QUESTIONS.find(q => q.id === editId);
+                if (target) {
+                    target.question = statement;
+                    target.answer = answer;
+                    target.rationale = commentary;
+                    target.isEdited = true;
+                }
+                if (target && target.isCustom) {
+                    this.saveCustomQuestionsToStorage();
+                } else {
+                    this.saveOverridesToStorage();
+                }
+                sounds.play1Up();
+                alert(`✅ Questão de Morte Súbita (${editId.toUpperCase()}) atualizada com sucesso!`);
+            } else {
+                const newQ = {
+                    id: `custom_sd_${Date.now()}`,
+                    title: "Questão Personalizada da Equipe",
+                    question: statement,
+                    answer: answer,
+                    rationale: commentary,
+                    isCustom: true
+                };
+                SUDDEN_DEATH_QUESTIONS.push(newQ);
+                this.saveCustomQuestionsToStorage();
+                sounds.play1Up();
+                alert("✅ Nova questão de Morte Súbita cadastrada com sucesso!");
+            }
+        } else {
+            const opt0 = document.getElementById("new-q-opt-0").value.trim();
+            const opt1 = document.getElementById("new-q-opt-1").value.trim();
+            const opt2 = document.getElementById("new-q-opt-2").value.trim();
+            const opt3 = document.getElementById("new-q-opt-3").value.trim();
+            const correctIdx = parseInt(document.getElementById("new-q-correct").value, 10);
+
+            if (!statement || !opt0 || !opt1 || !opt2 || !opt3 || !commentary) {
+                alert("Por favor, preencha o enunciado, todas as 4 alternativas e o comentário!");
+                return;
+            }
+
+            if (editId) {
+                const target = QUESTIONS_BANK[cat].find(q => q.id === editId);
+                if (target) {
+                    target.question = statement;
+                    target.options = [opt0, opt1, opt2, opt3];
+                    target.correctIndex = correctIdx;
+                    target.commentary = commentary;
+                    target.isEdited = true;
+                }
+                if (target && target.isCustom) {
+                    this.saveCustomQuestionsToStorage();
+                } else {
+                    this.saveOverridesToStorage();
+                }
+                sounds.play1Up();
+                alert(`✅ Questão (${editId.toUpperCase()}) atualizada com sucesso! As alterações já estão ativas na roleta.`);
+            } else {
+                const newQ = {
+                    id: `custom_${cat}_${Date.now()}`,
+                    category: cat,
+                    question: statement,
+                    options: [opt0, opt1, opt2, opt3],
+                    correctIndex: correctIdx,
+                    commentary: commentary,
+                    isCustom: true
+                };
+                if (!QUESTIONS_BANK[cat]) QUESTIONS_BANK[cat] = [];
+                QUESTIONS_BANK[cat].push(newQ);
+                this.saveCustomQuestionsToStorage();
+                sounds.playCorrect();
+                alert(`✅ Questão cadastrada com sucesso no tema ${CATEGORIES[cat].name}!\nEla já está ativa e poderá ser sorteada na roleta.`);
+            }
+        }
 
         this.hideAddQuestionForm();
         this.updateQuestionCounts();
@@ -960,8 +1209,9 @@ class DidacticGame {
     }
 
     handleResetQuestions() {
-        if (confirm("Deseja realmente restaurar o banco para as questões oficiais do seminário? As questões personalizadas serão removidas.")) {
+        if (confirm("Deseja realmente restaurar o banco para as questões originais do seminário? Todas as edições e perguntas personalizadas serão removidas.")) {
             localStorage.removeItem("custom_seminar_questions");
+            localStorage.removeItem("seminar_questions_overrides");
             location.reload();
         }
     }
@@ -970,8 +1220,10 @@ class DidacticGame {
         try {
             const dataToExport = {
                 exportedAt: new Date().toISOString(),
+                overrides: JSON.parse(localStorage.getItem("seminar_questions_overrides") || "{}"),
                 customQuestions: JSON.parse(localStorage.getItem("custom_seminar_questions") || "{}"),
-                fullBank: QUESTIONS_BANK
+                fullBank: QUESTIONS_BANK,
+                suddenDeath: SUDDEN_DEATH_QUESTIONS
             };
             const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
             const url = URL.createObjectURL(blob);
@@ -983,7 +1235,7 @@ class DidacticGame {
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             sounds.playCoin();
-            alert("📥 Arquivo JSON com o banco de questões exportado com sucesso!\nVocê pode compartilhar esse arquivo com seus colegas.");
+            alert("📥 Arquivo JSON exportado com sucesso contendo todas as questões, edições e novidades da equipe!");
         } catch (err) {
             console.error(err);
             alert("Erro ao exportar questões.");
@@ -998,11 +1250,43 @@ class DidacticGame {
         reader.onload = (event) => {
             try {
                 const parsed = JSON.parse(event.target.result);
-                let importedCustom = parsed.customQuestions || parsed;
-                let addedCount = 0;
+                let importedOverrides = parsed.overrides || {};
+                let importedCustom = parsed.customQuestions || {};
 
+                // 1. Aplica edições/overrides
+                Object.keys(importedOverrides).forEach(key => {
+                    if (key === "morte_subita") {
+                        Object.keys(importedOverrides.morte_subita).forEach(sdId => {
+                            const target = SUDDEN_DEATH_QUESTIONS.find(q => q.id === sdId);
+                            if (target) {
+                                Object.assign(target, importedOverrides.morte_subita[sdId]);
+                                target.isEdited = true;
+                            }
+                        });
+                    } else {
+                        Object.keys(QUESTIONS_BANK).forEach(cat => {
+                            const target = QUESTIONS_BANK[cat].find(q => q.id === key);
+                            if (target) {
+                                Object.assign(target, importedOverrides[key]);
+                                target.isEdited = true;
+                            }
+                        });
+                    }
+                });
+                this.saveOverridesToStorage();
+
+                // 2. Aplica novas questões customizadas
+                let addedCount = 0;
                 Object.keys(importedCustom).forEach(cat => {
-                    if (QUESTIONS_BANK[cat] && Array.isArray(importedCustom[cat])) {
+                    if (cat === "morte_subita" && Array.isArray(importedCustom.morte_subita)) {
+                        importedCustom.morte_subita.forEach(q => {
+                            if (!SUDDEN_DEATH_QUESTIONS.some(existing => existing.id === q.id || existing.question === q.question)) {
+                                q.isCustom = true;
+                                SUDDEN_DEATH_QUESTIONS.push(q);
+                                addedCount++;
+                            }
+                        });
+                    } else if (QUESTIONS_BANK[cat] && Array.isArray(importedCustom[cat])) {
                         importedCustom[cat].forEach(q => {
                             if (!QUESTIONS_BANK[cat].some(existing => existing.id === q.id || existing.question === q.question)) {
                                 q.isCustom = true;
@@ -1012,12 +1296,12 @@ class DidacticGame {
                         });
                     }
                 });
-
                 this.saveCustomQuestionsToStorage();
+
                 sounds.play1Up();
                 this.updateQuestionCounts();
                 this.renderQuestionsManagerList();
-                alert(`🎉 Sucesso! ${addedCount} nova(s) questão(ões) foram importadas e adicionadas ao jogo!`);
+                alert(`🎉 Importação concluída!\nEdições aplicadas e ${addedCount} nova(s) questão(ões) incorporadas com sucesso.`);
             } catch (err) {
                 console.error(err);
                 alert("Erro ao ler o arquivo JSON. Certifique-se de que é um formato válido exportado pelo jogo.");
@@ -1029,8 +1313,13 @@ class DidacticGame {
     }
 
     deleteCustomQuestion(cat, id) {
-        if (confirm("Tem certeza que deseja remover esta questão personalizada?")) {
-            QUESTIONS_BANK[cat] = QUESTIONS_BANK[cat].filter(q => q.id !== id);
+        if (confirm("Tem certeza que deseja remover esta questão personalizada da equipe?")) {
+            if (cat === "morte_subita") {
+                const idx = SUDDEN_DEATH_QUESTIONS.findIndex(q => q.id === id);
+                if (idx !== -1) SUDDEN_DEATH_QUESTIONS.splice(idx, 1);
+            } else if (QUESTIONS_BANK[cat]) {
+                QUESTIONS_BANK[cat] = QUESTIONS_BANK[cat].filter(q => q.id !== id);
+            }
             this.saveCustomQuestionsToStorage();
             sounds.playWrong();
             this.updateQuestionCounts();
@@ -1046,16 +1335,24 @@ class DidacticGame {
         const sd = SUDDEN_DEATH_QUESTIONS.length;
         const total = lc + pme + ch + de + sd;
 
-        document.getElementById("count-all").innerText = total;
-        document.getElementById("count-lc").innerText = lc;
-        document.getElementById("count-pme").innerText = pme;
-        document.getElementById("count-ch").innerText = ch;
-        document.getElementById("count-de").innerText = de;
-        document.getElementById("count-sd").innerText = sd;
+        const countAll = document.getElementById("count-all");
+        const countLc = document.getElementById("count-lc");
+        const countPme = document.getElementById("count-pme");
+        const countCh = document.getElementById("count-ch");
+        const countDe = document.getElementById("count-de");
+        const countSd = document.getElementById("count-sd");
+
+        if (countAll) countAll.innerText = total;
+        if (countLc) countLc.innerText = lc;
+        if (countPme) countPme.innerText = pme;
+        if (countCh) countCh.innerText = ch;
+        if (countDe) countDe.innerText = de;
+        if (countSd) countSd.innerText = sd;
     }
 
     renderQuestionsManagerList() {
         const container = this.el.qmQuestionsList;
+        if (!container) return;
         container.innerHTML = "";
 
         const filter = this.qmActiveFilter;
@@ -1065,10 +1362,29 @@ class DidacticGame {
             SUDDEN_DEATH_QUESTIONS.forEach((q, idx) => {
                 const card = document.createElement("div");
                 card.className = "qm-card";
+                const isEdited = q.isEdited;
+                const isCustom = q.isCustom;
+
+                const editBtn = `<button class="btn-ctrl btn-ctrl-gold" style="font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.startEditQuestion('morte_subita', '${q.id}')">✏️ Editar</button>`;
+                const restoreBtn = (isEdited && !isCustom) 
+                    ? `<button class="btn-ctrl" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.restoreSingleQuestion('morte_subita', '${q.id}')" title="Reverter para o texto original">↩️ Restaurar</button>` 
+                    : '';
+                const deleteBtn = isCustom
+                    ? `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.deleteCustomQuestion('morte_subita', '${q.id}')">🗑️ Excluir</button>`
+                    : '';
+
                 card.innerHTML = `
                     <div class="qm-card-header">
-                        <span class="qm-cat-tag" style="background: #ef4444;">⚡ MORTE SÚBITA #${idx + 1}</span>
-                        <span style="font-family: var(--font-pixel); font-size: 0.6rem; color: #6b7280;">DESEMPATE</span>
+                        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                            <span class="qm-cat-tag" style="background: #ef4444;">⚡ MORTE SÚBITA #${idx + 1}</span>
+                            ${isEdited ? '<span style="background:#2563eb; color:#fff; font-family:var(--font-pixel); font-size:0.5rem; padding:2px 6px; border-radius:3px;">EDITADA</span>' : ''}
+                            ${isCustom ? '<span style="background:#10b981; color:#fff; font-family:var(--font-pixel); font-size:0.5rem; padding:2px 6px; border-radius:3px;">EQUIPE</span>' : ''}
+                        </div>
+                        <div style="display:flex; gap:6px;">
+                            ${editBtn}
+                            ${restoreBtn}
+                            ${deleteBtn}
+                        </div>
                     </div>
                     <div class="qm-card-q">${q.question}</div>
                     <div class="qm-card-options">
@@ -1110,14 +1426,30 @@ class DidacticGame {
                 `;
             });
 
-            const deleteBtnHtml = q.isCustom
-                ? `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:3px 8px;" onclick="gameInstance.deleteCustomQuestion('${catId}', '${q.id}')">🗑️ Excluir</button>`
-                : `<span style="font-family: var(--font-pixel); font-size: 0.55rem; color:#6b7280;">OFICIAL #${index}</span>`;
+            const isEdited = q.isEdited;
+            const isCustom = q.isCustom;
+
+            const editBtn = `<button class="btn-ctrl btn-ctrl-gold" style="font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.startEditQuestion('${catId}', '${q.id}')">✏️ Editar</button>`;
+            const restoreBtn = (isEdited && !isCustom)
+                ? `<button class="btn-ctrl" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.restoreSingleQuestion('${catId}', '${q.id}')" title="Reverter para o texto original">↩️ Restaurar</button>`
+                : '';
+            const deleteBtn = isCustom
+                ? `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.deleteCustomQuestion('${catId}', '${q.id}')">🗑️ Excluir</button>`
+                : '';
 
             card.innerHTML = `
                 <div class="qm-card-header">
-                    <span class="qm-cat-tag" style="background: ${cat.color};">${cat.badgeIcon} ${cat.name.toUpperCase()}</span>
-                    ${deleteBtnHtml}
+                    <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                        <span class="qm-cat-tag" style="background: ${cat.color};">${cat.badgeIcon} ${cat.name.toUpperCase()}</span>
+                        <span style="font-family: var(--font-pixel); font-size: 0.55rem; color:#6b7280;">#${index}</span>
+                        ${isEdited ? '<span style="background:#2563eb; color:#fff; font-family:var(--font-pixel); font-size:0.5rem; padding:2px 6px; border-radius:3px;">EDITADA</span>' : ''}
+                        ${isCustom ? '<span style="background:#10b981; color:#fff; font-family:var(--font-pixel); font-size:0.5rem; padding:2px 6px; border-radius:3px;">EQUIPE</span>' : ''}
+                    </div>
+                    <div style="display:flex; gap:6px;">
+                        ${editBtn}
+                        ${restoreBtn}
+                        ${deleteBtn}
+                    </div>
                 </div>
                 <div class="qm-card-q">${q.question}</div>
                 <div class="qm-card-options">

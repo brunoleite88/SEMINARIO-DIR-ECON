@@ -447,3 +447,8 @@ const SUDDEN_DEATH_QUESTIONS = [
         rationale: "Autarquia federal vinculada ao Ministério da Justiça, estruturada pela Lei nº 12.529/2011."
     }
 ];
+
+// Cópias originais de backup para permitir restauração de questões legadas editadas
+const ORIGINAL_QUESTIONS_BANK = JSON.parse(JSON.stringify(QUESTIONS_BANK));
+const ORIGINAL_SUDDEN_DEATH_QUESTIONS = JSON.parse(JSON.stringify(SUDDEN_DEATH_QUESTIONS));
+
