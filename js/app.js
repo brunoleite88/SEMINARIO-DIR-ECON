@@ -133,6 +133,7 @@ class DidacticGame {
         this.initElements();
         this.initRoulette();
         this.bindEvents();
+        this.applyConfigVisuals();
         this.updateUI();
     }
 
@@ -213,6 +214,7 @@ class DidacticGame {
             // Modal de Configurações Avançadas do Jogo (16-Bits)
             btnOpenSettings: document.getElementById("btn-open-settings"),
             settingsModal: document.getElementById("settings-modal"),
+            btnSaveSettingsTop: document.getElementById("btn-save-settings-top"),
             btnCloseSettings: document.getElementById("btn-close-settings"),
             btnCancelSettings: document.getElementById("btn-cancel-settings"),
             btnSaveSettings: document.getElementById("btn-save-settings"),
@@ -333,11 +335,14 @@ class DidacticGame {
         if (this.el.btnOpenSettings) {
             this.el.btnOpenSettings.addEventListener("click", () => this.openSettingsModal());
         }
+        if (this.el.btnSaveSettingsTop) {
+            this.el.btnSaveSettingsTop.addEventListener("click", () => this.handleSaveSettings());
+        }
         if (this.el.btnCloseSettings) {
             this.el.btnCloseSettings.addEventListener("click", () => this.closeSettingsModal());
         }
         if (this.el.btnCancelSettings) {
-            this.el.btnCancelSettings.addEventListener("click", () => this.closeSettingsModal());
+            this.el.btnCancelSettings.addEventListener("click", () => this.closeSettingsModal(true));
         }
         if (this.el.btnSaveSettings) {
             this.el.btnSaveSettings.addEventListener("click", () => this.handleSaveSettings());
@@ -355,6 +360,21 @@ class DidacticGame {
                         pane.style.display = (pane.id === targetPane) ? "block" : "none";
                     });
                 });
+            });
+        }
+
+        // Sincronização em tempo real: ao alterar qualquer input das configurações, atualiza a memória
+        const settingsModalEl = document.getElementById("settings-modal");
+        if (settingsModalEl) {
+            settingsModalEl.addEventListener("input", (e) => {
+                if (e.target && e.target.id === "cfg-timer-duration") {
+                    const val = parseInt(e.target.value, 10);
+                    if (!isNaN(val)) {
+                        this.config.timerDuration = Math.max(0, val);
+                        this.timerDuration = this.config.timerDuration;
+                        this.timerRemaining = this.timerDuration;
+                    }
+                }
             });
         }
 
@@ -586,27 +606,33 @@ class DidacticGame {
 
         if (this.mode === "EXPRESS") {
             this.maxRounds = 3;
-            this.timerDuration = 20;
             this.el.gameModeBadge.innerHTML = "TIME ATTACK (15 MIN)";
             this.el.gameModeBadge.className = "badge-mode mode-express";
         } else {
             this.maxRounds = 6;
-            this.timerDuration = 30;
             this.el.gameModeBadge.innerHTML = "WORLD TOUR (30 MIN)";
             this.el.gameModeBadge.className = "badge-mode mode-classic";
         }
+
+        // Respeita estritamente o tempo configurado pelo usuário se houver
+        const customTimer = parseInt(this.config?.timerDuration, 10);
+        this.timerDuration = !isNaN(customTimer) ? customTimer : (this.mode === "EXPRESS" ? 20 : 30);
+        this.timerRemaining = this.timerDuration;
 
         this.currentRound = 1;
         this.currentTeamIndex = 0;
         this.usedQuestions.clear();
 
+        const customBombs = parseInt(this.config?.bombsCount, 10);
+        const bombsCount = !isNaN(customBombs) ? customBombs : (this.mode === "EXPRESS" ? 1 : 2);
+
         this.teams.forEach(t => {
             t.badges.clear();
             t.score = 0;
             if (this.mode === "EXPRESS") {
-                t.lifelines = { bomba: 1, chanceDupla: 0, duelo: 0 };
+                t.lifelines = { bomba: bombsCount, chanceDupla: 0, duelo: 0 };
             } else {
-                t.lifelines = { bomba: 2, chanceDupla: 1, duelo: 1 };
+                t.lifelines = { bomba: bombsCount, chanceDupla: 1, duelo: 1 };
             }
         });
 
@@ -804,6 +830,11 @@ class DidacticGame {
 
     startTimer() {
         this.clearIntervalTimer();
+
+        // Garante 100% que a contagem inicia com a duração configurada pelo usuário
+        const configuredDuration = parseInt(this.config?.timerDuration, 10);
+        this.timerDuration = !isNaN(configuredDuration) ? configuredDuration : (this.mode === "EXPRESS" ? 20 : 30);
+
         if (this.timerDuration <= 0) {
             this.el.timerText.innerText = "∞";
             this.el.timerSvgCircle.style.strokeDashoffset = 0;
@@ -1270,42 +1301,39 @@ class DidacticGame {
         }
     }
 
-    closeSettingsModal() {
-        if (this.el.settingsModal) {
-            this.el.settingsModal.classList.remove("active");
-        }
-    }
+    readSettingsFromInputs() {
+        const timerDurationEl = document.getElementById("cfg-timer-duration");
+        if (!timerDurationEl) return null;
 
-    handleSaveSettings() {
-        const timerDuration = parseInt(document.getElementById("cfg-timer-duration").value, 10);
-        const optionsCount = parseInt(document.getElementById("cfg-options-count").value, 10);
-        const bombsCount = parseInt(document.getElementById("cfg-bombs-count").value, 10);
-        const correctsPerBadge = parseInt(document.getElementById("cfg-corrects-per-badge").value, 10);
-        const priorityQuestionId = document.getElementById("cfg-priority-question").value;
+        const timerDuration = parseInt(timerDurationEl.value, 10);
+        const optionsCount = parseInt(document.getElementById("cfg-options-count")?.value || 4, 10);
+        const bombsCount = parseInt(document.getElementById("cfg-bombs-count")?.value || 1, 10);
+        const correctsPerBadge = parseInt(document.getElementById("cfg-corrects-per-badge")?.value || 1, 10);
+        const priorityQuestionId = document.getElementById("cfg-priority-question")?.value || "";
 
-        const brandTitle = document.getElementById("cfg-brand-title").value.trim() || this.defaultConfig.brandTitle;
-        const brandSubtitle = document.getElementById("cfg-brand-subtitle").value.trim() || this.defaultConfig.brandSubtitle;
+        const brandTitle = document.getElementById("cfg-brand-title")?.value.trim() || this.defaultConfig.brandTitle;
+        const brandSubtitle = document.getElementById("cfg-brand-subtitle")?.value.trim() || this.defaultConfig.brandSubtitle;
 
         const themes = {
             livre_concorrencia: {
-                name: document.getElementById("cfg-theme-lc-name").value.trim() || "Livre Concorrência",
-                line1: (document.getElementById("cfg-theme-lc-l1").value.trim() || "LIVRE").toUpperCase(),
-                line2: (document.getElementById("cfg-theme-lc-l2").value.trim() || "CONCORRÊNCIA").toUpperCase()
+                name: document.getElementById("cfg-theme-lc-name")?.value.trim() || "Livre Concorrência",
+                line1: (document.getElementById("cfg-theme-lc-l1")?.value.trim() || "LIVRE").toUpperCase(),
+                line2: (document.getElementById("cfg-theme-lc-l2")?.value.trim() || "CONCORRÊNCIA").toUpperCase()
             },
             tratamento_pme: {
-                name: document.getElementById("cfg-theme-pme-name").value.trim() || "Tratamento PMEs",
-                line1: (document.getElementById("cfg-theme-pme-l1").value.trim() || "TRATAMENTO").toUpperCase(),
-                line2: (document.getElementById("cfg-theme-pme-l2").value.trim() || "PMEs").toUpperCase()
+                name: document.getElementById("cfg-theme-pme-name")?.value.trim() || "Tratamento PMEs",
+                line1: (document.getElementById("cfg-theme-pme-l1")?.value.trim() || "TRATAMENTO").toUpperCase(),
+                line2: (document.getElementById("cfg-theme-pme-l2")?.value.trim() || "PMEs").toUpperCase()
             },
             modelo_china: {
-                name: document.getElementById("cfg-theme-ch-name").value.trim() || "Modelo China",
-                line1: (document.getElementById("cfg-theme-ch-l1").value.trim() || "MODELO DA").toUpperCase(),
-                line2: (document.getElementById("cfg-theme-ch-l2").value.trim() || "CHINA").toUpperCase()
+                name: document.getElementById("cfg-theme-ch-name")?.value.trim() || "Modelo China",
+                line1: (document.getElementById("cfg-theme-ch-l1")?.value.trim() || "MODELO DA").toUpperCase(),
+                line2: (document.getElementById("cfg-theme-ch-l2")?.value.trim() || "CHINA").toUpperCase()
             },
             ordem_alemanha: {
-                name: document.getElementById("cfg-theme-de-name").value.trim() || "Ordem Alemanha",
-                line1: (document.getElementById("cfg-theme-de-l1").value.trim() || "ORDEM NA").toUpperCase(),
-                line2: (document.getElementById("cfg-theme-de-l2").value.trim() || "ALEMANHA").toUpperCase()
+                name: document.getElementById("cfg-theme-de-name")?.value.trim() || "Ordem Alemanha",
+                line1: (document.getElementById("cfg-theme-de-l1")?.value.trim() || "ORDEM NA").toUpperCase(),
+                line2: (document.getElementById("cfg-theme-de-l2")?.value.trim() || "ALEMANHA").toUpperCase()
             },
             coroa: {
                 name: "CASA COROA",
@@ -1314,7 +1342,7 @@ class DidacticGame {
             }
         };
 
-        this.config = {
+        return {
             timerDuration: isNaN(timerDuration) ? 20 : Math.max(0, timerDuration),
             optionsCount: optionsCount || 4,
             bombsCount: isNaN(bombsCount) ? 1 : Math.max(0, bombsCount),
@@ -1324,7 +1352,35 @@ class DidacticGame {
             brandSubtitle: brandSubtitle,
             themes: themes
         };
+    }
 
+    closeSettingsModal(discard = false) {
+        if (!discard) {
+            // Salva silenciosamente e aplica de imediato qualquer alteração feita nos campos
+            const newConfig = this.readSettingsFromInputs();
+            if (newConfig) {
+                this.config = newConfig;
+                localStorage.setItem("seminar_game_config", JSON.stringify(this.config));
+                this.timerDuration = this.config.timerDuration;
+                this.timerRemaining = this.timerDuration;
+                this.teams.forEach(t => {
+                    t.lifelines.bomba = this.config.bombsCount;
+                });
+                this.applyConfigVisuals();
+                this.updateUI();
+            }
+        }
+
+        if (this.el.settingsModal) {
+            this.el.settingsModal.classList.remove("active");
+        }
+    }
+
+    handleSaveSettings(silent = false) {
+        const newConfig = this.readSettingsFromInputs();
+        if (!newConfig) return;
+
+        this.config = newConfig;
         localStorage.setItem("seminar_game_config", JSON.stringify(this.config));
 
         this.timerDuration = this.config.timerDuration;
@@ -1339,8 +1395,10 @@ class DidacticGame {
         this.updateUI();
 
         sounds.playCoin();
-        this.closeSettingsModal();
-        alert("✅ Configurações salvas e aplicadas com sucesso!");
+        this.closeSettingsModal(true);
+        if (!silent) {
+            alert("✅ Configurações salvas e aplicadas com sucesso!");
+        }
     }
 
     handleResetSettings() {
@@ -1359,7 +1417,7 @@ class DidacticGame {
 
         this.applyConfigVisuals();
         this.updateUI();
-        this.openSettingsModal(); // recarrega os campos no modal
+        this.openSettingsModal();
 
         sounds.playWrong();
         alert("🔄 Configurações restauradas com sucesso para os padrões originais!");
