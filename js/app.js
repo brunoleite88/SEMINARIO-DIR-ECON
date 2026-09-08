@@ -1080,7 +1080,6 @@ class DidacticGame {
 
         const activeTeam = this.teams[this.currentTeamIndex];
         this.el.activeTeamBanner.innerHTML = `
-            <span class="turn-marquee-tag">▶ TURNO ATUAL</span>
             <span class="turn-player-tag" style="background-color: ${activeTeam.color}">${activeTeam.subtitle}</span>
             <span class="turn-avatar-badge">${this.getAvatarHtml(activeTeam.avatar, 20)}</span>
             <span class="turn-team-name">${activeTeam.name}</span>
