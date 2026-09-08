@@ -12,21 +12,21 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão LC-01 (Paula Forgioni: Entrada vs. Conduta)
 - **Enunciado**: De acordo com a clássica distinção doutrinária formulada por Paula Forgioni em 'Os Fundamentos do Antitruste', como se diferenciam a Livre Iniciativa e a Livre Concorrência?
 - **Alternativas**:
-  - **A)** A Livre Iniciativa é um princípio de entrada no mercado, enquanto a Livre Concorrência é um princípio de conduta dos agentes já estabelecidos. *(CORRETA)*
-  - **B)** A Livre Concorrência assegura a criação livre de empresas, ao passo que a Livre Iniciativa regula as sanções e multas do CADE.
+  - **A)** A Livre Concorrência assegura a criação livre de empresas, ao passo que a Livre Iniciativa regula as sanções e multas do CADE.
+  - **B)** A Livre Iniciativa é um princípio de entrada no mercado, enquanto a Livre Concorrência é um princípio de conduta dos agentes já estabelecidos. *(CORRETA)*
   - **C)** Ambos os princípios são sinônimos perfeitos no Art. 170 da CF/88, inexistindo distinção técnico-jurídica entre eles.
   - **D)** A Livre Iniciativa tutela o interesse difuso dos consumidores, enquanto a Livre Concorrência tutela os monopólios estatais previstos na Constituição.
-- **Gabarito**: **A**
+- **Gabarito**: **B**
 - **Comentário do Mediador**: Conforme ensina Paula Forgioni, a Livre Iniciativa (Art. 170, caput) é a liberdade de acesso/entrada na atividade econômica; já a Livre Concorrência (Art. 170, IV) rege a conduta e rivalidade ética entre os agentes no mercado para evitar abusos.
 
 ### Questão LC-02 (Súmula Vinculante nº 49 do STF: Farmácias)
 - **Enunciado**: Ao julgar a controvérsia sobre leis municipais que estabeleciam distância geográfica mínima entre farmácias e drogarias concorrentes, o STF editou a Súmula Vinculante nº 49, decidindo que:
 - **Alternativas**:
-  - **A)** É inconstitucional a fixação de distância mínima entre farmácias, pois cria reserva artificial de mercado e afronta a livre concorrência. *(CORRETA)*
-  - **B)** É plenamente constitucional, pois compete exclusivamente aos municípios o planejamento urbano sanitário independentemente de reflexos econômicos.
-  - **C)** A distância mínima só é permitida caso autorizada previamente pelo Tribunal do CADE através de consulta administrativa.
-  - **D)** Apenas farmácias de grande porte devem respeitar a distância mínima, ficando isentas as microempresas familiares.
-- **Gabarito**: **A**
+  - **A)** É plenamente constitucional, pois compete exclusivamente aos municípios o planejamento urbano sanitário independentemente de reflexos econômicos.
+  - **B)** A distância mínima só é permitida caso autorizada previamente pelo Tribunal do CADE através de consulta administrativa.
+  - **C)** Apenas farmácias de grande porte devem respeitar a distância mínima, ficando isentas as microempresas familiares.
+  - **D)** É inconstitucional a fixação de distância mínima entre farmácias, pois cria reserva artificial de mercado e afronta a livre concorrência. *(CORRETA)*
+- **Gabarito**: **D**
 - **Comentário do Mediador**: A Súmula Vinculante nº 49 consolidou que leis locais que fixam distância mínima entre farmácias violam frontalmente o Art. 170, IV da CF/88, criando cartéis geográficos locais sob o pretexto ilegítimo de ordenação urbana.
 
 ### Questão LC-03 (Leading Case STF: ARE 1378976/SP - Junho/2025)
@@ -42,31 +42,31 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão LC-04 (Lei nº 12.529/2011: Estrutura do CADE)
 - **Enunciado**: Segundo a Lei Antitruste Brasileira (Lei nº 12.529/2011), quais são os dois grandes eixos operacionais de atuação do Conselho Administrativo de Defesa Econômica (CADE)?
 - **Alternativas**:
-  - **A)** O controle preventivo de atos de concentração econômica (fusões/aquisições) e a repressão repressiva a infrações da ordem econômica (como cartéis). *(CORRETA)*
-  - **B)** A fixação de tabelamento de preços de produtos básicos e o recolhimento centralizado de impostos federais das grandes empresas.
-  - **C)** A gestão do plano de privatizações da União e a homologação obrigatória de todos os contratos de trabalho do setor industrial.
+  - **A)** A fixação de tabelamento de preços de produtos básicos e o recolhimento centralizado de impostos federais das grandes empresas.
+  - **B)** A gestão do plano de privatizações da União e a homologação obrigatória de todos os contratos de trabalho do setor industrial.
+  - **C)** O controle preventivo de atos de concentração econômica (fusões/aquisições) e a repressão repressiva a infrações da ordem econômica (como cartéis). *(CORRETA)*
   - **D)** O julgamento de crimes contra o sistema financeiro nacional e a concessão de patentes de marcas e patentes.
-- **Gabarito**: **A**
+- **Gabarito**: **C**
 - **Comentário do Mediador**: A Lei 12.529/2011 estrutura o CADE em duas frentes fundamentais: 1) Controle prévio de atos de concentração (evitando monopólios abusivos antes que ocorram) e 2) Repressão a condutas anticoncorrenciais (investigando e punindo cartéis e preços predatórios).
 
 ### Questão LC-05 (Tércio Sampaio Ferraz Jr.: Concorrência Efetiva / Workable Competition)
 - **Enunciado**: Na clássica formulação doutrinária acolhida pelo direito concorrencial brasileiro (destacada por Tércio Sampaio Ferraz Jr. e Vicente Bagnoli), a livre concorrência juridicamente tutelada não significa anarquia de mercado, mas sim uma:
 - **Alternativas**:
-  - **A)** Concorrência 'efetiva' ou 'trabalhável' (workable competition), pautada por parâmetros de lealdade, regras éticas e vedação ao abuso de poder econômico. *(CORRETA)*
-  - **B)** Concorrência perfeita teórica, na qual o Estado deve obrigar todas as empresas a praticarem exatamente o mesmo preço de custo.
+  - **A)** Concorrência perfeita teórica, na qual o Estado deve obrigar todas as empresas a praticarem exatamente o mesmo preço de custo.
+  - **B)** Concorrência 'efetiva' ou 'trabalhável' (workable competition), pautada por parâmetros de lealdade, regras éticas e vedação ao abuso de poder econômico. *(CORRETA)*
   - **C)** Liberdade irrestrita onde qualquer prática de eliminação de rivais é considerada legítima expressão do capitalismo de livre mercado.
   - **D)** Intervenção estatal direta de substituição, em que os preços de todas as mercadorias são arbitrados pelo Poder Judiciário.
-- **Gabarito**: **A**
+- **Gabarito**: **B**
 - **Comentário do Mediador**: A doutrina adverte que a CF/88 não tutela a 'concorrência perfeita' dos livros didáticos neoclássicos (que inexiste na realidade), mas sim a concorrência 'trabalhável' ou 'efetiva', que exige um marco regulatório que coíba condutas predatórias.
 
 ### Questão LC-06 (STF: ADI 4.033 e RE 627.543 - Proporcionalidade Material)
 - **Enunciado**: No julgamento da ADI 4.033 e do RE 627.543, o Supremo Tribunal Federal consolidou a diretriz de que restrições regulatórias estatais à atividade econômica:
 - **Alternativas**:
-  - **A)** Devem se submeter ao teste da proporcionalidade material, não podendo atuar como mera asfixia ou barreira protecionista local de mercado. *(CORRETA)*
-  - **B)** Gozam de presunção absoluta de constitucionalidade, sendo vedado ao Judiciário analisar a motivação econômica do ato normativo.
-  - **C)** Podem ser editadas livremente por governos locais sempre que houver reivindicação de sindicatos ou associações patronais locais.
-  - **D)** São sempre nulas de pleno direito, pois o Estado é terminantemente proibido de fiscalizar estabelecimentos comerciais privados.
-- **Gabarito**: **A**
+  - **A)** Gozam de presunção absoluta de constitucionalidade, sendo vedado ao Judiciário analisar a motivação econômica do ato normativo.
+  - **B)** Podem ser editadas livremente por governos locais sempre que houver reivindicação de sindicatos ou associações patronais locais.
+  - **C)** São sempre nulas de pleno direito, pois o Estado é terminantemente proibido de fiscalizar estabelecimentos comerciais privados.
+  - **D)** Devem se submeter ao teste da proporcionalidade material, não podendo atuar como mera asfixia ou barreira protecionista local de mercado. *(CORRETA)*
+- **Gabarito**: **D**
 - **Comentário do Mediador**: O STF consagrou que qualquer restrição estatal ao comércio deve demonstrar fundamentação idônea, necessidade e proporcionalidade estrita, sendo nulas as exigências burocráticas artificiais voltadas a blindar agentes locais contra novos entrantes.
 
 ### Questão LC-07 (Vicente Bagnoli: Objeto da Tutela Antitruste)
@@ -107,11 +107,11 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão PME-01 (Isonomia Material e André Ramos Tavares)
 - **Enunciado**: Sob a perspectiva da teoria constitucional e das lições de José Afonso da Silva e André Ramos Tavares, qual é o fundamento material do tratamento favorecido às PMEs (Art. 170, IX da CF/88)?
 - **Alternativas**:
-  - **A)** A concretização da igualdade material, equilibrando as assimetrias e a vulnerabilidade estrutural das pequenas empresas frente aos grandes conglomerados. *(CORRETA)*
-  - **B)** A criação de privilégios hereditários perpétuos para empresários locais em detrimento do mercado consumidor.
-  - **C)** A renúncia voluntária do Estado ao poder de tributar e fiscalizar o setor terciário da economia.
+  - **A)** A criação de privilégios hereditários perpétuos para empresários locais em detrimento do mercado consumidor.
+  - **B)** A renúncia voluntária do Estado ao poder de tributar e fiscalizar o setor terciário da economia.
+  - **C)** A concretização da igualdade material, equilibrando as assimetrias e a vulnerabilidade estrutural das pequenas empresas frente aos grandes conglomerados. *(CORRETA)*
   - **D)** A preparação para a estatização progressiva de todas as microempresas privadas nacionais.
-- **Gabarito**: **A**
+- **Gabarito**: **C**
 - **Comentário do Mediador**: A igualdade puramente formal (tratar iguais e desiguais de modo idêntico) asfixia o pequeno comerciante. O Art. 170, IX e Art. 179 materializam a isonomia substantiva, garantindo um campo de jogo viável (level playing field) para a sobrevivência das PMEs.
 
 ### Questão PME-02 (Emenda Constitucional nº 42/2003)
@@ -127,31 +127,31 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão PME-03 (Lei Complementar nº 123/2006: Simples Nacional)
 - **Enunciado**: O principal instrumento legal de densificação dos Arts. 170, IX e 179 da CF/88 é a Lei Complementar nº 123/2006 (Estatuto da ME e EPP). Dentre seus benefícios diretos, destaca-se:
 - **Alternativas**:
-  - **A)** A unificação de múltiplos tributos no Simples Nacional, facilitação de crédito e preferências e exclusividades em licitações públicas. *(CORRETA)*
-  - **B)** A imunidade total contra processos trabalhistas e a isenção de qualquer norma sanitária ou ambiental.
+  - **A)** A imunidade total contra processos trabalhistas e a isenção de qualquer norma sanitária ou ambiental.
+  - **B)** A unificação de múltiplos tributos no Simples Nacional, facilitação de crédito e preferências e exclusividades em licitações públicas. *(CORRETA)*
   - **C)** O tabelamento obrigatório dos preços cobrados por fornecedores de matéria-prima estrangeira.
   - **D)** O poder exclusivo das microempresas de editar súmulas vinculantes junto ao Superior Tribunal de Justiça.
-- **Gabarito**: **A**
+- **Gabarito**: **B**
 - **Comentário do Mediador**: A LC 123/2006 concretizou o mandamento constitucional através do regime simplificado e unificado do Simples Nacional, desregulamentação de rotinas burocráticas e regras de desempate e compras exclusivas nas licitações públicas.
 
 ### Questão PME-04 (Harmonia entre Favorecimento e Concorrência)
 - **Enunciado**: Por que a doutrina de Direito Econômico sustenta que o tratamento favorecido às PMEs NÃO contradiz o princípio da Livre Concorrência, mas sim o complementa?
 - **Alternativas**:
-  - **A)** Porque as PMEs oxigenam o ecossistema, combatem a inércia monopolista dos grandes grupos e asseguram a dispersão do poder econômico. *(CORRETA)*
-  - **B)** Porque a Constituição expressamente revogou o princípio da livre concorrência nos setores onde existam microempresas.
-  - **C)** Porque as PMEs são juridicamente impedidas de competir diretamente com empresas de grande porte no mesmo setor.
-  - **D)** Porque o CADE determina anualmente que as grandes empresas doem 10% do seu faturamento para pequenos comércios vizinhos.
-- **Gabarito**: **A**
+  - **A)** Porque a Constituição expressamente revogou o princípio da livre concorrência nos setores onde existam microempresas.
+  - **B)** Porque as PMEs são juridicamente impedidas de competir diretamente com empresas de grande porte no mesmo setor.
+  - **C)** Porque o CADE determina anualmente que as grandes empresas doem 10% do seu faturamento para pequenos comércios vizinhos.
+  - **D)** Porque as PMEs oxigenam o ecossistema, combatem a inércia monopolista dos grandes grupos e asseguram a dispersão do poder econômico. *(CORRETA)*
+- **Gabarito**: **D**
 - **Comentário do Mediador**: Longe de ser uma distorção nociva, a assimetria positiva a favor das PMEs evita a concentração desenfreada de mercado em poucos oligopólios, preservando a pluralidade de concorrentes ativos e a competitividade do mercado nacional.
 
 ### Questão PME-05 (Artigo 179 da CF/88: Dever Federativo)
 - **Enunciado**: O Artigo 179 da Constituição Federal de 1988 estabelece uma obrigação para a União, os Estados, o Distrito Federal e os Municípios consistente em:
 - **Alternativas**:
-  - **A)** Dispensar às microempresas e EPPs tratamento jurídico diferenciado, visando a incentivá-las pela simplificação, eliminação ou redução de obrigações. *(CORRETA)*
-  - **B)** Proibir que pequenas empresas contratem funcionários regidos pela Consolidação das Leis do Trabalho (CLT).
+  - **A)** Proibir que pequenas empresas contratem funcionários regidos pela Consolidação das Leis do Trabalho (CLT).
+  - **B)** Dispensar às microempresas e EPPs tratamento jurídico diferenciado, visando a incentivá-las pela simplificação, eliminação ou redução de obrigações. *(CORRETA)*
   - **C)** Financiar a fundo perdido 100% dos custos fixos de qualquer empresa que possua menos de 5 funcionários.
   - **D)** Impedir a abertura de filiais de empresas multinacionais em municípios com menos de 500 mil habitantes.
-- **Gabarito**: **A**
+- **Gabarito**: **B**
 - **Comentário do Mediador**: O Art. 179 da CF/88 impõe o dever federativo a todos os entes públicos de simplificar obrigações administrativas, tributárias, previdenciárias e creditícias para permitir a subsistência e geração de empregos pelas MPEs.
 
 ### Questão PME-06 (Sustentabilidade Socioeconômica)
@@ -167,11 +167,11 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão PME-07 (Compras Públicas e Licitações)
 - **Enunciado**: Nas compras públicas e licitações (Lei 14.133/21 e LC 123/06), qual mecanismo assegura o tratamento favorecido às micro e pequenas empresas?
 - **Alternativas**:
-  - **A)** A preferência de contratação em caso de empate ficto e a realização de licitações exclusivas para itens de até R$ 80.000,00. *(CORRETA)*
-  - **B)** A autorização expressa para fornecer produtos de qualidade inferior aos previstos no edital licitatório.
-  - **C)** A cobrança de valores até 5 vezes superiores ao preço médio de mercado sem necessidade de cotação.
-  - **D)** A dispensa definitiva de apresentação de certidões de regularidade fiscal mesmo após a adjudicação do contrato.
-- **Gabarito**: **A**
+  - **A)** A autorização expressa para fornecer produtos de qualidade inferior aos previstos no edital licitatório.
+  - **B)** A cobrança de valores até 5 vezes superiores ao preço médio de mercado sem necessidade de cotação.
+  - **C)** A dispensa definitiva de apresentação de certidões de regularidade fiscal mesmo após a adjudicação do contrato.
+  - **D)** A preferência de contratação em caso de empate ficto e a realização de licitações exclusivas para itens de até R$ 80.000,00. *(CORRETA)*
+- **Gabarito**: **D**
 - **Comentário do Mediador**: A legislação estabelece itens exclusivos para MPEs em compras públicas de até R$ 80 mil, além de margem de preferência e direito de desempate ficto, utilizando o poder de compra do Estado para descentralizar o mercado.
 
 ### Questão PME-08 (Roteiro: Tratamento Favorecido e Pluralidade Concorrencial)
@@ -192,11 +192,11 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão CH-01 (Constituição de 1982: Economia Socialista de Mercado)
 - **Enunciado**: De acordo com os Artigos 6º e 11 da Constituição da República Popular da China de 1982, como é caracterizado o sistema econômico do país?
 - **Alternativas**:
-  - **A)** Uma 'Economia Socialista de Mercado', fundada na dominância da propriedade pública dos meios de produção, com estímulo e proteção legal ao setor privado. *(CORRETA)*
-  - **B)** Um regime liberal puro de laissez-faire idêntico ao modelo econômico norte-americano do século XIX.
-  - **C)** Um sistema feudal absolutista em que o comércio privado e a criação de patentes são punidos com pena capital.
-  - **D)** Uma economia 100% estatizada no modelo soviético ortodoxo, sem qualquer margem para livre iniciativa ou propriedade particular.
-- **Gabarito**: **A**
+  - **A)** Um regime liberal puro de laissez-faire idêntico ao modelo econômico norte-americano do século XIX.
+  - **B)** Um sistema feudal absolutista em que o comércio privado e a criação de patentes são punidos com pena capital.
+  - **C)** Uma economia 100% estatizada no modelo soviético ortodoxo, sem qualquer margem para livre iniciativa ou propriedade particular.
+  - **D)** Uma 'Economia Socialista de Mercado', fundada na dominância da propriedade pública dos meios de produção, com estímulo e proteção legal ao setor privado. *(CORRETA)*
+- **Gabarito**: **D**
 - **Comentário do Mediador**: O Art. 6º da Constituição chinesa assenta a base na propriedade pública socialista dos meios de produção, mas o Art. 11 reconhece expressamente o papel complementar e essencial do setor não público (privado) no desenvolvimento nacional.
 
 ### Questão CH-02 (Simbiose Estratégica: SOEs vs. PMEs Privadas)
@@ -212,11 +212,11 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão CH-03 (Política dos 'Little Giants' / Pequenos Gigantes)
 - **Enunciado**: Qual é o nome da prestigiada política industrial chinesa integrada ao Plano Quinquenal (2026-2030) destinada a cultivar pequenas e médias indústrias de ponta em semicondutores, robótica e IA?
 - **Alternativas**:
-  - **A)** Política dos 'Little Giants' (Pequenos Gigantes). *(CORRETA)*
-  - **B)** Operação Big Tech Central.
-  - **C)** Plano de Estatização Total dos Mercados.
+  - **A)** Operação Big Tech Central.
+  - **B)** Plano de Estatização Total dos Mercados.
+  - **C)** Política dos 'Little Giants' (Pequenos Gigantes). *(CORRETA)*
   - **D)** Doutrina das Fábricas Livres de Cantão.
-- **Gabarito**: **A**
+- **Gabarito**: **C**
 - **Comentário do Mediador**: O programa governamental dos 'Little Giants' (Pequenos Gigantes) seleciona e apoia milhares de PMEs de alta tecnologia em setores estratégicos da cadeia de suprimentos (chips, novos materiais, robótica) para reduzir dependência externa.
 
 ### Questão CH-04 (Cotas em Compras Governamentais Chinesas)
@@ -232,21 +232,21 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão CH-05 (Antitruste nas Big Techs: Alibaba e Tencent)
 - **Enunciado**: Na recente modernização das leis concorrenciais chinesas (AML e combate à concorrência desleal), qual foi a principal medida adotada em relação a gigantes de plataformas digitais (como Alibaba e Tencent)?
 - **Alternativas**:
-  - **A)** Repressão ágil ao 'abuso de posição dominante relativa' e a imposições predatórias contra pequenos lojistas e fornecedores na internet. *(CORRETA)*
-  - **B)** Isenção irrestrita de impostos e autorização para eliminar concorrentes sem qualquer limite fiscalizatório.
-  - **C)** Obrigação de que todas as plataformas digitais fechassem seus sites aos sábados e domingos.
-  - **D)** Extinção imediata de todo e qualquer aplicativo de comércio eletrônico no território chinês.
-- **Gabarito**: **A**
+  - **A)** Isenção irrestrita de impostos e autorização para eliminar concorrentes sem qualquer limite fiscalizatório.
+  - **B)** Obrigação de que todas as plataformas digitais fechassem seus sites aos sábados e domingos.
+  - **C)** Extinção imediata de todo e qualquer aplicativo de comércio eletrônico no território chinês.
+  - **D)** Repressão ágil ao 'abuso de posição dominante relativa' e a imposições predatórias contra pequenos lojistas e fornecedores na internet. *(CORRETA)*
+- **Gabarito**: **D**
 - **Comentário do Mediador**: A autoridade concorrencial chinesa (SAMR) aplicou multas multibilionárias e reformulou a lei antitruste contra abusos como 'escolha um de dois' (cláusulas de exclusividade abusiva) para proteger os pequenos comerciantes nas plataformas.
 
 ### Questão CH-06 (Contraste Brasil vs. China)
 - **Enunciado**: Ao contrastar o modelo concorrencial do Brasil com o da China, verifica-se que:
 - **Alternativas**:
-  - **A)** O Brasil atua como um Estado regulador e interventor excepcional (Art. 173), enquanto a China opera como Estado planejador central e proprietário hegemônico. *(CORRETA)*
-  - **B)** O Brasil não possui qualquer órgão de repressão a cartéis, ao contrário da autoridade antitruste chinesa.
+  - **A)** O Brasil não possui qualquer órgão de repressão a cartéis, ao contrário da autoridade antitruste chinesa.
+  - **B)** O Brasil atua como um Estado regulador e interventor excepcional (Art. 173), enquanto a China opera como Estado planejador central e proprietário hegemônico. *(CORRETA)*
   - **C)** A China adotou a Constituição de Weimar como seu texto constitucional supremo em substituição à Constituição de 1982.
   - **D)** Ambos os países possuem modelos idênticos de controle antitruste sem nenhuma distinção ideológica ou institucional.
-- **Gabarito**: **A**
+- **Gabarito**: **B**
 - **Comentário do Mediador**: Enquanto o modelo da CF/88 erige o mercado sobre a Livre Iniciativa privada cabendo ao Estado papel regulador supletivo, a China integra mercado e planejamento estatal sob o controle estratégico do Partido e das estatais.
 
 ### Questão CH-07 (Roteiro: PME Tecnológica de Chips e Fomento Estatal)
@@ -260,14 +260,14 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 - **Comentário do Mediador**: O caráter pragmático e estratégico do modelo chinês: PMEs privadas podem ser fomentadas pelo Estado por seu potencial de inovação, geração de patentes, flexibilidade e exportação.
 
 ### Questão CH-08 (Roteiro: Definição dos 'Pequenos Gigantes')
-- **Enunciado**: Quem são os chamados “Pequenos Gigantes” no contexto apresentado sobre a China?
+- **Enunciado**: Quem são os chamados 'Pequenos Gigantes' no contexto apresentado sobre a China?
 - **Alternativas**:
   - **A)** Grandes empresas estatais chinesas.
   - **B)** Pequenas e microindústrias especializadas em setores estratégicos e tecnológicos. *(CORRETA)*
   - **C)** Empresas estrangeiras instaladas na China.
   - **D)** Órgãos governamentais responsáveis pelo planejamento econômico.
 - **Gabarito**: **B**
-- **Comentário do Mediador**: Os “Little Giants” são apresentados como micro e pequenas indústrias especializadas, especialmente em nichos como chips, robótica e biotecnologia, dentro da estratégia chinesa de fortalecimento tecnológico.
+- **Comentário do Mediador**: Os 'Little Giants' são apresentados como micro e pequenas indústrias especializadas, especialmente em nichos como chips, robótica e biotecnologia, dentro da estratégia chinesa de fortalecimento tecnológico.
 
 ### Questão CH-09 (Roteiro: Diferença Central Brasil vs. China)
 - **Enunciado**: Qual é uma das principais diferenças entre Brasil e China destacadas?
@@ -287,21 +287,21 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão DE-01 (Lei Fundamental de Bonn: Wirtschaftsneutralität)
 - **Enunciado**: Em contraste com a analítica Constituição Brasileira de 1988, a Lei Fundamental da Alemanha (Grundgesetz de 1949) adota o princípio da:
 - **Alternativas**:
-  - **A)** Neutralidade Econômica Constitucional (Wirtschaftsneutralität), permitindo ao legislador democraticamente eleito definir a política econômica dentro dos limites do Estado Social. *(CORRETA)*
-  - **B)** Estatização obrigatória de todas as indústrias farmacêuticas e automotivas instaladas no país.
+  - **A)** Estatização obrigatória de todas as indústrias farmacêuticas e automotivas instaladas no país.
+  - **B)** Neutralidade Econômica Constitucional (Wirtschaftsneutralität), permitindo ao legislador democraticamente eleito definir a política econômica dentro dos limites do Estado Social. *(CORRETA)*
   - **C)** Proibição absoluta de qualquer intervenção do Estado na regulação de preços e contratos privados.
   - **D)** Imposição constitucional do socialismo soviético de economia planificada sem propriedade privada.
-- **Gabarito**: **A**
+- **Gabarito**: **B**
 - **Comentário do Mediador**: A Grundgesetz alemã não constitucionalizou detalhadamente um modelo econômico fixo (Wirtschaftsneutralität). Cabe ao Parlamento e governo eleitos traçar as diretrizes, desde que respeitados o Estado Social e os direitos fundamentais.
 
 ### Questão DE-02 (Escola de Freiburg e o Ordoliberalismo)
 - **Enunciado**: Qual corrente teórica concebida na Escola de Freiburg (por Walter Eucken e Franz Böhm) serviu de fundamento intelectual para a ordem econômica alemã do pós-guerra?
 - **Alternativas**:
-  - **A)** O Ordoliberalismo, sustentando que o livre mercado necessita de uma ordem jurídica forte (Ordnungspolitik) para impedir a cartelização autodestrutiva. *(CORRETA)*
-  - **B)** O Marxismo-Leninismo ortodoxo voltado à extinção da moeda e do comércio varejista.
-  - **C)** O Anarcocapitalismo de livre mercado absoluto, com a total eliminação de juízes e tribunais antitruste.
-  - **D)** A Doutrina Fisiocrata do século XVIII, afirmando que a agricultura é a única fonte real de riqueza do Estado.
-- **Gabarito**: **A**
+  - **A)** O Marxismo-Leninismo ortodoxo voltado à extinção da moeda e do comércio varejista.
+  - **B)** O Anarcocapitalismo de livre mercado absoluto, com a total eliminação de juízes e tribunais antitruste.
+  - **C)** A Doutrina Fisiocrata do século XVIII, afirmando que a agricultura é a única fonte real de riqueza do Estado.
+  - **D)** O Ordoliberalismo, sustentando que o livre mercado necessita de uma ordem jurídica forte (Ordnungspolitik) para impedir a cartelização autodestrutiva. *(CORRETA)*
+- **Gabarito**: **D**
 - **Comentário do Mediador**: O Ordoliberalismo de Freiburg postulou que o mercado deixado a si mesmo se destrói pela concentração de poder econômico. O Estado deve, portanto, fixar as regras do jogo (Ordnungspolitik) e manter a concorrência ativa e protegida.
 
 ### Questão DE-03 (Soziale Marktwirtschaft: Economia Social de Mercado)
@@ -317,11 +317,11 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão DE-04 (GWB de 1957 e o Bundeskartellamt)
 - **Enunciado**: No direito antitruste alemão, qual lei infraconstitucional de 1957 é conhecida como a 'viga mestra' da concorrência, sendo aplicada pelo Bundeskartellamt?
 - **Alternativas**:
-  - **A)** O GWB (Gesetz gegen Wettbewerbsbeschränkungen - Lei contra Restrições da Concorrência). *(CORRETA)*
-  - **B)** O BGB (Código Civil Alemão napoleônico de 1804).
-  - **C)** A Tarifa Externa Comum da União Aduaneira Prussiana.
+  - **A)** O BGB (Código Civil Alemão napoleônico de 1804).
+  - **B)** A Tarifa Externa Comum da União Aduaneira Prussiana.
+  - **C)** O GWB (Gesetz gegen Wettbewerbsbeschränkungen - Lei contra Restrições da Concorrência). *(CORRETA)*
   - **D)** A Lei das Doze Tábuas de Frankfurt de 1920.
-- **Gabarito**: **A**
+- **Gabarito**: **C**
 - **Comentário do Mediador**: O GWB (Gesetz gegen Wettbewerbsbeschränkungen), promulgado em 1957, é a legislação antitruste basilar da Alemanha, aplicada com rigor técnico pelo Departamento Federal de Cartéis (Bundeskartellamt).
 
 ### Questão DE-05 (As 'Mittelstand' Alemãs)
@@ -337,21 +337,21 @@ Total de Questões Cadastradas no Jogo: **41 Questões** (36 de Múltipla Escolh
 ### Questão DE-06 (Seção 19a do GWB: Emenda Digital de 2021)
 - **Enunciado**: A recente Emenda de 2021 ao GWB alemão introduziu a pioneira Seção 19a, que outorgou ao Bundeskartellamt poderes para:
 - **Alternativas**:
-  - **A)** Proibir condutas unilaterais abusivas de forma preventiva em plataformas digitais com relevância concorrencial primordial entre mercados. *(CORRETA)*
-  - **B)** Confiscar os lucros das pequenas empresas e destiná-los ao resgate de bancos em dificuldades.
-  - **C)** Impedir que cidadãos alemães utilizem a internet durante os finais de semana e feriados nacionais.
-  - **D)** Tabelar os preços de todos os aplicativos para smartphones vendidos na Europa.
-- **Gabarito**: **A**
+  - **A)** Confiscar os lucros das pequenas empresas e destiná-los ao resgate de bancos em dificuldades.
+  - **B)** Impedir que cidadãos alemães utilizem a internet durante os finais de semana e feriados nacionais.
+  - **C)** Tabelar os preços de todos os aplicativos para smartphones vendidos na Europa.
+  - **D)** Proibir condutas unilaterais abusivas de forma preventiva em plataformas digitais com relevância concorrencial primordial entre mercados. *(CORRETA)*
+- **Gabarito**: **D**
 - **Comentário do Mediador**: A Seção 19a do GWB revolucionou o antitruste global ao permitir ao Bundeskartellamt atuar preventivamente contra práticas abusivas de grandes Big Techs antes mesmo da consolidação de um dano irreversível ao mercado e às PMEs.
 
 ### Questão DE-07 (Artigo 14.2 da Grundgesetz: Função Social da Propriedade)
 - **Enunciado**: O parágrafo segundo do Artigo 14 da Lei Fundamental da República Federal da Alemanha consagrou uma célebre diretriz sobre o direito de propriedade:
 - **Alternativas**:
-  - **A)** 'A propriedade obriga. O seu uso deve servir ao mesmo tempo ao bem comum' (função social da propriedade). *(CORRETA)*
-  - **B)** 'A propriedade privada é sagrada e inviolável, sendo vedado qualquer tipo de tributo sobre herança ou patrimônio.'
-  - **C)** 'Toda a propriedade privada pertence em última instância ao Estado soberano, inexistindo posse de bens de consumo.'
+  - **A)** 'A propriedade privada é sagrada e inviolável, sendo vedado qualquer tipo de tributo sobre herança ou patrimônio.'
+  - **B)** 'Toda a propriedade privada pertence em última instância ao Estado soberano, inexistindo posse de bens de consumo.'
+  - **C)** 'A propriedade obriga. O seu uso deve servir ao mesmo tempo ao bem comum' (função social da propriedade). *(CORRETA)*
   - **D)** 'A propriedade só é reconhecida para cidadãos maiores de 50 anos de idade residentes na Baviera.'
-- **Gabarito**: **A**
+- **Gabarito**: **C**
 - **Comentário do Mediador**: O clássico dispositivo alemão 'Eigentum verpflichtet. Sein Gebrauch soll zugleich dem Wohle der Allgemeinheit dienen' (Art. 14.2) é o marco mundial da função social da propriedade, legitimando a regulação social do mercado.
 
 ### Questão DE-08 (Roteiro: Significado da Neutralidade Econômica Alemã)
@@ -436,16 +436,16 @@ A equipe pode adicionar quantas questões desejar através de **duas formas**:
 Você pode abrir o arquivo `js/questions.js` e adicionar um novo objeto dentro de `QUESTIONS_BANK[categoria]`:
 ```javascript
 {
-    id: "lc_8",
+    id: "lc_10",
     category: "livre_concorrencia",
     question: "Digite a sua pergunta aqui...",
     options: [
-        "Alternativa A (exemplo correta)",
-        "Alternativa B",
+        "Alternativa A",
+        "Alternativa B (exemplo correta)",
         "Alternativa C",
         "Alternativa D"
     ],
-    correctIndex: 0, // 0 para A, 1 para B, 2 para C, 3 para D
+    correctIndex: 1, // 0 para A, 1 para B, 2 para C, 3 para D
     commentary: "Comentário fundamentado justificando o gabarito..."
 }
 ```
