@@ -5,6 +5,50 @@
  * roleta interativa (com arraste e parada imparcial), sons chiptune, modais e atalhos.
  */
 
+// ==========================================================================
+// SPRITES E AVATARES 16-BITS SUPER MARIO WORLD (SNES)
+// ==========================================================================
+const MARIO_AVATARS = {
+    mario: {
+        name: "Mario",
+        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" shape-rendering="crispEdges"><rect x="5" y="1" width="6" height="1" fill="#000"/><rect x="3" y="2" width="2" height="1" fill="#000"/><rect x="5" y="2" width="6" height="1" fill="#e52521"/><rect x="11" y="2" width="2" height="1" fill="#000"/><rect x="2" y="3" width="1" height="2" fill="#000"/><rect x="3" y="3" width="3" height="2" fill="#ffffff"/><rect x="6" y="3" width="4" height="2" fill="#e52521"/><rect x="10" y="3" width="3" height="2" fill="#ffffff"/><rect x="13" y="3" width="1" height="2" fill="#000"/><rect x="1" y="5" width="1" height="4" fill="#000"/><rect x="2" y="5" width="4" height="4" fill="#ffffff"/><rect x="6" y="5" width="4" height="1" fill="#ffffff"/><rect x="6" y="6" width="4" height="3" fill="#e52521"/><rect x="10" y="5" width="4" height="4" fill="#ffffff"/><rect x="14" y="5" width="1" height="4" fill="#000"/><rect x="2" y="9" width="1" height="1" fill="#000"/><rect x="3" y="9" width="10" height="1" fill="#000"/><rect x="13" y="9" width="1" height="1" fill="#000"/><rect x="2" y="10" width="2" height="4" fill="#000"/><rect x="4" y="10" width="8" height="4" fill="#fcd8a8"/><rect x="12" y="10" width="2" height="4" fill="#000"/><rect x="5" y="11" width="1" height="2" fill="#000"/><rect x="10" y="11" width="1" height="2" fill="#000"/><rect x="4" y="14" width="8" height="1" fill="#000"/></svg>`
+    },
+    luigi: {
+        name: "Luigi",
+        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" shape-rendering="crispEdges"><rect x="5" y="1" width="6" height="1" fill="#000"/><rect x="3" y="2" width="2" height="1" fill="#000"/><rect x="5" y="2" width="6" height="1" fill="#00a800"/><rect x="11" y="2" width="2" height="1" fill="#000"/><rect x="2" y="3" width="1" height="2" fill="#000"/><rect x="3" y="3" width="3" height="2" fill="#ffffff"/><rect x="6" y="3" width="4" height="2" fill="#00a800"/><rect x="10" y="3" width="3" height="2" fill="#ffffff"/><rect x="13" y="3" width="1" height="2" fill="#000"/><rect x="1" y="5" width="1" height="4" fill="#000"/><rect x="2" y="5" width="4" height="4" fill="#ffffff"/><rect x="6" y="5" width="4" height="1" fill="#ffffff"/><rect x="6" y="6" width="4" height="3" fill="#00a800"/><rect x="10" y="5" width="4" height="4" fill="#ffffff"/><rect x="14" y="5" width="1" height="4" fill="#000"/><rect x="2" y="9" width="1" height="1" fill="#000"/><rect x="3" y="9" width="10" height="1" fill="#000"/><rect x="13" y="9" width="1" height="1" fill="#000"/><rect x="2" y="10" width="2" height="4" fill="#000"/><rect x="4" y="10" width="8" height="4" fill="#fcd8a8"/><rect x="12" y="10" width="2" height="4" fill="#000"/><rect x="5" y="11" width="1" height="2" fill="#000"/><rect x="10" y="11" width="1" height="2" fill="#000"/><rect x="4" y="14" width="8" height="1" fill="#000"/></svg>`
+    },
+    yoshi: {
+        name: "Yoshi",
+        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" shape-rendering="crispEdges"><rect x="6" y="1" width="4" height="1" fill="#000"/><rect x="4" y="2" width="2" height="1" fill="#000"/><rect x="6" y="2" width="4" height="1" fill="#ffffff"/><rect x="10" y="2" width="2" height="1" fill="#000"/><rect x="3" y="3" width="1" height="2" fill="#000"/><rect x="4" y="3" width="8" height="2" fill="#ffffff"/><rect x="12" y="3" width="1" height="2" fill="#000"/><rect x="2" y="5" width="1" height="6" fill="#000"/><rect x="3" y="5" width="10" height="6" fill="#ffffff"/><rect x="13" y="5" width="1" height="6" fill="#000"/><rect x="4" y="6" width="3" height="3" fill="#00a800"/><rect x="8" y="4" width="3" height="2" fill="#00a800"/><rect x="8" y="8" width="3" height="3" fill="#00a800"/><rect x="3" y="11" width="1" height="2" fill="#000"/><rect x="4" y="11" width="8" height="2" fill="#ffffff"/><rect x="12" y="11" width="1" height="2" fill="#000"/><rect x="4" y="13" width="2" height="1" fill="#000"/><rect x="6" y="13" width="4" height="1" fill="#ffffff"/><rect x="10" y="13" width="2" height="1" fill="#000"/><rect x="6" y="14" width="4" height="1" fill="#000"/></svg>`
+    },
+    peach: {
+        name: "Peach",
+        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" shape-rendering="crispEdges"><rect x="2" y="4" width="2" height="2" fill="#000"/><rect x="7" y="2" width="2" height="2" fill="#000"/><rect x="12" y="4" width="2" height="2" fill="#000"/><rect x="2" y="6" width="12" height="1" fill="#000"/><rect x="2" y="7" width="1" height="5" fill="#000"/><rect x="13" y="7" width="1" height="5" fill="#000"/><rect x="3" y="7" width="10" height="5" fill="#f8b800"/><rect x="6" y="5" width="4" height="4" fill="#e52521"/><rect x="7" y="8" width="2" height="2" fill="#ffffff"/><rect x="7" y="9" width="2" height="1" fill="#e52521"/><rect x="4" y="9" width="1" height="2" fill="#0058f8"/><rect x="11" y="9" width="1" height="2" fill="#0058f8"/><rect x="2" y="12" width="12" height="1" fill="#ffffff"/><rect x="2" y="13" width="12" height="1" fill="#000000"/></svg>`
+    },
+    bowser: {
+        name: "Bowser",
+        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" shape-rendering="crispEdges"><rect x="6" y="2" width="4" height="1" fill="#000"/><rect x="4" y="3" width="2" height="1" fill="#000"/><rect x="10" y="3" width="2" height="1" fill="#000"/><rect x="7" y="3" width="2" height="2" fill="#ffffff"/><rect x="3" y="4" width="1" height="8" fill="#000"/><rect x="12" y="4" width="1" height="8" fill="#000"/><rect x="4" y="4" width="8" height="7" fill="#00a800"/><rect x="5" y="5" width="2" height="2" fill="#f8b800"/><rect x="6" y="5" width="1" height="1" fill="#ffffff"/><rect x="9" y="5" width="2" height="2" fill="#f8b800"/><rect x="10" y="5" width="1" height="1" fill="#ffffff"/><rect x="7" y="8" width="2" height="2" fill="#f8b800"/><rect x="8" y="8" width="1" height="1" fill="#ffffff"/><rect x="2" y="11" width="12" height="2" fill="#f87800"/><rect x="2" y="10" width="1" height="3" fill="#000"/><rect x="13" y="10" width="1" height="3" fill="#000"/><rect x="3" y="13" width="10" height="1" fill="#000"/></svg>`
+    }
+};
+
+function normalizeAvatarKey(key) {
+    if (!key) return "mario";
+    const k = String(key).toLowerCase().trim();
+    if (k === "🍄" || k === "mario") return "mario";
+    if (k === "⚡" || k === "luigi") return "luigi";
+    if (k === "⭐" || k === "yoshi") return "yoshi";
+    if (k === "👑" || k === "peach") return "peach";
+    if (k === "🦖" || k === "bowser") return "bowser";
+    return "mario";
+}
+
+function getAvatarSprite(key, size = 20) {
+    const norm = normalizeAvatarKey(key);
+    const item = MARIO_AVATARS[norm] || MARIO_AVATARS.mario;
+    if (size === 20) return item.svg;
+    return item.svg.replace('width="20" height="20"', `width="${size}" height="${size}"`);
+}
+
 class DidacticGame {
     constructor() {
         this.mode = "EXPRESS"; // "EXPRESS" (15 min) ou "CLASSIC" (25-30 min)
@@ -43,7 +87,7 @@ class DidacticGame {
                 leader: "Anna Clara",
                 subtitle: "PLAYER 1",
                 color: "#0058f8",
-                avatar: "🍄",
+                avatar: "mario",
                 badges: new Set(),
                 categoryProgress: {},
                 score: 0,
@@ -55,7 +99,7 @@ class DidacticGame {
                 leader: "Bruno",
                 subtitle: "PLAYER 2",
                 color: "#00a800",
-                avatar: "⚡",
+                avatar: "luigi",
                 badges: new Set(),
                 categoryProgress: {},
                 score: 0,
@@ -67,7 +111,7 @@ class DidacticGame {
                 leader: "Natália & Arralys",
                 subtitle: "PLAYER 3",
                 color: "#f8b800",
-                avatar: "⭐",
+                avatar: "yoshi",
                 badges: new Set(),
                 categoryProgress: {},
                 score: 0,
@@ -227,6 +271,9 @@ class DidacticGame {
     }
 
     bindEvents() {
+        // Inicializar dropdowns retrô de avatares com sprites do Mario
+        this.initRetroAvatarSelects();
+
         // Giro / Parada da Roleta
         this.el.spinBtn.addEventListener("click", () => this.handleSpinButtonClick());
 
@@ -413,17 +460,99 @@ class DidacticGame {
             this.el.inputs.team1.value = this.teams[0].name;
             this.el.inputs.leader1.value = this.teams[0].leader;
             this.el.inputs.avatar1.value = this.teams[0].avatar;
+            const wrap1 = document.querySelector('.retro-avatar-select[data-target="input-avatar-1"]');
+            if (wrap1) this.updateRetroAvatarTrigger(wrap1, this.teams[0].avatar);
 
             this.el.inputs.team2.value = this.teams[1].name;
             this.el.inputs.leader2.value = this.teams[1].leader;
             this.el.inputs.avatar2.value = this.teams[1].avatar;
+            const wrap2 = document.querySelector('.retro-avatar-select[data-target="input-avatar-2"]');
+            if (wrap2) this.updateRetroAvatarTrigger(wrap2, this.teams[1].avatar);
 
             this.el.inputs.team3.value = this.teams[2].name;
             this.el.inputs.leader3.value = this.teams[2].leader;
             this.el.inputs.avatar3.value = this.teams[2].avatar;
+            const wrap3 = document.querySelector('.retro-avatar-select[data-target="input-avatar-3"]');
+            if (wrap3) this.updateRetroAvatarTrigger(wrap3, this.teams[2].avatar);
         }
 
         this.el.setupModal.classList.add("active");
+    }
+
+    initRetroAvatarSelects() {
+        // Preencher ícones nas opções dos dropdowns
+        document.querySelectorAll('.retro-avatar-option').forEach(opt => {
+            const val = opt.getAttribute('data-value');
+            const iconEl = opt.querySelector('.retro-opt-icon');
+            if (iconEl) {
+                iconEl.innerHTML = getAvatarSprite(val, 20);
+            }
+        });
+
+        // Configurar triggers para abrir/fechar e seleção
+        document.querySelectorAll('.retro-avatar-select').forEach(wrap => {
+            const trigger = wrap.querySelector('.retro-avatar-trigger');
+            const dropdown = wrap.querySelector('.retro-avatar-dropdown');
+            const input = wrap.querySelector('input[type="hidden"]');
+
+            if (trigger && dropdown) {
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isOpen = dropdown.classList.contains('open');
+                    document.querySelectorAll('.retro-avatar-dropdown.open').forEach(d => d.classList.remove('open'));
+                    if (!isOpen) {
+                        dropdown.classList.add('open');
+                    }
+                });
+
+                dropdown.querySelectorAll('.retro-avatar-option').forEach(opt => {
+                    opt.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const val = opt.getAttribute('data-value');
+                        if (input) input.value = val;
+                        this.updateRetroAvatarTrigger(wrap, val);
+                        dropdown.classList.remove('open');
+                    });
+                });
+            }
+        });
+
+        // Fechar dropdowns ao clicar fora
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.retro-avatar-dropdown.open').forEach(d => d.classList.remove('open'));
+        });
+
+        // Inicializar display com valores atuais
+        const wrap1 = document.querySelector('.retro-avatar-select[data-target="input-avatar-1"]');
+        if (wrap1) this.updateRetroAvatarTrigger(wrap1, this.teams[0].avatar);
+        const wrap2 = document.querySelector('.retro-avatar-select[data-target="input-avatar-2"]');
+        if (wrap2) this.updateRetroAvatarTrigger(wrap2, this.teams[1].avatar);
+        const wrap3 = document.querySelector('.retro-avatar-select[data-target="input-avatar-3"]');
+        if (wrap3) this.updateRetroAvatarTrigger(wrap3, this.teams[2].avatar);
+    }
+
+    updateRetroAvatarTrigger(wrap, avatarKey) {
+        const norm = normalizeAvatarKey(avatarKey);
+        const item = MARIO_AVATARS[norm] || MARIO_AVATARS.mario;
+        const iconEl = wrap.querySelector('.avatar-selected-icon');
+        const nameEl = wrap.querySelector('.avatar-selected-name');
+        const input = wrap.querySelector('input[type="hidden"]');
+
+        if (iconEl) iconEl.innerHTML = getAvatarSprite(norm, 20);
+        if (nameEl) nameEl.textContent = item.name;
+        if (input) input.value = norm;
+
+        wrap.querySelectorAll('.retro-avatar-option').forEach(opt => {
+            if (opt.getAttribute('data-value') === norm) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    getAvatarHtml(avatar, size = 20) {
+        return getAvatarSprite(avatar, size);
     }
 
     startGameFromSetup() {
@@ -880,7 +1009,7 @@ class DidacticGame {
             card.className = `podium-card rank-${idx + 1}`;
             card.innerHTML = `
                 <div class="podium-rank">${medals[idx]}</div>
-                <div class="podium-avatar">${team.avatar}</div>
+                <div class="podium-avatar">${this.getAvatarHtml(team.avatar, 36)}</div>
                 <div class="podium-name">${team.name}</div>
                 <div class="podium-leader">👑 Líder: ${team.leader}</div>
                 <div class="podium-stats">
@@ -918,7 +1047,7 @@ class DidacticGame {
             const btn = document.createElement("button");
             btn.className = "btn-sd-award";
             btn.style.borderColor = t.color;
-            btn.innerHTML = `${t.avatar} ${t.name} (Líder: ${t.leader})`;
+            btn.innerHTML = `${this.getAvatarHtml(t.avatar, 18)} ${t.name} (Líder: ${t.leader})`;
             btn.addEventListener("click", () => {
                 this.closeSuddenDeath();
                 this.triggerVictory(t, "CAMPEÃO NA MORTE SÚBITA!");
@@ -974,7 +1103,7 @@ class DidacticGame {
 
             teamCard.innerHTML = `
                 <div class="team-header">
-                    <span class="team-avatar">${team.avatar}</span>
+                    <span class="team-avatar">${this.getAvatarHtml(team.avatar, 24)}</span>
                     <div class="team-info">
                         <div class="team-name">${team.name}</div>
                         <div class="team-leader-label">👑 Líder: <strong>${team.leader}</strong></div>
