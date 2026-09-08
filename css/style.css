@@ -91,8 +91,15 @@ body::after {
 }
 
 /* ==========================================================================
-   SUPER MARIO HUD (CABEÇALHO SUPERIOR RETRÔ)
+   SUPER MARIO HUD (CABEÇALHO SUPERIOR RETRÔ CONGELADO)
    ========================================================================== */
+.hud-sticky-container {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+}
+
 .main-header {
     background: #000000;
     border-bottom: 4px solid #f8b800;
@@ -101,9 +108,6 @@ body::after {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    position: sticky;
-    top: 0;
-    z-index: 50;
     box-shadow: 0 4px 0px rgba(0, 0, 0, 0.5);
     flex-wrap: wrap;
 }
@@ -283,7 +287,6 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
 }
 
 .active-team-text {

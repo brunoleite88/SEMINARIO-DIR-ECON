@@ -9,73 +9,75 @@
 </head>
 <body>
 
-    <!-- SUPER MARIO HUD (CABEÇALHO SUPERIOR RETRÔ) -->
-    <header class="main-header">
-        <div class="brand-area">
-            <div class="brand-icon" title="Super Direito Econômico 16-Bits">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" shape-rendering="crispEdges">
-                    <rect x="7" y="1" width="2" height="13" fill="#000000"/>
-                    <rect x="7" y="2" width="1" height="11" fill="#ffffff"/>
-                    <rect x="2" y="3" width="12" height="2" fill="#000000"/>
-                    <rect x="3" y="3" width="10" height="1" fill="#ffffff"/>
-                    <rect x="4" y="13" width="8" height="2" fill="#000000"/>
-                    <rect x="5" y="13" width="6" height="1" fill="#ffffff"/>
-                    <rect x="3" y="5" width="1" height="4" fill="#000000"/>
-                    <rect x="1" y="9" width="5" height="2" fill="#000000"/>
-                    <rect x="2" y="9" width="3" height="1" fill="#ffffff"/>
-                    <rect x="12" y="5" width="1" height="4" fill="#000000"/>
-                    <rect x="10" y="9" width="5" height="2" fill="#000000"/>
-                    <rect x="11" y="9" width="3" height="1" fill="#ffffff"/>
-                </svg>
+    <!-- SUPER MARIO HUD (CABEÇALHO SUPERIOR RETRÔ CONGELADO) -->
+    <header class="hud-sticky-container">
+        <div class="main-header">
+            <div class="brand-area">
+                <div class="brand-icon" title="Super Direito Econômico 16-Bits">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" shape-rendering="crispEdges">
+                        <rect x="7" y="1" width="2" height="13" fill="#000000"/>
+                        <rect x="7" y="2" width="1" height="11" fill="#ffffff"/>
+                        <rect x="2" y="3" width="12" height="2" fill="#000000"/>
+                        <rect x="3" y="3" width="10" height="1" fill="#ffffff"/>
+                        <rect x="4" y="13" width="8" height="2" fill="#000000"/>
+                        <rect x="5" y="13" width="6" height="1" fill="#ffffff"/>
+                        <rect x="3" y="5" width="1" height="4" fill="#000000"/>
+                        <rect x="1" y="9" width="5" height="2" fill="#000000"/>
+                        <rect x="2" y="9" width="3" height="1" fill="#ffffff"/>
+                        <rect x="12" y="5" width="1" height="4" fill="#000000"/>
+                        <rect x="10" y="9" width="5" height="2" fill="#000000"/>
+                        <rect x="11" y="9" width="3" height="1" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 id="main-brand-title" class="brand-title">CONCORRÊNCIA & ORDEM</h1>
+                    <div id="main-brand-subtitle" class="brand-subtitle">SUPER DIREITO ECONÔMICO • 16-BITS SNES EDITION</div>
+                </div>
             </div>
-            <div>
-                <h1 id="main-brand-title" class="brand-title">CONCORRÊNCIA & ORDEM</h1>
-                <div id="main-brand-subtitle" class="brand-subtitle">SUPER DIREITO ECONÔMICO • 16-BITS SNES EDITION</div>
+
+            <div class="game-status-bar">
+                <div id="current-round-display" class="round-pill">WORLD 1-3</div>
+                <div id="game-mode-badge" class="badge-mode mode-express">TIME ATTACK (15 MIN)</div>
+            </div>
+
+            <div class="header-actions">
+                <button id="btn-quick-teams" class="btn-ctrl btn-ctrl-gold" title="Registrar Nomes das Equipes e Líderes">
+                    EQUIPES & LÍDERES
+                </button>
+                <button id="btn-open-questions-mgr" class="btn-ctrl" title="Ver e Adicionar Perguntas ao Banco">
+                    BANCO DE QUESTÕES
+                </button>
+                <button id="btn-open-settings" class="btn-ctrl btn-ctrl-settings" title="Configurações do Jogo (Tempo, Bombas, Nomes, Pergunta do Professor)">
+                    CONFIGURAÇÕES
+                </button>
+                <button id="btn-sudden-death" class="btn-ctrl" title="Morte Súbita / Boss Battle">
+                    MORTE SÚBITA
+                </button>
+                <button id="btn-mute" class="btn-ctrl" title="Ativar/Silenciar Chiptune (Atalho M)">
+                    SOM ON
+                </button>
+                <button id="btn-fullscreen" class="btn-ctrl" title="Alternar Tela Cheia (Atalho F)">
+                    FULLSCREEN
+                </button>
+                <button id="btn-new-game" class="btn-ctrl" title="Reiniciar Partida ou Trocar de Modo">
+                    NOVO JOGO
+                </button>
             </div>
         </div>
 
-        <div class="game-status-bar">
-            <div id="current-round-display" class="round-pill">WORLD 1-3</div>
-            <div id="game-mode-badge" class="badge-mode mode-express">TIME ATTACK (15 MIN)</div>
-        </div>
-
-        <div class="header-actions">
-            <button id="btn-quick-teams" class="btn-ctrl btn-ctrl-gold" title="Registrar Nomes das Equipes e Líderes">
-                EQUIPES & LÍDERES
-            </button>
-            <button id="btn-open-questions-mgr" class="btn-ctrl" title="Ver e Adicionar Perguntas ao Banco">
-                BANCO DE QUESTÕES
-            </button>
-            <button id="btn-open-settings" class="btn-ctrl btn-ctrl-settings" title="Configurações do Jogo (Tempo, Bombas, Nomes, Pergunta do Professor)">
-                CONFIGURAÇÕES
-            </button>
-            <button id="btn-sudden-death" class="btn-ctrl" title="Morte Súbita / Boss Battle">
-                MORTE SÚBITA
-            </button>
-            <button id="btn-mute" class="btn-ctrl" title="Ativar/Silenciar Chiptune (Atalho M)">
-                SOM ON
-            </button>
-            <button id="btn-fullscreen" class="btn-ctrl" title="Alternar Tela Cheia (Atalho F)">
-                FULLSCREEN
-            </button>
-            <button id="btn-new-game" class="btn-ctrl" title="Reiniciar Partida ou Trocar de Modo">
-                NOVO JOGO
-            </button>
+        <!-- FAIXA DO PLAYER DA VEZ (HUD MARIO WORLD) -->
+        <div class="active-team-strip">
+            <div id="active-team-banner" class="active-team-text">
+                <span class="turn-player-tag" style="background-color: #0058f8">PLAYER 1</span>
+                <span class="turn-avatar-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" shape-rendering="crispEdges"><rect x="5" y="1" width="6" height="1" fill="#000"/><rect x="3" y="2" width="2" height="1" fill="#000"/><rect x="5" y="2" width="6" height="1" fill="#e52521"/><rect x="11" y="2" width="2" height="1" fill="#000"/><rect x="2" y="3" width="1" height="2" fill="#000"/><rect x="3" y="3" width="3" height="2" fill="#ffffff"/><rect x="6" y="3" width="4" height="2" fill="#e52521"/><rect x="10" y="3" width="3" height="2" fill="#ffffff"/><rect x="13" y="3" width="1" height="2" fill="#000"/><rect x="1" y="5" width="1" height="4" fill="#000"/><rect x="2" y="5" width="4" height="4" fill="#ffffff"/><rect x="6" y="5" width="4" height="1" fill="#ffffff"/><rect x="6" y="6" width="4" height="3" fill="#e52521"/><rect x="10" y="5" width="4" height="4" fill="#ffffff"/><rect x="14" y="5" width="1" height="4" fill="#000"/><rect x="2" y="9" width="1" height="1" fill="#000"/><rect x="3" y="9" width="10" height="1" fill="#000"/><rect x="13" y="9" width="1" height="1" fill="#000"/><rect x="2" y="10" width="2" height="4" fill="#000"/><rect x="4" y="10" width="8" height="4" fill="#fcd8a8"/><rect x="12" y="10" width="2" height="4" fill="#000"/><rect x="5" y="11" width="1" height="2" fill="#000"/><rect x="10" y="11" width="1" height="2" fill="#000"/><rect x="4" y="14" width="8" height="1" fill="#000"/></svg></span>
+                <span class="turn-team-name">Equipe Adam Smith</span>
+                <span class="turn-leader-pill">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" shape-rendering="crispEdges" style="vertical-align: middle; flex-shrink: 0;"><rect x="2" y="4" width="2" height="2" fill="#000"/><rect x="7" y="2" width="2" height="2" fill="#000"/><rect x="12" y="4" width="2" height="2" fill="#000"/><rect x="2" y="6" width="12" height="1" fill="#000"/><rect x="2" y="7" width="1" height="5" fill="#000"/><rect x="13" y="7" width="1" height="5" fill="#000"/><rect x="3" y="7" width="10" height="5" fill="#f8b800"/><rect x="6" y="5" width="4" height="4" fill="#e52521"/><rect x="7" y="8" width="2" height="2" fill="#ffffff"/><rect x="7" y="9" width="2" height="1" fill="#e52521"/><rect x="4" y="9" width="1" height="2" fill="#0058f8"/><rect x="11" y="9" width="1" height="2" fill="#0058f8"/><rect x="2" y="12" width="12" height="1" fill="#ffffff"/><rect x="2" y="13" width="12" height="1" fill="#000000"/></svg>
+                    <span>LÍDER: <strong>Anna Clara</strong></span>
+                </span>
+            </div>
         </div>
     </header>
-
-    <!-- FAIXA DO PLAYER DA VEZ (HUD MARIO WORLD) -->
-    <div class="active-team-strip">
-        <div id="active-team-banner" class="active-team-text">
-            <span class="turn-player-tag" style="background-color: #0058f8">PLAYER 1</span>
-            <span class="turn-avatar-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" shape-rendering="crispEdges"><rect x="5" y="1" width="6" height="1" fill="#000"/><rect x="3" y="2" width="2" height="1" fill="#000"/><rect x="5" y="2" width="6" height="1" fill="#e52521"/><rect x="11" y="2" width="2" height="1" fill="#000"/><rect x="2" y="3" width="1" height="2" fill="#000"/><rect x="3" y="3" width="3" height="2" fill="#ffffff"/><rect x="6" y="3" width="4" height="2" fill="#e52521"/><rect x="10" y="3" width="3" height="2" fill="#ffffff"/><rect x="13" y="3" width="1" height="2" fill="#000"/><rect x="1" y="5" width="1" height="4" fill="#000"/><rect x="2" y="5" width="4" height="4" fill="#ffffff"/><rect x="6" y="5" width="4" height="1" fill="#ffffff"/><rect x="6" y="6" width="4" height="3" fill="#e52521"/><rect x="10" y="5" width="4" height="4" fill="#ffffff"/><rect x="14" y="5" width="1" height="4" fill="#000"/><rect x="2" y="9" width="1" height="1" fill="#000"/><rect x="3" y="9" width="10" height="1" fill="#000"/><rect x="13" y="9" width="1" height="1" fill="#000"/><rect x="2" y="10" width="2" height="4" fill="#000"/><rect x="4" y="10" width="8" height="4" fill="#fcd8a8"/><rect x="12" y="10" width="2" height="4" fill="#000"/><rect x="5" y="11" width="1" height="2" fill="#000"/><rect x="10" y="11" width="1" height="2" fill="#000"/><rect x="4" y="14" width="8" height="1" fill="#000"/></svg></span>
-            <span class="turn-team-name">Equipe Adam Smith</span>
-            <span class="turn-leader-pill">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" shape-rendering="crispEdges" style="vertical-align: middle; flex-shrink: 0;"><rect x="2" y="4" width="2" height="2" fill="#000"/><rect x="7" y="2" width="2" height="2" fill="#000"/><rect x="12" y="4" width="2" height="2" fill="#000"/><rect x="2" y="6" width="12" height="1" fill="#000"/><rect x="2" y="7" width="1" height="5" fill="#000"/><rect x="13" y="7" width="1" height="5" fill="#000"/><rect x="3" y="7" width="10" height="5" fill="#f8b800"/><rect x="6" y="5" width="4" height="4" fill="#e52521"/><rect x="7" y="8" width="2" height="2" fill="#ffffff"/><rect x="7" y="9" width="2" height="1" fill="#e52521"/><rect x="4" y="9" width="1" height="2" fill="#0058f8"/><rect x="11" y="9" width="1" height="2" fill="#0058f8"/><rect x="2" y="12" width="12" height="1" fill="#ffffff"/><rect x="2" y="13" width="12" height="1" fill="#000000"/></svg>
-                <span>LÍDER: <strong>Anna Clara</strong></span>
-            </span>
-        </div>
-    </div>
 
     <!-- PALCO PRINCIPAL DO JOGO -->
     <main class="main-stage">
