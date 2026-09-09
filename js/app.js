@@ -202,6 +202,7 @@ class DidacticGame {
             cancelAddFormBtn: document.getElementById("btn-cancel-add-form"),
             formNewQ: document.getElementById("form-new-question"),
             resetQuestionsBtn: document.getElementById("btn-reset-questions"),
+            restoreDeletedQuestionsBtn: document.getElementById("btn-restore-deleted-questions"),
             exportQuestionsBtn: document.getElementById("btn-export-questions"),
             importQuestionsInput: document.getElementById("input-import-questions"),
             qmTabs: document.querySelectorAll(".qm-tab-btn"),
@@ -310,6 +311,9 @@ class DidacticGame {
         }
         if (this.el.resetQuestionsBtn) {
             this.el.resetQuestionsBtn.addEventListener("click", () => this.handleResetQuestions());
+        }
+        if (this.el.restoreDeletedQuestionsBtn) {
+            this.el.restoreDeletedQuestionsBtn.addEventListener("click", () => this.restoreDeletedQuestions());
         }
         if (this.el.exportQuestionsBtn) {
             this.el.exportQuestionsBtn.addEventListener("click", () => this.handleExportQuestions());
@@ -692,12 +696,17 @@ class DidacticGame {
         }
 
         if (!selectedQ) {
-            const availableQuestions = QUESTIONS_BANK[categoryId].filter(q => !this.usedQuestions.has(q.id));
+            const allCatQuestions = QUESTIONS_BANK[categoryId] || [];
+            if (allCatQuestions.length === 0) {
+                alert(`⚠️ Não há questões disponíveis na categoria ${category.name}! Cadastre novas questões ou restaure as questões no Banco de Questões.`);
+                this.closeQuestionModal();
+                return;
+            }
+            const availableQuestions = allCatQuestions.filter(q => !this.usedQuestions.has(q.id));
             if (availableQuestions.length > 0) {
                 const randIdx = Math.floor(Math.random() * availableQuestions.length);
                 selectedQ = availableQuestions[randIdx];
             } else {
-                const allCatQuestions = QUESTIONS_BANK[categoryId];
                 selectedQ = allCatQuestions[Math.floor(Math.random() * allCatQuestions.length)];
             }
         }
@@ -1223,28 +1232,7 @@ class DidacticGame {
         if (correctsInput) correctsInput.value = this.config.correctsPerBadge ?? 1;
 
         // 2. Preenche Aba 2: Pergunta Prioritária / do Professor
-        const prioSelect = document.getElementById("cfg-priority-question");
-        if (prioSelect) {
-            prioSelect.innerHTML = `<option value="">-- NENHUMA (Sorteio Aleatório Padrão) --</option>`;
-            
-            Object.keys(QUESTIONS_BANK).forEach(catId => {
-                const cat = CATEGORIES[catId];
-                const optGroup = document.createElement("optgroup");
-                optGroup.label = `${cat ? cat.badgeIcon : ''} ${cat ? cat.name : catId}`;
-
-                QUESTIONS_BANK[catId].forEach((q, idx) => {
-                    const opt = document.createElement("option");
-                    opt.value = q.id;
-                    const truncatedQ = q.question.length > 80 ? q.question.substring(0, 77) + "..." : q.question;
-                    opt.innerText = `[${catId.toUpperCase().substring(0, 4)}-#${idx + 1}] ${truncatedQ}`;
-                    if (q.id === this.config.priorityQuestionId) {
-                        opt.selected = true;
-                    }
-                    optGroup.appendChild(opt);
-                });
-                prioSelect.appendChild(optGroup);
-            });
-        }
+        this.populatePriorityQuestionSelect();
 
         // 3. Preenche Aba 3: Nomes e Textos Visíveis
         const brandTitleInput = document.getElementById("cfg-brand-title");
@@ -1299,6 +1287,31 @@ class DidacticGame {
         if (this.el.settingsModal) {
             this.el.settingsModal.classList.add("active");
         }
+    }
+
+    populatePriorityQuestionSelect() {
+        const prioSelect = document.getElementById("cfg-priority-question");
+        if (!prioSelect) return;
+
+        prioSelect.innerHTML = `<option value="">-- NENHUMA (Sorteio Aleatório Padrão) --</option>`;
+
+        Object.keys(QUESTIONS_BANK).forEach(catId => {
+            const cat = CATEGORIES[catId];
+            const optGroup = document.createElement("optgroup");
+            optGroup.label = `${cat ? cat.badgeIcon : ''} ${cat ? cat.name : catId}`;
+
+            (QUESTIONS_BANK[catId] || []).forEach((q, idx) => {
+                const opt = document.createElement("option");
+                opt.value = q.id;
+                const truncatedQ = q.question.length > 80 ? q.question.substring(0, 77) + "..." : q.question;
+                opt.innerText = `[${catId.toUpperCase().substring(0, 4)}-#${idx + 1}] ${truncatedQ}`;
+                if (this.config && q.id === this.config.priorityQuestionId) {
+                    opt.selected = true;
+                }
+                optGroup.appendChild(opt);
+            });
+            prioSelect.appendChild(optGroup);
+        });
     }
 
     readSettingsFromInputs() {
@@ -1426,8 +1439,40 @@ class DidacticGame {
     // ==========================================
     // BANCO DE QUESTÕES & EDITOR
     // ==========================================
+    getDeletedQuestionIds() {
+        try {
+            const raw = localStorage.getItem("deleted_seminar_questions");
+            return raw ? JSON.parse(raw) : [];
+        } catch (e) {
+            console.warn("Erro ao ler questões deletadas:", e);
+            return [];
+        }
+    }
+
+    saveDeletedQuestionsToStorage(deletedIds) {
+        try {
+            localStorage.setItem("deleted_seminar_questions", JSON.stringify(deletedIds));
+        } catch (e) {
+            console.warn("Erro ao salvar questões deletadas:", e);
+        }
+    }
+
     loadCustomQuestionsFromStorage() {
         try {
+            // 0. Filtra e remove questões excluídas (incluindo questões legadas oficiais)
+            const deletedRaw = localStorage.getItem("deleted_seminar_questions");
+            if (deletedRaw) {
+                const deletedIds = new Set(JSON.parse(deletedRaw));
+                Object.keys(QUESTIONS_BANK).forEach(cat => {
+                    QUESTIONS_BANK[cat] = QUESTIONS_BANK[cat].filter(q => !deletedIds.has(q.id));
+                });
+                for (let i = SUDDEN_DEATH_QUESTIONS.length - 1; i >= 0; i--) {
+                    if (deletedIds.has(SUDDEN_DEATH_QUESTIONS[i].id)) {
+                        SUDDEN_DEATH_QUESTIONS.splice(i, 1);
+                    }
+                }
+            }
+
             // 1. Carrega edições / alterações feitas em questões legadas oficiais
             const overridesRaw = localStorage.getItem("seminar_questions_overrides");
             if (overridesRaw) {
@@ -1768,36 +1813,202 @@ class DidacticGame {
     }
 
     handleResetQuestions() {
-        if (confirm("Deseja realmente restaurar o banco para as questões originais do seminário? Todas as edições e perguntas personalizadas serão removidas.")) {
+        if (confirm("Deseja realmente restaurar o banco para as questões originais do seminário? Todas as edições, exclusões e perguntas personalizadas serão revertidas.")) {
             localStorage.removeItem("custom_seminar_questions");
             localStorage.removeItem("seminar_questions_overrides");
+            localStorage.removeItem("deleted_seminar_questions");
             location.reload();
         }
     }
 
     handleExportQuestions() {
         try {
-            const dataToExport = {
-                exportedAt: new Date().toISOString(),
-                overrides: JSON.parse(localStorage.getItem("seminar_questions_overrides") || "{}"),
-                customQuestions: JSON.parse(localStorage.getItem("custom_seminar_questions") || "{}"),
-                fullBank: QUESTIONS_BANK,
-                suddenDeath: SUDDEN_DEATH_QUESTIONS
+            const letters = ['A', 'B', 'C', 'D'];
+            const categories = CATEGORIES;
+            const questionsBank = QUESTIONS_BANK;
+            const suddenDeathQuestions = SUDDEN_DEATH_QUESTIONS;
+
+            // Estatísticas dinâmicas
+            const counts = {};
+            let totalQuestions = 0;
+            Object.keys(categories).forEach(catId => {
+                counts[catId] = (questionsBank[catId] || []).length;
+                totalQuestions += counts[catId];
+            });
+            const totalSuddenDeath = (suddenDeathQuestions || []).length;
+            const grandTotal = totalQuestions + totalSuddenDeath;
+
+            const letterCounts = { A: 0, B: 0, C: 0, D: 0 };
+            Object.keys(categories).forEach(catId => {
+                (questionsBank[catId] || []).forEach(q => {
+                    const l = letters[q.correctIndex];
+                    if (l) letterCounts[l]++;
+                });
+            });
+
+            let md = `# ⚖️ Dossiê de Questões & Ordem Econômica: Guia Acadêmico Completo\n`;
+            md += `**Seminário de Direito Econômico**  \n`;
+            md += `*Tema Central: A Constituição Econômica e o Poder Judiciário — Livre Concorrência e Tratamento Favorecido a PMEs (Brasil, China e Alemanha)*\n\n`;
+            md += `> **Acervo Total**: ${grandTotal} Questões Oficiais (${totalQuestions} de Múltipla Escolha + ${totalSuddenDeath} de Morte Súbita)  \n`;
+            md += `> **Estrutura Visual**: Formatação funcional com diagramas de fluxo, mapas conceituais e gráficos **Mermaid**.\n\n`;
+            md += `---\n\n`;
+
+            md += `## 🗺️ Mapa Arquitetural da Constituição Econômica\n\n`;
+            md += `\`\`\`mermaid\n`;
+            md += `graph TD\n`;
+            md += `    %% Nó Central\n`;
+            md += `    CF88["<b>Constituição Econômica (CF/88)</b><br/>Princípios Gerais da Atividade Econômica (Art. 170)"]\n\n`;
+            md += `    %% Ramos Principais\n`;
+            md += `    LC["<b>⚖️ LIVRE CONCORRÊNCIA</b><br/>(Art. 170, IV)<br/>Ambiente Concorrencial Ético"]\n`;
+            md += `    PME["<b>🏢 TRATAMENTO FAVORECIDO A PMEs</b><br/>(Art. 170, IX e Art. 179)<br/>Isonomia Material Substantiva"]\n`;
+            md += `    COMP["<b>🌐 DIREITO COMPARADO</b><br/>China e Alemanha<br/>Modelos Institucionais Concorrenciais"]\n\n`;
+            md += `    CF88 --> LC\n`;
+            md += `    CF88 --> PME\n`;
+            md += `    CF88 -.-> COMP\n\n`;
+            md += `    %% Sub-ramos Livre Concorrência\n`;
+            md += `    LC --> CADE["<b>CADE (Lei 12.529/2011)</b><br/>• Controle de Concentrações<br/>• Repressão a Cartéis e Condutas"]\n`;
+            md += `    LC --> STF_LC["<b>Jurisprudência do STF</b><br/>• SV 49: Distância de Farmácias<br/>• ARE 1378976/SP: Rodízio Ilegal"]\n`;
+            md += `    LC --> DOUT_LC["<b>Doutrina Antitruste</b><br/>• Forgioni: Entrada vs. Conduta<br/>• Tércio/Bagnoli: Concorrência Efetiva"]\n\n`;
+            md += `    %% Sub-ramos PMEs\n`;
+            md += `    PME --> SIMPLES["<b>LC 123/2006 (Estatuto da MPE)</b><br/>• Simples Nacional & Menor Burocracia<br/>• Compras Públicas (Cotas & Empate)"]\n`;
+            md += `    PME --> STF_PME["<b>Jurisprudência do STF</b><br/>• ADI 4.033 & RE 627.543<br/>• Regularidade Fiscal Constitucional"]\n`;
+            md += `    PME --> DOUT_PME["<b>Doutrina Constitucional</b><br/>• Isonomia Material (José Afonso)<br/>• Dispersão do Poder (André R. Tavares)"]\n\n`;
+            md += `    %% Sub-ramos Direito Comparado\n`;
+            md += `    COMP --> CHINA["<b>🇨🇳 MODELO DA CHINA</b><br/>• Economia Socialista de Mercado<br/>• Simbiose SOEs e 'Little Giants'<br/>• Repressão a Big Techs (AML)"]\n`;
+            md += `    COMP --> ALEMANHA["<b>🇩🇪 ORDEM NA ALEMANHA</b><br/>• Ordoliberalismo (Escola de Freiburg)<br/>• Economia Social de Mercado & GWB<br/>• Seção 19a (Plataformas) & Mittelstand"]\n\n`;
+            md += `    %% Estilos\n`;
+            md += `    classDef main fill:#1e293b,stroke:#e2e8f0,stroke-width:2px,color:#fff;\n`;
+            md += `    classDef lc fill:#1d4ed8,stroke:#93c5fd,stroke-width:2px,color:#fff;\n`;
+            md += `    classDef pme fill:#047857,stroke:#6ee7b7,stroke-width:2px,color:#fff;\n`;
+            md += `    classDef comp fill:#7c2d12,stroke:#fdba74,stroke-width:2px,color:#fff;\n`;
+            md += `    class CF88 main;\n`;
+            md += `    class LC,CADE,STF_LC,DOUT_LC lc;\n`;
+            md += `    class PME,SIMPLES,STF_PME,DOUT_PME pme;\n`;
+            md += `    class COMP,CHINA,ALEMANHA comp;\n`;
+            md += `\`\`\`\n\n`;
+            md += `---\n\n`;
+
+            md += `## 📊 Gráficos Estatísticos do Acervo\n\n`;
+            md += `### 1. Distribuição de Questões por Eixo Temático\n`;
+            md += `\`\`\`mermaid\n`;
+            md += `pie title Distribuição de Questões por Tema (Total: ${grandTotal})\n`;
+            md += `    "⚖️ Livre Concorrência (${counts.livre_concorrencia || 0})" : ${counts.livre_concorrencia || 0}\n`;
+            md += `    "🏢 Tratamento Favorecido a PMEs (${counts.tratamento_pme || 0})" : ${counts.tratamento_pme || 0}\n`;
+            md += `    "🇨🇳 Modelo Concorrencial da China (${counts.modelo_china || 0})" : ${counts.modelo_china || 0}\n`;
+            md += `    "🇩🇪 Ordem Econômica na Alemanha (${counts.ordem_alemanha || 0})" : ${counts.ordem_alemanha || 0}\n`;
+            md += `    "⚡ Morte Súbita - Desempate (${totalSuddenDeath})" : ${totalSuddenDeath}\n`;
+            md += `\`\`\`\n\n`;
+
+            md += `### 2. Balanceamento Oficial do Gabarito (Múltipla Escolha)\n`;
+            md += `\`\`\`mermaid\n`;
+            md += `pie title Distribuição de Alternativas Corretas (Total: ${totalQuestions})\n`;
+            md += `    "Alternativa A (${letterCounts.A})" : ${letterCounts.A}\n`;
+            md += `    "Alternativa B (${letterCounts.B})" : ${letterCounts.B}\n`;
+            md += `    "Alternativa C (${letterCounts.C})" : ${letterCounts.C}\n`;
+            md += `    "Alternativa D (${letterCounts.D})" : ${letterCounts.D}\n`;
+            md += `\`\`\`\n\n`;
+
+            md += `---\n\n`;
+
+            md += `## 🔄 Fluxograma: Teste de Constitucionalidade e Concorrência\n\n`;
+            md += `\`\`\`mermaid\n`;
+            md += `flowchart LR\n`;
+            md += `    A([Norma / Prática Econômica]) --> B{Impõe restrição geográfica ou horária?}\n`;
+            md += `    B -- Sim --> C{Possui justificativa legítima e proporcional?}\n`;
+            md += `    C -- Não --> D[❌ Inconstitucional<br/>Súmula Vinculante 49<br/>ARE 1378976/SP]\n`;
+            md += `    C -- Sim --> E[Avaliação do CADE e Judiciário]\n`;
+            md += `    B -- Não --> F{Diferenciação benéfica para PMEs?}\n`;
+            md += `    F -- Sim --> G{Respeita limites fiscais e isonomia?}\n`;
+            md += `    G -- Sim --> H[✅ Constitucional<br/>Art. 170, IX e LC 123/06<br/>ADI 4.033 e RE 627.543]\n`;
+            md += `    G -- Não --> I[❌ Excesso ou Privilégio Abusivo]\n`;
+            md += `    F -- Não --> J[Regime Ordinário de Livre Concorrência]\n`;
+            md += `\`\`\`\n\n`;
+
+            md += `---\n\n`;
+
+            const categoryMeta = {
+                livre_concorrencia: {
+                    num: 1,
+                    title: "Livre Concorrência (Brasil)",
+                    icon: "⚖️",
+                    desc: "Princípios constitucionais, Direito Antitruste, CADE e jurisprudência do Supremo Tribunal Federal (Súmula Vinculante 49 e ARE 1378976/SP)."
+                },
+                tratamento_pme: {
+                    num: 2,
+                    title: "Tratamento Favorecido a PMEs (Brasil)",
+                    icon: "🏢",
+                    desc: "Isonomia material (Arts. 170, IX e 179 da CF/88), Lei Complementar nº 123/2006, Simples Nacional, jurisprudência do STF (ADI 4.033 e RE 627.543), compras públicas e dispersão de poder econômico."
+                },
+                modelo_china: {
+                    num: 3,
+                    title: "Modelo Concorrencial da China",
+                    icon: "🇨🇳",
+                    desc: "Economia Socialista de Mercado (Constituição de 1982), simbiose estratégica entre estatais e PMEs, política dos 'Little Giants', cotas em compras governamentais e repressão a Big Techs."
+                },
+                ordem_alemanha: {
+                    num: 4,
+                    title: "Ordem Econômica na Alemanha",
+                    icon: "🇩🇪",
+                    desc: "Neutralidade Econômica da Lei Fundamental de Bonn (Wirtschaftsneutralität), Ordoliberalismo de Freiburg (Walter Eucken e Franz Böhm), Economia Social de Mercado, GWB de 1957, Seção 19a (plataformas digitais) e papel das Mittelstand."
+                }
             };
-            const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
+
+            let qNum = 1;
+            Object.keys(categories).forEach(catId => {
+                const meta = categoryMeta[catId] || { num: qNum, title: catId, icon: "📌", desc: "" };
+                const qList = questionsBank[catId] || [];
+
+                md += `## ${meta.icon} Categoria ${meta.num}: ${meta.title}\n`;
+                md += `*${meta.desc}*\n\n`;
+
+                qList.forEach((q, idx) => {
+                    const currentNumber = qNum++;
+                    const correctLetter = letters[q.correctIndex];
+
+                    md += `### Questão ${currentNumber} [ID: ${q.id.toUpperCase()}]\n\n`;
+                    md += `**Enunciado**:\n${q.question}\n\n`;
+                    md += `**Alternativas**:\n`;
+                    q.options.forEach((opt, oIdx) => {
+                        const isCorrect = (oIdx === q.correctIndex);
+                        if (isCorrect) {
+                            md += `- **${letters[oIdx]})** **${opt}** ✅ *(RESPOSTA CORRETA)*\n`;
+                        } else {
+                            md += `- **${letters[oIdx]})** ${opt}\n`;
+                        }
+                    });
+                    md += `\n`;
+                    md += `👉 **Gabarito Oficial**: **Alternativa ${correctLetter}**\n\n`;
+                    md += `💡 **Explicação e Justificativa Doutrinária**:\n> ${q.commentary}\n\n`;
+                    md += `---\n\n`;
+                });
+            });
+
+            md += `## ⚡ Categoria Especial: Morte Súbita (Desempate)\n`;
+            md += `*Perguntas diretas sem alternativas para intervenção dinâmica do mediador e desempate relâmpago.*\n\n`;
+
+            (suddenDeathQuestions || []).forEach((q, idx) => {
+                const currentNumber = qNum++;
+                md += `### Questão ${currentNumber} (Morte Súbita #${idx + 1}): ${q.title}\n\n`;
+                md += `**Pergunta Direta**:\n${q.question}\n\n`;
+                md += `👉 **Resposta Oficial**:\n**${q.answer}**\n\n`;
+                md += `💡 **Explicação / Fundamento Técnico**:\n> ${q.rationale}\n\n`;
+                md += `---\n\n`;
+            });
+
+            const blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = "questoes_seminario_direito_economico.json";
+            a.download = "DOSSIE_QUESTOES_DIREITO_ECONOMICO.md";
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             sounds.playCoin();
-            alert("📥 Arquivo JSON exportado com sucesso contendo todas as questões, edições e novidades da equipe!");
+            alert("📄 Dossiê acadêmico exportado com sucesso em formato Markdown (.md) com gráficos e diagramas funcionais Mermaid!");
         } catch (err) {
-            console.error(err);
-            alert("Erro ao exportar questões.");
+            console.error("Erro ao exportar questões:", err);
+            alert("Erro ao exportar arquivo Markdown de questões.");
         }
     }
 
@@ -1857,6 +2068,24 @@ class DidacticGame {
                 });
                 this.saveCustomQuestionsToStorage();
 
+                // 3. Aplica lista de questões excluídas se houver no JSON importado
+                if (Array.isArray(parsed.deletedQuestions)) {
+                    const deleted = this.getDeletedQuestionIds();
+                    parsed.deletedQuestions.forEach(id => {
+                        if (!deleted.includes(id)) deleted.push(id);
+                    });
+                    this.saveDeletedQuestionsToStorage(deleted);
+                    const deletedSet = new Set(deleted);
+                    Object.keys(QUESTIONS_BANK).forEach(cat => {
+                        QUESTIONS_BANK[cat] = QUESTIONS_BANK[cat].filter(q => !deletedSet.has(q.id));
+                    });
+                    for (let i = SUDDEN_DEATH_QUESTIONS.length - 1; i >= 0; i--) {
+                        if (deletedSet.has(SUDDEN_DEATH_QUESTIONS[i].id)) {
+                            SUDDEN_DEATH_QUESTIONS.splice(i, 1);
+                        }
+                    }
+                }
+
                 sounds.play1Up();
                 this.updateQuestionCounts();
                 this.renderQuestionsManagerList();
@@ -1871,19 +2100,121 @@ class DidacticGame {
         reader.readAsText(file);
     }
 
-    deleteCustomQuestion(cat, id) {
-        if (confirm("Tem certeza que deseja remover esta questão personalizada da equipe?")) {
-            if (cat === "morte_subita") {
-                const idx = SUDDEN_DEATH_QUESTIONS.findIndex(q => q.id === id);
-                if (idx !== -1) SUDDEN_DEATH_QUESTIONS.splice(idx, 1);
-            } else if (QUESTIONS_BANK[cat]) {
-                QUESTIONS_BANK[cat] = QUESTIONS_BANK[cat].filter(q => q.id !== id);
-            }
-            this.saveCustomQuestionsToStorage();
-            sounds.playWrong();
-            this.updateQuestionCounts();
-            this.renderQuestionsManagerList();
+    deleteQuestion(cat, id) {
+        let questionObj = null;
+        if (cat === "morte_subita") {
+            questionObj = SUDDEN_DEATH_QUESTIONS.find(q => q.id === id);
+        } else if (QUESTIONS_BANK[cat]) {
+            questionObj = QUESTIONS_BANK[cat].find(q => q.id === id);
         }
+
+        const isCustom = questionObj ? !!questionObj.isCustom : false;
+        const confirmMsg = isCustom
+            ? `Tem certeza que deseja excluir esta questão personalizada da equipe?\n\nID: [${id.toUpperCase()}]`
+            : `Tem certeza que deseja excluir esta questão oficial do jogo?\n\nID: [${id.toUpperCase()}]\nEla não será mais sorteada nas rodadas nem exibida no banco de questões.`;
+
+        if (!confirm(confirmMsg)) {
+            return;
+        }
+
+        // 1. Remove da memória
+        if (cat === "morte_subita") {
+            const idx = SUDDEN_DEATH_QUESTIONS.findIndex(q => q.id === id);
+            if (idx !== -1) SUDDEN_DEATH_QUESTIONS.splice(idx, 1);
+        } else if (QUESTIONS_BANK[cat]) {
+            QUESTIONS_BANK[cat] = QUESTIONS_BANK[cat].filter(q => q.id !== id);
+        }
+
+        // 2. Persistência
+        if (isCustom) {
+            this.saveCustomQuestionsToStorage();
+        } else {
+            // Questão oficial legada
+            const deleted = this.getDeletedQuestionIds();
+            if (!deleted.includes(id)) {
+                deleted.push(id);
+                this.saveDeletedQuestionsToStorage(deleted);
+            }
+            this.saveOverridesToStorage();
+        }
+
+        // 3. Se essa questão estava selecionada como prioritária do professor, reseta
+        if (this.config && this.config.priorityQuestionId === id) {
+            this.config.priorityQuestionId = "";
+            try {
+                localStorage.setItem("seminar_game_config", JSON.stringify(this.config));
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+
+        sounds.playWrong();
+        this.updateQuestionCounts();
+        this.renderQuestionsManagerList();
+        this.populatePriorityQuestionSelect();
+    }
+
+    deleteCustomQuestion(cat, id) {
+        this.deleteQuestion(cat, id);
+    }
+
+    restoreDeletedQuestions() {
+        const deleted = this.getDeletedQuestionIds();
+        if (deleted.length === 0) {
+            alert("Não há questões oficiais excluídas no momento.");
+            return;
+        }
+
+        if (!confirm(`Deseja restaurar as ${deleted.length} questão(ões) oficial(is) que foram excluídas? Elas voltarão ao jogo e ao banco de questões.`)) {
+            return;
+        }
+
+        const deletedSet = new Set(deleted);
+
+        Object.keys(ORIGINAL_QUESTIONS_BANK).forEach(cat => {
+            if (!QUESTIONS_BANK[cat]) QUESTIONS_BANK[cat] = [];
+            ORIGINAL_QUESTIONS_BANK[cat].forEach(origQ => {
+                if (deletedSet.has(origQ.id) && !QUESTIONS_BANK[cat].some(q => q.id === origQ.id)) {
+                    QUESTIONS_BANK[cat].push(JSON.parse(JSON.stringify(origQ)));
+                }
+            });
+        });
+
+        ORIGINAL_SUDDEN_DEATH_QUESTIONS.forEach(origQ => {
+            if (deletedSet.has(origQ.id) && !SUDDEN_DEATH_QUESTIONS.some(q => q.id === origQ.id)) {
+                SUDDEN_DEATH_QUESTIONS.push(JSON.parse(JSON.stringify(origQ)));
+            }
+        });
+
+        localStorage.removeItem("deleted_seminar_questions");
+
+        // Re-aplica eventuais overrides de edição
+        const overridesRaw = localStorage.getItem("seminar_questions_overrides");
+        if (overridesRaw) {
+            const overrides = JSON.parse(overridesRaw);
+            Object.keys(QUESTIONS_BANK).forEach(cat => {
+                QUESTIONS_BANK[cat].forEach(q => {
+                    if (overrides[q.id]) {
+                        Object.assign(q, overrides[q.id]);
+                        q.isEdited = true;
+                    }
+                });
+            });
+            if (overrides.morte_subita) {
+                SUDDEN_DEATH_QUESTIONS.forEach(q => {
+                    if (overrides.morte_subita[q.id]) {
+                        Object.assign(q, overrides.morte_subita[q.id]);
+                        q.isEdited = true;
+                    }
+                });
+            }
+        }
+
+        sounds.play1Up();
+        this.updateQuestionCounts();
+        this.renderQuestionsManagerList();
+        this.populatePriorityQuestionSelect();
+        alert(`✅ ${deleted.length} questão(ões) oficial(is) restaurada(s) com sucesso!`);
     }
 
     updateQuestionCounts() {
@@ -1907,6 +2238,17 @@ class DidacticGame {
         if (countCh) countCh.innerText = ch;
         if (countDe) countDe.innerText = de;
         if (countSd) countSd.innerText = sd;
+
+        // Atualiza visibilidade e contador do botão de recuperar questões excluídas
+        const deleted = this.getDeletedQuestionIds();
+        const btnRestore = document.getElementById("btn-restore-deleted-questions");
+        const countDeleted = document.getElementById("count-deleted");
+        if (btnRestore) {
+            btnRestore.style.display = deleted.length > 0 ? "inline-flex" : "none";
+        }
+        if (countDeleted) {
+            countDeleted.innerText = deleted.length;
+        }
     }
 
     renderQuestionsManagerList() {
@@ -1928,9 +2270,7 @@ class DidacticGame {
                 const restoreBtn = (isEdited && !isCustom) 
                     ? `<button class="btn-ctrl" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.restoreSingleQuestion('morte_subita', '${q.id}')" title="Reverter para o texto original">↩️ Restaurar</button>` 
                     : '';
-                const deleteBtn = isCustom
-                    ? `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.deleteCustomQuestion('morte_subita', '${q.id}')">🗑️ Excluir</button>`
-                    : '';
+                const deleteBtn = `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.deleteQuestion('morte_subita', '${q.id}')" title="Excluir questão">🗑️ Excluir</button>`;
 
                 card.innerHTML = `
                     <div class="qm-card-header">
@@ -1992,9 +2332,7 @@ class DidacticGame {
             const restoreBtn = (isEdited && !isCustom)
                 ? `<button class="btn-ctrl" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.restoreSingleQuestion('${catId}', '${q.id}')" title="Reverter para o texto original">↩️ Restaurar</button>`
                 : '';
-            const deleteBtn = isCustom
-                ? `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.deleteCustomQuestion('${catId}', '${q.id}')">🗑️ Excluir</button>`
-                : '';
+            const deleteBtn = `<button class="btn-ctrl" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444; font-size:0.55rem; padding:4px 8px;" onclick="gameInstance.deleteQuestion('${catId}', '${q.id}')" title="Excluir questão">🗑️ Excluir</button>`;
 
             card.innerHTML = `
                 <div class="qm-card-header">

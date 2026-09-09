@@ -1,9 +1,92 @@
-# Dossiê de Questões: Enunciados, Respostas e Explicações
+# ⚖️ Dossiê de Questões & Ordem Econômica: Guia Acadêmico Completo
 **Seminário de Direito Econômico**  
-*Tema: A Constituição Econômica e o Poder Judiciário — Livre Concorrência e Tratamento Favorecido a PMEs (Brasil, China e Alemanha)*
+*Tema Central: A Constituição Econômica e o Poder Judiciário — Livre Concorrência e Tratamento Favorecido a PMEs (Brasil, China e Alemanha)*
 
 > **Acervo Total**: 41 Questões Oficiais (36 de Múltipla Escolha + 5 de Morte Súbita)  
-> **Fontes**: Doutrina (Paula Forgioni, Vicente Bagnoli, Tércio Sampaio Ferraz Jr., José Afonso da Silva, André Ramos Tavares), Legislação (CF/88, Lei 12.529/11, LC 123/06), Jurisprudência do STF (SV 49, SV 38, ARE 1378976/SP, ADI 4033 / RE 627.543) e Direito Comparado (China e Alemanha - GWB/Ordoliberalismo).
+> **Estrutura Visual**: Formatação funcional com diagramas de fluxo, mapas conceituais e gráficos **Mermaid**.
+
+---
+
+## 🗺️ Mapa Arquitetural da Constituição Econômica
+
+```mermaid
+graph TD
+    %% Nó Central
+    CF88["<b>Constituição Econômica (CF/88)</b><br/>Princípios Gerais da Atividade Econômica (Art. 170)"]
+    
+    %% Ramos Principais
+    LC["<b>⚖️ LIVRE CONCORRÊNCIA</b><br/>(Art. 170, IV)<br/>Ambiente Concorrencial Ético"]
+    PME["<b>🏢 TRATAMENTO FAVORECIDO A PMEs</b><br/>(Art. 170, IX e Art. 179)<br/>Isonomia Material Substantiva"]
+    COMP["<b>🌐 DIREITO COMPARADO</b><br/>China e Alemanha<br/>Modelos Institucionais Concorrenciais"]
+    
+    CF88 --> LC
+    CF88 --> PME
+    CF88 -.-> COMP
+
+    %% Sub-ramos Livre Concorrência
+    LC --> CADE["<b>CADE (Lei 12.529/2011)</b><br/>• Controle de Concentrações<br/>• Repressão a Cartéis e Condutas"]
+    LC --> STF_LC["<b>Jurisprudência do STF</b><br/>• SV 49: Distância de Farmácias<br/>• ARE 1378976/SP: Rodízio Ilegal"]
+    LC --> DOUT_LC["<b>Doutrina Antitruste</b><br/>• Forgioni: Entrada vs. Conduta<br/>• Tércio/Bagnoli: Concorrência Efetiva"]
+
+    %% Sub-ramos PMEs
+    PME --> SIMPLES["<b>LC 123/2006 (Estatuto da MPE)</b><br/>• Simples Nacional & Menor Burocracia<br/>• Compras Públicas (Cotas & Empate)"]
+    PME --> STF_PME["<b>Jurisprudência do STF</b><br/>• ADI 4.033 & RE 627.543<br/>• Regularidade Fiscal Constitucional"]
+    PME --> DOUT_PME["<b>Doutrina Constitucional</b><br/>• Isonomia Material (José Afonso)<br/>• Dispersão do Poder (André R. Tavares)"]
+
+    %% Sub-ramos Direito Comparado
+    COMP --> CHINA["<b>🇨🇳 MODELO DA CHINA</b><br/>• Economia Socialista de Mercado<br/>• Simbiose SOEs e 'Little Giants'<br/>• Repressão a Big Techs (AML)"]
+    COMP --> ALEMANHA["<b>🇩🇪 ORDEM NA ALEMANHA</b><br/>• Ordoliberalismo (Escola de Freiburg)<br/>• Economia Social de Mercado & GWB<br/>• Seção 19a (Plataformas) & Mittelstand"]
+
+    %% Estilos
+    classDef main fill:#1e293b,stroke:#e2e8f0,stroke-width:2px,color:#fff;
+    classDef lc fill:#1d4ed8,stroke:#93c5fd,stroke-width:2px,color:#fff;
+    classDef pme fill:#047857,stroke:#6ee7b7,stroke-width:2px,color:#fff;
+    classDef comp fill:#7c2d12,stroke:#fdba74,stroke-width:2px,color:#fff;
+    class CF88 main;
+    class LC,CADE,STF_LC,DOUT_LC lc;
+    class PME,SIMPLES,STF_PME,DOUT_PME pme;
+    class COMP,CHINA,ALEMANHA comp;
+```
+
+---
+
+## 📊 Gráficos Estatísticos do Acervo
+
+### 1. Distribuição de Questões por Eixo Temático
+```mermaid
+pie title Distribuição de Questões por Tema (Total: 41)
+    "⚖️ Livre Concorrência (8)" : 8
+    "🏢 Tratamento Favorecido a PMEs (9)" : 9
+    "🇨🇳 Modelo Concorrencial da China (9)" : 9
+    "🇩🇪 Ordem Econômica na Alemanha (10)" : 10
+    "⚡ Morte Súbita - Desempate (5)" : 5
+```
+
+### 2. Balanceamento Oficial do Gabarito (Múltipla Escolha)
+```mermaid
+pie title Distribuição de Alternativas Corretas (Total: 36)
+    "Alternativa A (8)" : 8
+    "Alternativa B (10)" : 10
+    "Alternativa C (9)" : 9
+    "Alternativa D (9)" : 9
+```
+
+---
+
+## 🔄 Fluxograma: Teste de Constitucionalidade e Concorrência
+
+```mermaid
+flowchart LR
+    A([Norma / Prática Econômica]) --> B{Impõe restrição geográfica ou horária?}
+    B -- Sim --> C{Possui justificativa legítima e proporcional?}
+    C -- Não --> D[❌ Inconstitucional<br/>Súmula Vinculante 49<br/>ARE 1378976/SP]
+    C -- Sim --> E[Avaliação do CADE e Judiciário]
+    B -- Não --> F{Diferenciação benéfica para PMEs?}
+    F -- Sim --> G{Respeita limites fiscais e isonomia?}
+    G -- Sim --> H[✅ Constitucional<br/>Art. 170, IX e LC 123/06<br/>ADI 4.033 e RE 627.543]
+    G -- Não --> I[❌ Excesso ou Privilégio Abusivo]
+    F -- Não --> J[Regime Ordinário de Livre Concorrência]
+```
 
 ---
 

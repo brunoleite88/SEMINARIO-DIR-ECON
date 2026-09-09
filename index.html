@@ -441,14 +441,17 @@
                     ➕ CADASTRAR NOVA QUESTÃO
                 </button>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <button id="btn-export-questions" class="btn-ctrl" style="font-size: 0.65rem; background: #2b7a3d;" title="Baixar todas as perguntas em formato JSON">
-                        📥 Exportar JSON
+                    <button id="btn-export-questions" class="btn-ctrl" style="font-size: 0.65rem; background: #2b7a3d;" title="Baixar dossiê acadêmico completo em Markdown (.md) com gráficos e diagramas funcionais Mermaid">
+                        📄 Exportar MD (Graphs)
                     </button>
                     <label class="btn-ctrl" style="font-size: 0.65rem; background: #1c5285; cursor: pointer; display: inline-flex; align-items: center;" title="Carregar arquivo JSON de perguntas">
                         📤 Importar JSON
                         <input type="file" id="input-import-questions" accept=".json" style="display: none;">
                     </label>
-                    <button id="btn-reset-questions" class="btn-ctrl" style="font-size: 0.65rem;" title="Restaura o banco padrão original">
+                    <button id="btn-restore-deleted-questions" class="btn-ctrl" style="font-size: 0.65rem; background: #9a3412; display: none;" title="Recuperar questões oficiais excluídas">
+                        ↩️ Recuperar Excluídas (<span id="count-deleted">0</span>)
+                    </button>
+                    <button id="btn-reset-questions" class="btn-ctrl" style="font-size: 0.65rem;" title="Restaura o banco padrão original (recupera todas as questões excluídas e desfaz edições)">
                         🔄 Restaurar Padrão
                     </button>
                 </div>
